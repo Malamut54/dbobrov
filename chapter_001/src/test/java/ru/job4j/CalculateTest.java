@@ -13,11 +13,12 @@ import static org.junit.Assert.assertThat;
 *@version $id$
 *@since 0.1
 */
+public class CalculateTest {
 /**
 *Test.add/
 */
-@Test
-public class CalculateTest {
+	@Test
+	public void whenAddOneToOneThenTwo() {
 	ByteArrayOutputStream out = new ByteArrayOutputStream();
 	System.setOut(new PrintStream(out));
 	Calculate.main(null);
