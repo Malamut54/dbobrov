@@ -23,4 +23,5 @@ public class CalculateTest {
 	System.setOut(new PrintStream(out));
 	Calculate.main(null);
 	assertThat(out.toString(),is(String.format("Hello World%s",System.getProperty("line.separator"))));
+	}
 }
