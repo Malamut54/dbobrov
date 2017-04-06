@@ -12,12 +12,25 @@ public class Max {
 */
 
 /**
-*Method max return the maximum value.
+*Method max return the maximum value from 2 digits.
 *@param first **first digit**
 *@param second **second digit**
 *@return return maximum values.
 */
 	public int max(int first, int second) {
 		return first >= second ? first : second;
+	}
+
+/**
+*Method max return the maximum value from 3 digits.
+*@param first **first digit**
+*@param second **second digit**
+*@param third **second digit**
+*@return return maximum values.
+*/
+	public int max(int first, int second, int third) {
+		int firstMax = max(first, second);
+		int finalMax = max(firstMax, third);
+		return finalMax;
 	}
 }
