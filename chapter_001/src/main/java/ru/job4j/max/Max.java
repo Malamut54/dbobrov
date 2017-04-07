@@ -30,7 +30,6 @@ public class Max {
 */
 	public int max(int first, int second, int third) {
 		int firstMax = max(first, second);
-		int finalMax = max(firstMax, third);
-		return finalMax;
+		return max(firstMax, third);
 	}
 }
