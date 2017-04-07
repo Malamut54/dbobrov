@@ -11,10 +11,6 @@ public class Factorial {
 */
 
 /**
-*Variable for factorial.
-*/
-
-/**
 *Calculation factorial.
 *@param n - input value.
 *@return sum - return factorial.
