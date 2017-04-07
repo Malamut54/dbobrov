@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 
 public class MaxTest {
 /**
-*Test max when the values are different.
+*Test max from 2 digits.
 */
 	@Test
 	public void testMaxDiff() {
@@ -25,13 +25,13 @@ public class MaxTest {
 	}
 
 /**
-*Test max when the values are equals.
+*Test max from 3 digits.
 */
 	@Test
 	public void testMaxEq() {
 		Max maximum = new Max();
-		int result = maximum.max(5, 5);
-		int expected = 5;
+		int result = maximum.max(5, 6, 7);
+		int expected = 7;
 		assertThat(result, is(expected));
 	}
 }
