@@ -15,7 +15,18 @@ public class Factorial {
 *@param n - input value.
 *@return sum - return factorial.
 */
+	// public int calc(int n) {
+	// 	return (n == 0) ? 1 : n * calc(n - 1);
+	// }
 	public int calc(int n) {
-		return (n == 0) ? 1 : n * calc(n - 1);
+		int sum = 1;
+		for (int i = 2; i <= n; i++) {
+			if (n == 0) {
+				return sum;
+			} else {
+				sum = sum * i;
+			}
+		}
+		return sum;
 	}
 }
