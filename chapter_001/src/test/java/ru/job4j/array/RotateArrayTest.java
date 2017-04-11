@@ -27,7 +27,7 @@ public class RotateArrayTest {
 		int[][] expected =
 		{
 			{3, 1},
-			{4, 2},			
+			{4, 2},
 		};
 		int[][] result = rArr.rotate(arr2x2);
 		assertThat(result, is(expected));
@@ -50,7 +50,7 @@ public class RotateArrayTest {
 			{8, 5, 2},
 			{9, 6, 3},
 		};
-		int result = rArr.rotate(arr3x3);
+		int[][] result = rArr.rotate(arr3x3);
 		assertThat(result, is(expected));
 	}
 
