@@ -19,9 +19,9 @@ public class ArrayDuplicateTest {
 	@Test
 	public void testArrayDuplicate() {
 		ArrayDuplicate arrayDup = new ArrayDuplicate();
-		String[] array = {"Привет", "Мир", "Привет", "Супер", "Мир"};
+		String[] array = {"Privet", "Mir", "Super", "Super", "Mir"};
 		String[] result = arrayDup.remove(array);
-		String[] expected = {"Привет", "Мир", "Супер"};
+		String[] expected = {"Privet", "Mir", "Super"};
 		assertThat(result, is(expected));
 	}
 }
