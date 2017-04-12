@@ -20,14 +20,14 @@ public class ArrayDuplicate {
 	public String[] remove(String[] array) {
 		int count = 0;
 		for (int i = 0; i < array.length - 1; i++) {
-			for (int j = 1; j < array.length; j++) {
-				if (array[i].equals(array[j])) {
-					i = j + 1;
-					array[j] = null;
-
-				}
-			}
-		}
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[i] == null) {
+                    i++;
+                } else if (array[i].equals(array[j])) {
+                    array[j] = null;
+                }
+            }
+        }
 		for (int i = 1; i < array.length - 1; i++) {
 			if (array[i] == null) {
 				array[i] = array[i + 1];
