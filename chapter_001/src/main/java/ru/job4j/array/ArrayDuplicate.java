@@ -18,27 +18,21 @@ public class ArrayDuplicate {
 *@return array - return array without duplicate.
 */
 	public String[] remove(String[] array) {
-		int count = 0;
-		for (int i = 0; i < array.length - 1; i++) {
-            for (int j = i + 1; j < array.length; j++) {
-                if (array[i] == null) {
-                    i++;
-                } else if (array[i].equals(array[j])) {
-                    array[j] = null;
-                }
-            }
-        }
-		for (int i = 1; i < array.length - 1; i++) {
-			if (array[i] == null) {
-				array[i] = array[i + 1];
-				array[i + 1] = null;
+String tmp;
+		int counter = 0;
+		for (int i = 0; i < array.length - counter; i++) {
+			for (int j = i + 1; j < array.length - counter; j++) {
+				if (array[i].equals(array[j])) {
+					for (int k = j; k < array.length - 1; k++) {
+						tmp = array[k];
+						array[k] = array[k + 1];
+						array[k + 1] = tmp;
+					}
+					counter++;
+					j--;
+				}
 			}
 		}
-		for (int i = 0; i < array.length; i++) {
-			if (array[i] == null) {
-				count++;
-			}
-		}
-		return Arrays.copyOf(array, array.length - count);
+		return Arrays.copyOf(array, array.length - counter);
 	}
 }
