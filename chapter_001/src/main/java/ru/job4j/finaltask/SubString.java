@@ -24,23 +24,28 @@ public class SubString {
 		int lengthSub = subArr.length;
 		int count = 0;
 
-       for (int i = 0; i < subArr.length;) {
+        for (int i = 0; i < subArr.length;) {
             for (int j = 0; j < originArr.length;) {
+                if (i == subArr.length & subArr[i] != originArr[j]) {
+                    i = 0;
+                }
                 if (subArr[i] == originArr[j]) {
                     count++;
-                    if (count == lengthSub) {
-                        return true;
-                    }
                     i++;
                     j++;
                 } else {
-                    if (j < originArr.length) {
-                    	j++;
-                    }
+                    i = 0;
                     count = 0;
+                    j++;
+                }
+                if (count == subArr.length) {
+                    return (count == lengthSub);
+                }
+                if (j == originArr.length) {
+                    return (count == lengthSub);
                 }
             }
         }
-		return (count == lengthSub);
+        return (count == lengthSub);
 	}
 }
