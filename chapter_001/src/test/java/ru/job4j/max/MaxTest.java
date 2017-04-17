@@ -30,7 +30,7 @@ public class MaxTest {
 	@Test
 	public void testMaxEq() {
 		Max maximum = new Max();
-		int result = maximum.max(5, 6, 7);
+		int result = maximum.max(-1, 6, 7);
 		int expected = 7;
 		assertThat(result, is(expected));
 	}

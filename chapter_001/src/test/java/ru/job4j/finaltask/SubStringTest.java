@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 
 public class SubStringTest {
 /**
-*Test. Testing Substring false.
+*Test. Testing Substring False.
 */
 	@Test
 	public void testSubstringFalse() {
