@@ -38,5 +38,3 @@ public class SubStringTest {
 		assertThat(result, is(expected));
 	}
 }
-
-
