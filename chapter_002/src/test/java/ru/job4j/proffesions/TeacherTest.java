@@ -16,7 +16,7 @@ public class TeacherTest {
      *Test. Teacher class.
      */
     @Test
-    public void doctorTest() {
+    public void teacherTest() {
         Engeneer engeneer = new Engeneer("Fedor", 32, true);
         Teacher teacher = new Teacher("Rudolf", 55, false);
         String expected = "The teacher Rudolf teach Fedor";
