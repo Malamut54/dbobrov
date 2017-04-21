@@ -29,7 +29,7 @@ public class Engeneer extends Proffesions {
      *@return String - returns text.
      */
     public String teach(Proffesions people) {
-        return "The engeneer " + getName() + " teach " + people.getName();
+        return String.format("The engeneer %s teach %s", getName(), people.getName());
     }
 
     /**

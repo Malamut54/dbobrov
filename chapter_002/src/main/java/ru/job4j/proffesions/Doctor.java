@@ -1,4 +1,5 @@
 package ru.job4j.proffesions;
+
 /**
  *Task Professional.
  *@author Dmitriy Bobrov (mailto:bobrov.dmitriy@gmail.com)
@@ -29,7 +30,6 @@ public class Doctor extends Proffesions {
      *@return String - returns text.
      */
     public String cure(Proffesions people) {
-        return "The doctor " + getName() + " treats " + people.getName();
+        return String.format("The doctor %s treats %s", getName(), people.getName());
     }
-
 }

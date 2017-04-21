@@ -31,6 +31,6 @@ public class Teacher extends Proffesions {
      *@return String - returns text.
      */
     public String teach(Engeneer engeneer) {
-        return "The teacher " + getName() + " teach " + engeneer.getName();
+        return String.format("The teacher %s teach %s", getName(), engeneer.getName());
     }
 }
