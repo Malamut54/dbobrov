@@ -15,4 +15,12 @@ public class Item {
         this.name = name;
         this.created = created;
     }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
