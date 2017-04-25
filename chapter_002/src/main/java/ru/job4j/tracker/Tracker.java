@@ -14,7 +14,7 @@ public class Tracker {
     /**
      * Private array for storing tickets.
      */
-    private Item[] items = new Item[100];
+    private Item[] items = new Item[10];
     /**
      * Private fileds.
      */
@@ -93,11 +93,11 @@ public class Tracker {
             if (this.items[i].equals(item)) {
                 this.items[i] = null;
             }
-            if (this.items[this.items.length - 1] == null) {
+            if (this.items[this.position - 1] == null) {
                 break;
-            } else {
-                this.items[i] = this.items[this.items.length - 1];
-                this.items[this.items.length - 1] = null;
+            } else if (this.items[i] == null) {
+                this.items[i] = this.items[this.position - 1];
+                this.items[this.position - 1] = null;
                 break;
             }
         }
