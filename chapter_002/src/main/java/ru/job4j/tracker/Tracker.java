@@ -79,7 +79,7 @@ public class Tracker {
                 result[count++] = this.items[i];
             }
         }
-        return Arrays.copyOf(result, count);
+        return result;
 
     }
 
