@@ -18,14 +18,17 @@ public class TrackerTest {
      */
     @Test
     public void testGetAllItemFromArray() {
-        Item[] result = new Item[2];
+        Item[] result = new Item[3];
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         Item item1 = new Item("Obladi-oblada", "withoutSecondName", 1234L);
+        Item item2 = new Item("Da-da-di-da", "withoutSecondName", 1234L);
         Tracker tracker = new Tracker();
         result[0] = item;
         result[1] = item1;
+        result[2] = item2;
         tracker.add(item);
         tracker.add(item1);
+        tracker.add(item2);
         assertThat(tracker.findAll(), is(result));
     }
 
@@ -79,11 +82,14 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         Item item1 = new Item("Obladi-oblada", "withoutSecondName", 1234L);
+        Item item2 = new Item("Da-da-di-da", "withoutSecondName", 1234L);
         tracker.add(item);
         tracker.add(item1);
-        Item[] result = {item, null};
+        tracker.add(item2);
         tracker.delete(item1);
-        assertThat(result, is(tracker.findAll()));
+        Item[] expected = {item, item2, null};
+        Item[] result = tracker.findAll();
+        assertThat(result, is(expected));
     }
 
     /**

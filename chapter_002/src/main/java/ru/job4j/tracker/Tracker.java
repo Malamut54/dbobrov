@@ -93,6 +93,13 @@ public class Tracker {
             if (this.items[i].equals(item)) {
                 this.items[i] = null;
             }
+            if (this.items[this.items.length - 1] == null) {
+                break;
+            } else {
+                this.items[i] = this.items[this.items.length - 1];
+                this.items[this.items.length - 1] = null;
+                break;
+            }
         }
     }
 
