@@ -1,9 +1,10 @@
 package ru.job4j.proffesions;
 
 /**
- *Task Professional.
- *@author Dmitriy Bobrov (mailto:bobrov.dmitriy@gmail.com)
- *@since 0.1
+ * Task Professional.
+ *
+ * @author Dmitriy Bobrov (mailto:bobrov.dmitriy@gmail.com)
+ * @since 0.1
  */
 public class Teacher extends Proffesions {
 /**
@@ -11,10 +12,11 @@ public class Teacher extends Proffesions {
  */
 
     /**
-     *Engeneer constructor.
-     *@param name name
-     *@param age age
-     *@param gender gender
+     * Engeneer constructor.
+     *
+     * @param name   name
+     * @param age    age
+     * @param gender gender
      */
     public Teacher(String name, int age, boolean gender) {
         super(name, age, gender);
@@ -26,9 +28,10 @@ public class Teacher extends Proffesions {
     }
 
     /**
-     *Method teach.
-     *@param engeneer - Describe student.
-     *@return String - returns text.
+     * Method teach.
+     *
+     * @param engeneer - Describe student.
+     * @return String - returns text.
      */
     public String teach(Engeneer engeneer) {
         return String.format("The teacher %s teach %s", getName(), engeneer.getName());

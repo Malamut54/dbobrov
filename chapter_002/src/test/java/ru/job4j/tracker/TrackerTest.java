@@ -1,15 +1,23 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Created by kvazimoda on 24.04.2017.
+ * Test.
+ *
+ * @author Dmitriy Bobrov (mailto:bobrov.dmitriy@gmail.com)
+ * @version $id$
+ * @since 0.1
  */
 public class TrackerTest {
+    /**
+     * Test. Get all Item from array.
+     */
     @Test
-    public void TestGetAllItemFromArray() {
+    public void testGetAllItemFromArray() {
         Item[] result = new Item[2];
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         Item item1 = new Item("Obladi-oblada", "withoutSecondName", 1234L);
@@ -20,15 +28,23 @@ public class TrackerTest {
         tracker.add(item1);
         assertThat(tracker.findAll(), is(result));
     }
+
+    /**
+     * Test. Add one item to array.
+     */
     @Test
-    public void TestAddItemToArray() {
+    public void testAddItemToArray() {
         Tracker tracker = new Tracker();
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         tracker.add(item);
         assertThat(tracker.findAll()[0], is(item));
     }
+
+    /**
+     * Test. Find item by id.
+     */
     @Test
-    public void TestFindItemByStringID() {
+    public void testFindItemByStringID() {
         Tracker tracker = new Tracker();
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         Item item1 = new Item("Obladi-oblada", "withoutSecondName", 1234L);
@@ -37,8 +53,12 @@ public class TrackerTest {
         Item result = tracker.findById(item1.getId());
         assertThat(result, is(item1));
     }
+
+    /**
+     * Test. Find item by name.
+     */
     @Test
-    public void TestFindItemByStringName() {
+    public void testFindItemByStringName() {
         Tracker tracker = new Tracker();
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         Item item1 = new Item("da-da-di", "withoutName", 123L);
@@ -50,8 +70,12 @@ public class TrackerTest {
         Item[] expected = tracker.findByName("withoutName");
         assertThat(result, is(expected));
     }
+
+    /**
+     * Test. Delete item from array.
+     */
     @Test
-    public void TestDeleteItemFromArray() {
+    public void testDeleteItemFromArray() {
         Tracker tracker = new Tracker();
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         Item item1 = new Item("Obladi-oblada", "withoutSecondName", 1234L);
@@ -61,8 +85,12 @@ public class TrackerTest {
         tracker.delete(item1);
         assertThat(result, is(tracker.findAll()));
     }
+
+    /**
+     * Test. Update item from array.
+     */
     @Test
-    public void TestUpdateItemFromArray() {
+    public void testUpdateItemFromArray() {
         Tracker tracker = new Tracker();
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         tracker.add(item);
