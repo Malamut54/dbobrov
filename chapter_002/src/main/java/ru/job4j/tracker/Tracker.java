@@ -61,6 +61,7 @@ public class Tracker {
         Item[] result = new Item[this.position];
         for (int i = 0; i != this.position; i++) {
             result[i] = this.items[i];
+
         }
         return result;
     }
@@ -91,13 +92,8 @@ public class Tracker {
     public void delete(Item item) {
         for (int i = 0; i < this.position; i++) {
             if (this.items[i].equals(item)) {
-                this.items[i] = null;
-            }
-            if (this.items[this.position - 1] == null) {
-                break;
-            } else if (this.items[i] == null) {
-                this.items[i] = this.items[this.position - 1];
-                this.items[this.position - 1] = null;
+                System.arraycopy(this.items, i + 1, this.items, i, position - i);
+                this.items[position--] = null;
                 break;
             }
         }
