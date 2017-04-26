@@ -26,6 +26,7 @@ public class Tracker {
 
     /**
      * Add Item to array.
+     *
      * @param item item.
      * @return Item.
      */
@@ -120,6 +121,4 @@ public class Tracker {
     String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
-
-
 }

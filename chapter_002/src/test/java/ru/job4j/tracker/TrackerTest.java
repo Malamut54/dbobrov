@@ -17,18 +17,15 @@ public class TrackerTest {
      * Test. Get all Item from array.
      */
     @Test
-    public void testGetAllItemFromArray() {
-        Item[] result = new Item[3];
+    public void testFindAllItemFromArray() {
+        Item[] result = new Item[2];
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         Item item1 = new Item("Obladi-oblada", "withoutSecondName", 1234L);
-        Item item2 = new Item("Da-da-di-da", "withoutSecondName", 1234L);
         Tracker tracker = new Tracker();
         result[0] = item;
         result[1] = item1;
-        result[2] = item2;
         tracker.add(item);
         tracker.add(item1);
-        tracker.add(item2);
         assertThat(tracker.findAll(), is(result));
     }
 
@@ -69,7 +66,7 @@ public class TrackerTest {
         tracker.add(item);
         tracker.add(item1);
         tracker.add(item2);
-        Item[] result = {item, item1, null};
+        Item[] result = {item, item1};
         Item[] expected = tracker.findByName("withoutName");
         assertThat(result, is(expected));
     }
@@ -82,14 +79,13 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         Item item1 = new Item("Obladi-oblada", "withoutSecondName", 1234L);
-        Item item2 = new Item("Da-da-di-da", "withoutSecondName", 1234L);
+        Item item2 = new Item("Obladi-oblada", "withoutSecondName", 1234L);
         tracker.add(item);
         tracker.add(item1);
         tracker.add(item2);
+        Item[] result = {item, null, item2};
         tracker.delete(item1);
-        Item[] expected = {item, item2};
-        Item[] result = tracker.findAll();
-        assertThat(result, is(expected));
+        assertThat(result, is(tracker.findAll()));
     }
 
     /**
