@@ -83,7 +83,7 @@ public class TrackerTest {
         tracker.add(item);
         tracker.add(item1);
         tracker.add(item2);
-        Item[] result = {item, null, item2};
+        Item[] result = {item, item2};
         tracker.delete(item1);
         assertThat(result, is(tracker.findAll()));
     }
