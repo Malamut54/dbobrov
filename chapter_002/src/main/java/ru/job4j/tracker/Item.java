@@ -41,6 +41,16 @@ public class Item {
         this.created = created;
     }
 
+    public Item(String id, String name, String desc) {
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
     /**
      * Getter for id.
      * @return id.

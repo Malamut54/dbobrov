@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
-        import java.util.Arrays;
-        import java.util.Random;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Task Tracker.
