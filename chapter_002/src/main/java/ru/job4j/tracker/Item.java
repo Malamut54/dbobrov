@@ -40,13 +40,22 @@ public class Item {
         this.name = name;
         this.created = created;
     }
-
+    /**
+     * Constructor for Item.
+     * @param id id.
+     * @param name name.
+     * @param desc description.
+     */
     public Item(String id, String name, String desc) {
         this.id = id;
         this.name = name;
         this.desc = desc;
     }
 
+    /**
+     * Getter fot desc.
+     * @return desc.
+     */
     public String getDesc() {
         return desc;
     }

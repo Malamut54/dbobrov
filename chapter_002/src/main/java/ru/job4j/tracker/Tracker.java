@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -15,6 +14,9 @@ public class Tracker {
      * Private array for storing tickets.
      */
     private Item[] items = new Item[10];
+
+
+
     /**
      * Private fileds.
      */
@@ -34,6 +36,7 @@ public class Tracker {
         item.setId(generateId());
         this.items[position++] = item;
         return item;
+
     }
 
     /**
@@ -75,10 +78,10 @@ public class Tracker {
      */
     public Item[] findByName(String name) {
         Item[] result = new Item[this.position];
-        int count = 0;
+
         for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getName().equals(name)) {
-                result[count++] = this.items[i];
+            if (name.equals(this.items[i].getName())) {
+                result[i] = this.items[i];
             }
         }
         return result;
@@ -92,7 +95,7 @@ public class Tracker {
      */
     public void delete(Item item) {
         for (int i = 0; i < this.position; i++) {
-            if (this.items[i].equals(item)) {
+            if (this.items[i].getId().equals(item.getId())) {
                 System.arraycopy(this.items, i + 1, this.items, i, position - i);
                 this.items[position--] = null;
                 break;
