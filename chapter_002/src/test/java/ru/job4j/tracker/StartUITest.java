@@ -85,7 +85,7 @@ public class StartUITest {
         Input input = new StubInput(find);
         new StartUI(tracker, input).init();
         Item[] result = tracker.findByName("Fedor");
-        Item[] expected = {item0, null};
+        Item[] expected = {item0};
         assertThat(result, is(expected));
     }
 }
