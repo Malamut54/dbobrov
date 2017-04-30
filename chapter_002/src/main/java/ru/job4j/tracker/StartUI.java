@@ -33,7 +33,6 @@ public class StartUI {
     private String[] menuDisplay = {
             "0. Add new Item",
             "1. Show all items",
-
             "2. Edit item",
             "3. Delete item",
             "4. Find  by Id",
