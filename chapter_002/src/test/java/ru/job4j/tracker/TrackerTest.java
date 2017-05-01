@@ -66,7 +66,7 @@ public class TrackerTest {
         tracker.add(item);
         tracker.add(item1);
         tracker.add(item2);
-        Item[] result = {item, item1, null};
+        Item[] result = {item, item1};
         Item[] expected = tracker.findByName("withoutName");
         assertThat(result, is(expected));
     }
