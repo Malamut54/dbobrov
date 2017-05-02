@@ -14,10 +14,16 @@ public class MenutTracker {
         this.tracker = tracker;
     }
 
-    public void init() {
-
+    public void fillActions() {
+        this.actions[0] = new AddItem(this.input, this.tracker);
     }
-
+    
+    public void show() {
+        for (UserAction action : this.actions) {
+            System.out.println(action.info());
+        }
+    }
+    
     private class AddItem implements UserAction {
         public int key() {
             return 0;
