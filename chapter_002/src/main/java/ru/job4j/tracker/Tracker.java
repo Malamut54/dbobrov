@@ -16,8 +16,6 @@ public class Tracker {
      */
     private Item[] items = new Item[10];
 
-
-
     /**
      * Private fileds.
      */
@@ -82,7 +80,7 @@ public class Tracker {
         int count = 0;
         for (int i = 0; i < this.position; i++) {
             if (name.equals(this.items[i].getName())) {
-                result[i] = this.items[i];
+                result[count] = this.items[i];
                 count++;
             }
         }
@@ -114,6 +112,7 @@ public class Tracker {
         for (int i = 0; i < this.position; i++) {
             if (this.items[i].getId().equals(item.getId())) {
                 this.items[i] = item;
+                break;
             }
         }
     }

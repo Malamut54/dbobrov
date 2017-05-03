@@ -18,7 +18,7 @@ public class StartUITest {
      */
     @Test
     public void addNewTask() {
-        String[] add = {"0", "name", "desc", "6"};
+        String[] add = {"0", "name", "desc", "y"};
         Tracker tracker = new Tracker();
         Input input = new StubInput(add);
         new StartUI(tracker, input).init();
@@ -29,7 +29,7 @@ public class StartUITest {
      */
     @Test
     public void finadAllItems() {
-        String[] add = {"0", "name", "desc", "0", "name2", "desc2", "6"};
+        String[] add = {"0", "name", "desc", "n", "0", "name2", "desc2", "y"};
         Tracker tracker = new Tracker();
         Input input = new StubInput(add);
         new StartUI(tracker, input).init();
@@ -47,7 +47,7 @@ public class StartUITest {
       Tracker tracker = new Tracker();
       tracker.add(item);
       String id = item.getId();
-      String[] edit = {"2", id, "newName", "descr", "6"};
+      String[] edit = {"2", id, "newName", "descr", "y"};
       Input input = new StubInput(edit);
       new StartUI(tracker, input).init();
       String result = tracker.findAll()[0].getName();
@@ -64,7 +64,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         tracker.add(item);
         String id = item.getId();
-        String[] del = {"3", id, "6"};
+        String[] del = {"3", id, "y"};
         Input input = new StubInput(del);
         new StartUI(tracker, input).init();
         Item result = tracker.findById(id);
@@ -81,7 +81,7 @@ public class StartUITest {
         Tracker tracker  = new Tracker();
         tracker.add(item0);
         tracker.add(item1);
-        String[] find = {"5", "Fedor", "6"};
+        String[] find = {"5", "Fedor", "y"};
         Input input = new StubInput(find);
         new StartUI(tracker, input).init();
         Item[] result = tracker.findByName("Fedor");

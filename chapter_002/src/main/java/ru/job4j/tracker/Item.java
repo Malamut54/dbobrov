@@ -27,7 +27,7 @@ public class Item {
     /**
      * Private fields.
      */
-    private String comments;
+//    private String comments;
 
     /**
      * Constructor for Item.
