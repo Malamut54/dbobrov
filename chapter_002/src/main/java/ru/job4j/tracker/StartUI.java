@@ -32,14 +32,13 @@ public class StartUI {
      * Method that processes user requests.
      */
     public void init() {
-//        Tracker tracker = new Tracker();
         MenutTracker menu = new MenutTracker(this.input, tracker);
         menu.fillActions();
         do {
             menu.show();
             int key = Integer.valueOf(input.ask("Select: "));
             menu.select(key);
-        } while(!"y".equals(this.input.ask("Exit? y ")));
+        } while (!"y".equals(this.input.ask("Exit? y ")));
 
     }
 

@@ -4,11 +4,10 @@ package ru.job4j.tracker;
  * Task Tracker.
  */
 
-
+/**
+ * Class Menutracker. Provides menu operation.
+ */
 public class MenutTracker {
-    /**
-     * Class Menutracker. Provides menu operation.
-     */
 
     /**
      * Private fields.
@@ -24,7 +23,7 @@ public class MenutTracker {
     private UserAction[] actions = new UserAction[7];
 
     /**
-     * Constructor Menutracker
+     * Constructor Menutracker.
      * @param input Input.
      * @param tracker Tracker.
      */
@@ -64,6 +63,9 @@ public class MenutTracker {
         }
     }
 
+    /**
+     * class AddItem. Add item.
+     */
     private class AddItem implements UserAction {
         /**
          * Method determines the uniqueness of the key.
@@ -97,6 +99,9 @@ public class MenutTracker {
         }
     }
 
+    /**
+     * class ShowItems. Display all items.
+     */
     private static class ShowItems implements UserAction {
 
         /**
@@ -131,6 +136,9 @@ public class MenutTracker {
     }
 }
 
+/**
+ * class EditItem. Edit item.
+ */
 class EditItem implements UserAction {
 
     /**
@@ -166,6 +174,9 @@ class EditItem implements UserAction {
     }
 }
 
+/**
+ * class DeleteItem. Delete item.
+ */
 class DeleteItem implements UserAction {
     /**
      * Method determines the uniqueness of the key.
@@ -197,6 +208,9 @@ class DeleteItem implements UserAction {
     }
 }
 
+/**
+ * class FindItemByID. Find item by ID.
+ */
 class FindItemByID implements UserAction {
     /**
      * Method determines the uniqueness of the key.
@@ -215,8 +229,7 @@ class FindItemByID implements UserAction {
      */
     public void execute(Input input, Tracker tracker) {
         String id = input.ask("Enter id");
-        System.out.println(String.format
-                ("%s, %s", tracker.findById(id).getName(), tracker.findById(id).getName()));
+        System.out.println(String.format("%s, %s", tracker.findById(id).getName(), tracker.findById(id).getName()));
     }
 
     /**
@@ -229,6 +242,9 @@ class FindItemByID implements UserAction {
     }
 }
 
+/**
+ * class FindItemByName. Find item by Name.
+ */
 class FindItemByName implements UserAction {
     /**
      * Method determines the uniqueness of the key.
@@ -261,10 +277,14 @@ class FindItemByName implements UserAction {
          *
          * @return String menu item.
          */
-        public String info () {
+        public String info() {
             return String.format("%s. %s", this.key(), "Find item by name");
         }
     }
+
+/**
+ *class ExitProgram. Exit program.
+ */
 class ExitProgram implements UserAction {
     /**
      * Method determines the uniqueness of the key.
