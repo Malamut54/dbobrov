@@ -7,17 +7,34 @@ package ru.job4j.tracker;
 
 public class MenutTracker {
     /**
-     * Class Menutracker.
+     * Class Menutracker. Provides menu operation.
+     */
+
+    /**
+     * Private fields.
      */
     private Input input;
+    /**
+     * Private fields.
+     */
     private Tracker tracker;
+    /**
+     * Private fields.
+     */
     private UserAction[] actions = new UserAction[7];
 
+    /**
+     * Constructor Menutracker
+     * @param input Input.
+     * @param tracker Tracker.
+     */
     public MenutTracker(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
-
+    /**
+     * Method fills the array.
+     */
     public void fillActions() {
         this.actions[0] = new AddItem();
         this.actions[1] = new ShowItems();
@@ -28,10 +45,17 @@ public class MenutTracker {
         this.actions[6] = new ExitProgram();
     }
 
+    /**
+     * Method select key from array.
+     * @param key item.
+     */
     public void select(int key) {
         this.actions[key].execute(this.input, this.tracker);
     }
 
+    /**
+     * Method display menu.
+     */
     public void show() {
         for (UserAction action : this.actions) {
             if (action != null) {
