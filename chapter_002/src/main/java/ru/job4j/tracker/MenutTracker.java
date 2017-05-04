@@ -31,6 +31,7 @@ public class MenutTracker {
         this.input = input;
         this.tracker = tracker;
     }
+
     /**
      * Method fills the array.
      */
@@ -134,143 +135,142 @@ public class MenutTracker {
             return String.format("%s. %s", this.key(), "Show all items");
         }
     }
-}
-
-/**
- * class EditItem. Edit item.
- */
-class EditItem implements UserAction {
 
     /**
-     * Method determines the uniqueness of the key.
-     *
-     * @return key
+     * class EditItem. Edit item.
      */
-    public int key() {
-        return 2;
-    }
+    private class EditItem implements UserAction {
 
-    /**
-     * Perform actions.
-     *
-     * @param input   ask.
-     * @param tracker Object Tracker.
-     */
-    public void execute(Input input, Tracker tracker) {
-        String id = input.ask("Enter Id");
-        String name = input.ask("Enter new name");
-        String desc = input.ask("Enter new description");
-        tracker.upddate(new Item(id, name, desc));
+        /**
+         * Method determines the uniqueness of the key.
+         *
+         * @return key
+         */
+        public int key() {
+            return 2;
+        }
 
-    }
+        /**
+         * Perform actions.
+         *
+         * @param input   ask.
+         * @param tracker Object Tracker.
+         */
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("Enter Id");
+            String name = input.ask("Enter new name");
+            String desc = input.ask("Enter new description");
+            tracker.upddate(new Item(id, name, desc));
 
-    /**
-     * Display menu items.
-     *
-     * @return String menu item.
-     */
-    public String info() {
-        return String.format("%s. %s", this.key(), "Edit item");
-    }
-}
+        }
 
-/**
- * class DeleteItem. Delete item.
- */
-class DeleteItem implements UserAction {
-    /**
-     * Method determines the uniqueness of the key.
-     *
-     * @return key
-     */
-    public int key() {
-        return 3;
-    }
-
-    /**
-     * Perform actions.
-     *
-     * @param input   ask.
-     * @param tracker Object Tracker.
-     */
-    public void execute(Input input, Tracker tracker) {
-        String id = input.ask("Enetr Id items for delete");
-        tracker.delete(tracker.findById(id));
-    }
-
-    /**
-     * Display menu items.
-     *
-     * @return String menu item.
-     */
-    public String info() {
-        return String.format("%s. %s", this.key(), "Delete item");
-    }
-}
-
-/**
- * class FindItemByID. Find item by ID.
- */
-class FindItemByID implements UserAction {
-    /**
-     * Method determines the uniqueness of the key.
-     *
-     * @return key
-     */
-    public int key() {
-        return 4;
-    }
-
-    /**
-     * Perform actions.
-     *
-     * @param input   ask.
-     * @param tracker Object Tracker.
-     */
-    public void execute(Input input, Tracker tracker) {
-        String id = input.ask("Enter id");
-        System.out.println(String.format("%s, %s", tracker.findById(id).getName(), tracker.findById(id).getName()));
-    }
-
-    /**
-     * Display menu items.
-     *
-     * @return String menu item.
-     */
-    public String info() {
-        return String.format("%s. %s", this.key(), "Find item by Id");
-    }
-}
-
-/**
- * class FindItemByName. Find item by Name.
- */
-class FindItemByName implements UserAction {
-    /**
-     * Method determines the uniqueness of the key.
-     *
-     * @return key
-     */
-    public int key() {
-        return 5;
-    }
-
-    /**
-     * Perform actions.
-     *
-     * @param input   ask.
-     * @param tracker Object Tracker.
-     */
-    public void execute(Input input, Tracker tracker) {
-        String name = input.ask("Enter name");
-        Item[] item = tracker.findByName(name);
-        for (Item x : item) {
-            if (x != null) {
-                System.out.println(String.format("name - %s. description - %s. id - %s",
-                        x.getName(), x.getDesc(), x.getId()));
-            }
+        /**
+         * Display menu items.
+         *
+         * @return String menu item.
+         */
+        public String info() {
+            return String.format("%s. %s", this.key(), "Edit item");
         }
     }
+
+    /**
+     * class DeleteItem. Delete item.
+     */
+    private class DeleteItem implements UserAction {
+        /**
+         * Method determines the uniqueness of the key.
+         *
+         * @return key
+         */
+        public int key() {
+            return 3;
+        }
+
+        /**
+         * Perform actions.
+         *
+         * @param input   ask.
+         * @param tracker Object Tracker.
+         */
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("Enetr Id items for delete");
+            tracker.delete(tracker.findById(id));
+        }
+
+        /**
+         * Display menu items.
+         *
+         * @return String menu item.
+         */
+        public String info() {
+            return String.format("%s. %s", this.key(), "Delete item");
+        }
+    }
+
+    /**
+     * class FindItemByID. Find item by ID.
+     */
+    private class FindItemByID implements UserAction {
+        /**
+         * Method determines the uniqueness of the key.
+         *
+         * @return key
+         */
+        public int key() {
+            return 4;
+        }
+
+        /**
+         * Perform actions.
+         *
+         * @param input   ask.
+         * @param tracker Object Tracker.
+         */
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("Enter id");
+            System.out.println(String.format("%s, %s", tracker.findById(id).getName(), tracker.findById(id).getName()));
+        }
+
+        /**
+         * Display menu items.
+         *
+         * @return String menu item.
+         */
+        public String info() {
+            return String.format("%s. %s", this.key(), "Find item by Id");
+        }
+    }
+
+    /**
+     * class FindItemByName. Find item by Name.
+     */
+    private class FindItemByName implements UserAction {
+        /**
+         * Method determines the uniqueness of the key.
+         *
+         * @return key
+         */
+        public int key() {
+            return 5;
+        }
+
+        /**
+         * Perform actions.
+         *
+         * @param input   ask.
+         * @param tracker Object Tracker.
+         */
+        public void execute(Input input, Tracker tracker) {
+            String name = input.ask("Enter name");
+            Item[] item = tracker.findByName(name);
+            for (Item x : item) {
+                if (x != null) {
+                    System.out.println(String.format("name - %s. description - %s. id - %s",
+                            x.getName(), x.getDesc(), x.getId()));
+                }
+            }
+        }
 
         /**
          * Display menu items.
@@ -281,6 +281,8 @@ class FindItemByName implements UserAction {
             return String.format("%s. %s", this.key(), "Find item by name");
         }
     }
+
+}
 
 /**
  *class ExitProgram. Exit program.
@@ -314,3 +316,4 @@ class ExitProgram implements UserAction {
         return String.format("%s. %s", this.key(), "Exit program");
     }
 }
+
