@@ -45,6 +45,15 @@ public class MenutTracker {
         this.actions[6] = new ExitProgram();
     }
 
+    public int[] rangekey() {
+        int count = 0;
+        int[] range = new int[this.actions.length];
+        for (int i = 0; i < range.length; i++) {
+            range[i] = count++;
+        }
+        return range;
+    }
+
     /**
      * Method select key from array.
      * @param key item.

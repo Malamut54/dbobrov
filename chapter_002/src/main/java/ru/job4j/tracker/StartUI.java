@@ -17,6 +17,7 @@ public class StartUI {
      */
     private Tracker tracker;
 
+
     /**
      * Constructor for StartUI.
      * @param tracker tracker.
@@ -36,8 +37,7 @@ public class StartUI {
         menu.fillActions();
         do {
             menu.show();
-            int key = Integer.valueOf(input.ask("Select: "));
-            menu.select(key);
+            menu.select(input.ask("Select: ", menu.rangekey()));
         } while (!"y".equals(this.input.ask("Exit? y ")));
 
     }
@@ -47,7 +47,7 @@ public class StartUI {
      * @param args args.
      */
     public static void main(String[] args) {
-        StartUI start = new StartUI(new Tracker(), new ConsoleInput());
+        StartUI start = new StartUI(new Tracker(), new ValidateInput());
         start.init();
     }
 }

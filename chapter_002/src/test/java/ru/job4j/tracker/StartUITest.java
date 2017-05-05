@@ -1,9 +1,17 @@
 package ru.job4j.tracker;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Test.
@@ -88,4 +96,21 @@ public class StartUITest {
         Item[] expected = {item0};
         assertThat(result, is(expected));
     }
+
+    /**
+     * Test exception. Select nonexistent menu item.
+     */
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
+    @Test
+    public void ebannuiBliadException() {
+        String[] add = {"90"};
+        Tracker tracker = new Tracker();
+        Input input = new StubInput(add);
+        new StartUI(tracker, input).init();
+        exception.expect(MenuOutException.class);
+        exception.expectMessage("Please select key from menu.");
+    }
+
 }
