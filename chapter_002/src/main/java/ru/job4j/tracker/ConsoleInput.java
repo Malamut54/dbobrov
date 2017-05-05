@@ -24,9 +24,9 @@ public class ConsoleInput implements Input {
     /**
      * Asking question and Controls menu item numbers.
      *
-     * @param question
-     * @param range
-     * @return
+     * @param question question.
+     * @param range range.
+     * @return exception.
      */
     public int ask(String question, int[] range) {
         int key = Integer.valueOf(this.ask(question));

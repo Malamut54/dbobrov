@@ -18,9 +18,9 @@ public interface Input {
     /**
      * Asking question and Controls menu item numbers.
      *
-     * @param question
-     * @param range
-     * @return
+     * @param question question.
+     * @param range range.
+     * @return return.
      */
     int ask(String question, int[] range);
 }

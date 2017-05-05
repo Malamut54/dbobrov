@@ -18,18 +18,6 @@ public class StubInput extends ValidateInput implements Input {
     private int position = 0;
 
     /**
-     * Asking question and Controls menu item numbers.
-     *
-     * @param question
-     * @param range
-     * @return
-     */
-//    public int ask(String question, int[] range) {
-////        throw new UnsupportedOperationException("Unsupported operation");
-//        return -1;
-//    }
-
-    /**
      * Constructor.
      * @param answers answers.
      */
@@ -41,14 +29,30 @@ public class StubInput extends ValidateInput implements Input {
      * @param question input.
      * @return answers.
      */
-//    public String ask(String question) {
-//        return answers[position++];
-//    }
     public String ask(String question) {
-        for (int i = 0; i < answers.length; i++) {
-            return answers[i];
-        }
-        return answers[answers.length - 1];
+        return answers[position++];
     }
 
+    /**
+     * Method for testing exceptions.
+     *
+     * @param question question.
+     * @param range    range.
+     * @return key or exception.
+     */
+    public int ask(String question, int[] range) {
+        int key = Integer.valueOf(this.ask(question));
+        boolean exist = false;
+        for (int value : range) {
+            if (value == key) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of menu range");
+        }
+    }
 }

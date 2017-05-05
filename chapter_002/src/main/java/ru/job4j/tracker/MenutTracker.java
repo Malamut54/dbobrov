@@ -45,6 +45,11 @@ public class MenutTracker {
         this.actions[6] = new ExitProgram();
     }
 
+    /**
+     * Range of valid values.
+     *
+     * @return arr.
+     */
     public int[] rangekey() {
         int count = 0;
         int[] range = new int[this.actions.length];

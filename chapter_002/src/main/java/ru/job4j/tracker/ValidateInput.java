@@ -1,15 +1,15 @@
 package ru.job4j.tracker;
 
 /**
- * Created by kvazimoda on 05.05.2017.
+ * Task Tracker.
  */
 public class ValidateInput extends ConsoleInput {
     /**
      * Asking question and Controls menu item numbers.
      *
-     * @param question
-     * @param range
-     * @return
+     * @param question question.
+     * @param range range.
+     * @return trows.
      */
     @Override
     public int ask(String question, int[] range) {

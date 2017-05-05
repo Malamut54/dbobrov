@@ -1,17 +1,10 @@
 package ru.job4j.tracker;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Test.
@@ -98,19 +91,13 @@ public class StartUITest {
     }
 
     /**
-     * Test exception. Select nonexistent menu item.
+     * Test. Trows MenuOutException.
+     * @throws MenuOutException exception.
      */
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
-    @Test
-    public void ebannuiBliadException() {
-        String[] add = {"90"};
+    @Test(expected = MenuOutException.class)
+    public void testMenuOutException() throws MenuOutException {
         Tracker tracker = new Tracker();
-        Input input = new StubInput(add);
+        Input input = new StubInput(new String[]{"8"});
         new StartUI(tracker, input).init();
-        exception.expect(MenuOutException.class);
-        exception.expectMessage("Please select key from menu.");
     }
-
 }

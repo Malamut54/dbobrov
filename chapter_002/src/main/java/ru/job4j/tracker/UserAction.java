@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
 /**
- * Created by kvazimoda on 02.05.2017.
+ * Task Tracker.
  */
 public interface UserAction {
     /**
