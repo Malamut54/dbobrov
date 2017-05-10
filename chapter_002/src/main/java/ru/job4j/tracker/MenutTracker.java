@@ -36,13 +36,13 @@ public class MenutTracker {
      * Method fills the array.
      */
     public void fillActions() {
-        this.actions[0] = new AddItem();
-        this.actions[1] = new ShowItems();
-        this.actions[2] = new EditItem();
-        this.actions[3] = new DeleteItem();
-        this.actions[4] = new FindItemByID();
-        this.actions[5] = new FindItemByName();
-        this.actions[6] = new ExitProgram();
+        this.actions[0] = new AddItem("Add New Item", 0);
+        this.actions[1] = new ShowItems("Show all items", 1);
+        this.actions[2] = new EditItem("Edit item", 2);
+        this.actions[3] = new DeleteItem("Delete item", 3);
+        this.actions[4] = new FindItemByID("Find item by Id", 4);
+        this.actions[5] = new FindItemByName("Find item by name", 5);
+        this.actions[6] = new ExitProgram("Exit program", 6);
     }
 
     /**
@@ -81,11 +81,19 @@ public class MenutTracker {
     /**
      * class AddItem. Add item.
      */
-    private class AddItem implements UserAction {
+    private class AddItem extends BaseAction {
+        /**
+         * Constructor.
+         * @param name Name of the menu item.
+         * @param key Number of the menu item.
+         */
+        AddItem(String name, int key) {
+            super(name, key);
+        }
+
         /**
          * Method determines the uniqueness of the key.
-         *
-         * @return key
+         * @return String menu item.
          */
         public int key() {
             return 0;
@@ -104,21 +112,21 @@ public class MenutTracker {
             tracker.add(new Item(id, name, descritpion));
         }
 
-        /**
-         * Display menu items.
-         *
-         * @return String menu item.
-         */
-        public String info() {
-            return String.format("%s, %s", this.key(), "Add new Item");
-        }
     }
 
     /**
      * class ShowItems. Display all items.
      */
-    private static class ShowItems implements UserAction {
-
+    private static class ShowItems extends BaseAction {
+        /**
+         * Constructor.
+         *
+         * @param name Name of the menu item.
+         * @param key  Number of the menu item.
+         */
+        ShowItems(String name, int key) {
+            super(name, key);
+        }
         /**
          * Method determines the uniqueness of the key.
          *
@@ -140,20 +148,21 @@ public class MenutTracker {
             }
         }
 
-        /**
-         * Display menu items.
-         *
-         * @return String menu item.
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Show all items");
-        }
     }
 
     /**
      * class EditItem. Edit item.
      */
-    private class EditItem implements UserAction {
+    private class EditItem extends BaseAction {
+        /**
+         * Constructor.
+         *
+         * @param name Name of the menu item.
+         * @param key  Number of the menu item.
+         */
+        EditItem(String name, int key) {
+            super(name, key);
+        }
 
         /**
          * Method determines the uniqueness of the key.
@@ -178,20 +187,22 @@ public class MenutTracker {
 
         }
 
-        /**
-         * Display menu items.
-         *
-         * @return String menu item.
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Edit item");
-        }
     }
 
     /**
      * class DeleteItem. Delete item.
      */
-    private class DeleteItem implements UserAction {
+    private class DeleteItem extends BaseAction {
+        /**
+         * Constructor.
+         *
+         * @param name Name of the menu item.
+         * @param key  Number of the menu item.
+         */
+        DeleteItem(String name, int key) {
+            super(name, key);
+        }
+
         /**
          * Method determines the uniqueness of the key.
          *
@@ -212,20 +223,22 @@ public class MenutTracker {
             tracker.delete(tracker.findById(id));
         }
 
-        /**
-         * Display menu items.
-         *
-         * @return String menu item.
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Delete item");
-        }
     }
 
     /**
      * class FindItemByID. Find item by ID.
      */
-    private class FindItemByID implements UserAction {
+    private class FindItemByID extends BaseAction {
+        /**
+         * Constructor.
+         *
+         * @param name Name of the menu item.
+         * @param key  Number of the menu item.
+         */
+        FindItemByID(String name, int key) {
+            super(name, key);
+        }
+
         /**
          * Method determines the uniqueness of the key.
          *
@@ -246,20 +259,21 @@ public class MenutTracker {
             System.out.println(String.format("%s, %s", tracker.findById(id).getName(), tracker.findById(id).getName()));
         }
 
-        /**
-         * Display menu items.
-         *
-         * @return String menu item.
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find item by Id");
-        }
     }
 
     /**
      * class FindItemByName. Find item by Name.
      */
-    private class FindItemByName implements UserAction {
+    private class FindItemByName extends BaseAction {
+        /**
+         * Constructor.
+         *
+         * @param name Name of the menu item.
+         * @param key  Number of the menu item.
+         */
+        FindItemByName(String name, int key) {
+            super(name, key);
+        }
         /**
          * Method determines the uniqueness of the key.
          *
@@ -286,22 +300,22 @@ public class MenutTracker {
             }
         }
 
-        /**
-         * Display menu items.
-         *
-         * @return String menu item.
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find item by name");
-        }
     }
 
 }
 
 /**
- *class ExitProgram. Exit program.
+ * class ExitProgram. Exit program.
  */
-class ExitProgram implements UserAction {
+class ExitProgram extends BaseAction {
+    /**
+     * Constructor.
+     * @param name Name of the menu item.
+     * @param key Number of the menu item.
+     */
+    ExitProgram(String name, int key) {
+        super(name, key);
+    }
     /**
      * Method determines the uniqueness of the key.
      *
@@ -321,13 +335,5 @@ class ExitProgram implements UserAction {
         System.exit(0);
     }
 
-    /**
-     * Display menu items.
-     *
-     * @return String menu item.
-     */
-    public String info() {
-        return String.format("%s. %s", this.key(), "Exit program");
-    }
 }
 

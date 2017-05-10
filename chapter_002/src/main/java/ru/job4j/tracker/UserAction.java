@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
 /**
- * Task Tracker.
+ * Created by kvazimoda on 02.05.2017.
  */
 public interface UserAction {
     /**
@@ -19,7 +19,7 @@ public interface UserAction {
 
     /**
      * Display menu items.
-     * @return String menu item.
+     * @return String.
      */
     String info();
 }
