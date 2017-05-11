@@ -92,14 +92,6 @@ public class MenutTracker {
         }
 
         /**
-         * Method determines the uniqueness of the key.
-         * @return String menu item.
-         */
-        public int key() {
-            return 0;
-        }
-
-        /**
          * Perform actions.
          *
          * @param input   ask.
@@ -126,14 +118,6 @@ public class MenutTracker {
          */
         ShowItems(String name, int key) {
             super(name, key);
-        }
-        /**
-         * Method determines the uniqueness of the key.
-         *
-         * @return key
-         */
-        public int key() {
-            return 1;
         }
 
         /**
@@ -162,15 +146,6 @@ public class MenutTracker {
          */
         EditItem(String name, int key) {
             super(name, key);
-        }
-
-        /**
-         * Method determines the uniqueness of the key.
-         *
-         * @return key
-         */
-        public int key() {
-            return 2;
         }
 
         /**
@@ -204,15 +179,6 @@ public class MenutTracker {
         }
 
         /**
-         * Method determines the uniqueness of the key.
-         *
-         * @return key
-         */
-        public int key() {
-            return 3;
-        }
-
-        /**
          * Perform actions.
          *
          * @param input   ask.
@@ -240,15 +206,6 @@ public class MenutTracker {
         }
 
         /**
-         * Method determines the uniqueness of the key.
-         *
-         * @return key
-         */
-        public int key() {
-            return 4;
-        }
-
-        /**
          * Perform actions.
          *
          * @param input   ask.
@@ -273,14 +230,6 @@ public class MenutTracker {
          */
         FindItemByName(String name, int key) {
             super(name, key);
-        }
-        /**
-         * Method determines the uniqueness of the key.
-         *
-         * @return key
-         */
-        public int key() {
-            return 5;
         }
 
         /**
@@ -315,14 +264,6 @@ class ExitProgram extends BaseAction {
      */
     ExitProgram(String name, int key) {
         super(name, key);
-    }
-    /**
-     * Method determines the uniqueness of the key.
-     *
-     * @return key
-     */
-    public int key() {
-        return 6;
     }
 
     /**

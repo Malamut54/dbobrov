@@ -36,4 +36,13 @@ public abstract class BaseAction implements UserAction {
     public String info() {
         return String.format("%s. %s", this.key(), this.name);
     }
+
+    /**
+     * Determine the unique key.
+     *
+     * @return key.
+     */
+    public int key() {
+        return this.key;
+    }
 }
