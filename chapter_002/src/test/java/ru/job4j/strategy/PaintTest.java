@@ -23,6 +23,7 @@ public class PaintTest {
         Triangle triangle = new Triangle();
         Paint paint = new Paint();
         String expected = "# \n##\n###";
+        paint.draw(triangle);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         paint.draw(triangle);

@@ -19,4 +19,20 @@ public abstract class Figure {
 
     abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
 
+    public Cell oneLeft(Cell cell) {
+        return new Cell(cell.getX() - 1, cell.getY());
+    }
+
+    public Cell oneRight(Cell cell) {
+        return new Cell(cell.getX() + 1, cell.getY());
+    }
+
+    public Cell oneUp(Cell cell) {
+        return new Cell(cell.getX(), cell.getY() + 1);
+    }
+
+    public Cell oneDown(Cell cell) {
+        return new Cell(cell.getX(), cell.getY() - 1);
+    }
+
 }

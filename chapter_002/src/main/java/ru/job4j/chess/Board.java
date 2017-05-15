@@ -6,10 +6,10 @@ import ru.job4j.chess.exception.*;
  * Final task. Chess.
  */
 public class Board {
-    private Figure[] figures;
-//    Figure bishopLeft = new Bishop(new Cell(0,2), "bishopLeft");
+    private Figure[] figures = new Figure[9];
 
-    boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
+
+    public boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         return true;
     }
 
