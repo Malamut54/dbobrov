@@ -17,7 +17,7 @@ public class BishopTest {
     @Test(expected = FigureNotFoundException.class)
     public void WhenFigureNotFound() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         Board board = new Board();
-        Cell source = new Cell(2, 1);
+        Cell source = new Cell(3, 1);
         Cell destination = new Cell(7, 1);
         board.move(source, destination);
     }
@@ -25,10 +25,18 @@ public class BishopTest {
     @Test(expected = ImpossibleMoveException.class)
     public void WhenFigureMakeImpossibleMove() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         Board board = new Board();
-        Cell source = new Cell(2, 1);
-        Cell destination = new Cell(2, 3);
+        Cell source = new Cell(3, 8);
+        Cell destination = new Cell(5, 7);
         board.move(source, destination);
 
+    }
+
+    @Test(expected = OccupiedWayException.class)
+    public void WhenFigureGoThroughtOccupiedCell() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
+        Board board = new Board();
+        Cell source = new Cell(2, 1);
+        Cell destination = new Cell(6, 5);
+        board.move(source, destination);
     }
 
 

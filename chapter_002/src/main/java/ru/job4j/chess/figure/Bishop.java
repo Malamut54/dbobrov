@@ -3,6 +3,10 @@ package ru.job4j.chess.figure;
 import ru.job4j.chess.Cell;
 import ru.job4j.chess.exception.ImpossibleMoveException;
 
+import java.util.Arrays;
+
+import static java.lang.System.*;
+
 /**
  * Created by kvazimoda on 12.05.2017.
  */
@@ -24,21 +28,25 @@ public class Bishop extends Figure {
         if (position.getX() - dest.getX() == position.getY() - dest.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneLeft(super.oneDown(position));
+                Arrays.copyOf(waysToDist, position.getX() - dest.getX());
                 return waysToDist;
             }
         } else if (dest.getX() - position.getX() == position.getY() - dest.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneRight(super.oneDown(position));
+                Arrays.copyOf(waysToDist, position.getY() - dest.getY());
                 return waysToDist;
             }
         } else if (dest.getX() - position.getX() == dest.getY() - position.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneRight(super.oneUp(position));
+                Arrays.copyOf(waysToDist, dest.getX() - position.getX());
                 return waysToDist;
             }
         } else if (position.getX() - dest.getX() == dest.getY() - position.getY()) {
             for (int i = 0; i < position.getX() - dest.getX(); i++) {
                 waysToDist[i] = super.oneLeft(super.oneUp(position));
+                Arrays.copyOf(waysToDist, position.getX() - dest.getX());
                 return waysToDist;
             }
         } else {
