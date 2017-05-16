@@ -8,16 +8,19 @@ import ru.job4j.chess.exception.ImpossibleMoveException;
  */
 public abstract class Figure {
     private Cell position;
-    private String name;
-    public static final int LENGTHBOARD = 8;
 
-
-    public Figure(Cell position, String name) {
-        this.position = position;
-        this.name = name;
+    public Figure() {
     }
 
-    abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
+    public Figure(Cell position) {
+        this.position = position;
+    }
+
+    public Cell getPosition() {
+        return position;
+    }
+
+    public abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
 
     public Cell oneLeft(Cell cell) {
         return new Cell(cell.getX() - 1, cell.getY());

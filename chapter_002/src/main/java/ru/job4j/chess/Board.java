@@ -6,17 +6,45 @@ import ru.job4j.chess.exception.*;
  * Final task. Chess.
  */
 public class Board {
-    private Figure[] figures = new Figure[9];
+    Figure figure;
+    Figure bishop1 = new Bishop(new Cell(2, 1));
+    Figure bishop2 = new Bishop(new Cell(4, 3));
+    Figure[] figures = {bishop1, bishop2};
 
-    public void addFigure(Figure figure) {
-        figures[0] = new Bishop(new Cell(2, 0), "white Bishop");
-    }
-
-    public boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
+    boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         for (Figure figure : figures) {
-            if (source.getY() != figure.)
+            if (figure.getPosition().getX() != source.getX() && figure.getPosition().getY() != source.getY()) {
+                throw new FigureNotFoundException("Figure not found");
+            }
         }
+        if (figure.way(dist).equals(new ImpossibleMoveException("Impossible move")))
+            throw new ImpossibleMoveException("Impossible move");
+
         return true;
     }
+
+//    private Figure[] figures = {new Bishop(new Cell(2, 0))};
+//
+//
+//    public boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
+//        Figure figure = null;
+////        Cell[] wayToMove = figure.way(dist);
+//        for (Figure x : figures) {
+//            if (x.getPosition().getX() != source.getX() &&
+//                    x.getPosition().getY() != source.getY()) {
+//                throw new FigureNotFoundException("Figure not found");
+//            }
+//        }
+////        for (Cell cell : wayToMove) {
+////            for (Figure y : figures) {
+////                if (cell.getY() == y.getPosition().getY()
+////                        && cell.getY() == y.getPosition().getY()) {
+////                    throw new OccupiedWayException("On the route there are other figures");
+////                }
+////            }
+////        }
+////        figure.setPosition(dist);
+//        return true;
+//    }
 
 }

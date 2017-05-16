@@ -9,37 +9,40 @@ import ru.job4j.chess.exception.ImpossibleMoveException;
 public class Bishop extends Figure {
     private Cell position;
     private Cell[] waysToDist = new Cell[9];
-    private int count = 0;
 
-    public Bishop(Cell position, String name) {
-        super(position, name);
+    public Bishop(Cell position) {
+        super(position);
+        this.position = position;
     }
 
     @Override
     public Cell[] way(Cell dest) throws ImpossibleMoveException {
-        if (1 <= dest.getX() && LENGTHBOARD <= dest.getX() &&
-                1 <= dest.getY() && LENGTHBOARD <= dest.getY()) {
-
+        if (dest.getX() > 8 && dest.getY() > 8 | dest.getX() < 1 && dest.getY() < 1) {
+            throw new ImpossibleMoveException("You went beyond the Board");
         }
+
         if (position.getX() - dest.getX() == position.getY() - dest.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneLeft(super.oneDown(position));
-            }   
-        }
-        if (dest.getX() - position.getX() == position.getY() - dest.getY()) {
+                return waysToDist;
+            }
+        } else if (dest.getX() - position.getX() == position.getY() - dest.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneRight(super.oneDown(position));
+                return waysToDist;
             }
-        }
-        if (dest.getX() - position.getX() == dest.getY() - position.getY()) {
+        } else if (dest.getX() - position.getX() == dest.getY() - position.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneRight(super.oneUp(position));
+                return waysToDist;
             }
-        }
-        if (position.getX() - dest.getX() == dest.getY() - position.getY()) {
+        } else if (position.getX() - dest.getX() == dest.getY() - position.getY()) {
             for (int i = 0; i < position.getX() - dest.getX(); i++) {
                 waysToDist[i] = super.oneLeft(super.oneUp(position));
+                return waysToDist;
             }
+        } else {
+            throw new ImpossibleMoveException("Impossible move");
         }
 
         return waysToDist;
