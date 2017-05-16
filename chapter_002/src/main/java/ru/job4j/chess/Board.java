@@ -44,28 +44,4 @@ public class Board {
         return true;
     }
 
-//    private Figure[] figures = {new Bishop(new Cell(2, 0))};
-//
-//
-//    public boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
-//        Figure figure = null;
-////        Cell[] wayToMove = figure.way(dist);
-//        for (Figure x : figures) {
-//            if (x.getPosition().getX() != source.getX() &&
-//                    x.getPosition().getY() != source.getY()) {
-//                throw new FigureNotFoundException("Figure not found");
-//            }
-//        }
-////        for (Cell cell : wayToMove) {
-////            for (Figure y : figures) {
-////                if (cell.getY() == y.getPosition().getY()
-////                        && cell.getY() == y.getPosition().getY()) {
-////                    throw new OccupiedWayException("On the route there are other figures");
-////                }
-////            }
-////        }
-////        figure.setPosition(dist);
-//        return true;
-//    }
-
 }
