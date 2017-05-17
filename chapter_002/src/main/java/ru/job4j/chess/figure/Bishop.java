@@ -22,29 +22,30 @@ public class Bishop extends Figure {
     @Override
     public Cell[] way(Cell dest) throws ImpossibleMoveException {
         int count = 0;
-        if (dest.getX() > 8 && dest.getY() > 8 | dest.getX() < 1 && dest.getY() < 1) {
+        if (dest.getX() > 8 && dest.getY() > 8 || dest.getX() < 1 && dest.getY() < 1) {
             throw new ImpossibleMoveException("You went beyond the Board");
         }
-
-        if (position.getX() > dest.getX() & position.getY() > dest.getY()) {
+        if (position.getX() - dest.getX() != position.getY() - dest.getY()) {
+            throw new ImpossibleMoveException("Impossible move");
+        } else if (position.getX() > dest.getX() && position.getY() > dest.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneLeft(super.oneDown(position));
                 position = waysToDist[i];
                 count++;
             }
-        } else if (position.getX() < dest.getX() & position.getY() > dest.getY()) {
+        } else if (position.getX() < dest.getX() && position.getY() > dest.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneRight(super.oneDown(position));
                 position = waysToDist[i];
                 count++;
             }
-        } else if (position.getX() < dest.getX() & position.getY() < dest.getY()) {
+        } else if (position.getX() < dest.getX() && position.getY() < dest.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneRight(super.oneUp(position));
                 position = waysToDist[i];
                 count++;
             }
-        } else if (position.getX() > dest.getX() & position.getY() < dest.getY()) {
+        } else if (position.getX() > dest.getX() && position.getY() < dest.getY()) {
             for (int i = 0; i < position.getX() - dest.getX(); i++) {
                 waysToDist[i] = super.oneLeft(super.oneUp(position));
                 count++;

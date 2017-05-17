@@ -7,6 +7,9 @@ import ru.job4j.chess.exception.OccupiedWayException;
 import ru.job4j.chess.figure.Bishop;
 import ru.job4j.chess.figure.Figure;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 public class BishopTest {
     @Test(expected = ImpossibleMoveException.class)
     public void WhenWentBeyondTheBoard() throws FigureNotFoundException, OccupiedWayException, ImpossibleMoveException {
@@ -37,6 +40,16 @@ public class BishopTest {
         Cell source = new Cell(2, 1);
         Cell destination = new Cell(6, 5);
         board.move(source, destination);
+    }
+
+    @Test
+    public void WhenFigureSuccesfullyMakeMove() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
+        Board board = new Board();
+        Cell source = new Cell(6, 1);
+        Figure figure = new Bishop(source);
+        Cell destination = new Cell(7, 2);
+        board.move(source, destination);
+
     }
 
 

@@ -24,18 +24,7 @@ public class Board {
             }
         }
 
-//        for (Figure x : figures) {
-//            if (x.getPosition().getX() == source.getX() && x.getPosition().getY() == source.getY()) {
-//                figure = x;
-//                figure.way(dist);
-//            }
-//        }
-//        for (Figure x : figures) {
-//            if (x.getPosition().getX() == source.getX() && x.getPosition().getY() == source.getY()) {
-//                figure = x;
-//                break;
-//            }
-//        }
+
         Cell[] waysToDist = figure.way(dist);
         for (Figure x : figures) {
             for (Cell cell : waysToDist) {
@@ -44,7 +33,6 @@ public class Board {
                 }
             }
         }
-
         return true;
     }
 
