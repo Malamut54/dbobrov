@@ -49,8 +49,8 @@ public class Bishop extends Figure {
         } else {
             throw new ImpossibleMoveException("Impossible move");
         }
-        Arrays.copyOf(waysToDist, count);
-        return waysToDist;
+
+        return Arrays.copyOf(waysToDist, count);
 
     }
 }
