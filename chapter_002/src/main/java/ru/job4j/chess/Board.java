@@ -9,12 +9,13 @@ public class Board {
     Figure figure;
     Figure bishop1 = new Bishop(new Cell(2, 1));
     Figure bishop2 = new Bishop(new Cell(4, 3));
-    Figure[] figures = {bishop1, bishop2};
+    Figure bishop3 = new Bishop(new Cell(3, 8));
+    Figure[] figures = {bishop1, bishop2, bishop3};
 
     boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         for (Figure figure : figures) {
             if (figure.getPosition().getX() == source.getX() && figure.getPosition().getY() == source.getY()) {
-                break;
+                this.figure = figure;
             } else {
                 throw new FigureNotFoundException("Figure not found");
             }
