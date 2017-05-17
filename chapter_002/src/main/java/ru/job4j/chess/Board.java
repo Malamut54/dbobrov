@@ -17,6 +17,8 @@ public class Board {
             if (figure.getPosition().getX() == source.getX() && figure.getPosition().getY() == source.getY()) {
                 this.figure = figure;
                 break;
+            } else if (figure.getPosition().getX() != source.getX() && figure.getPosition().getY() != source.getY()) {
+                continue;
             } else {
                 throw new FigureNotFoundException("Figure not found");
             }
