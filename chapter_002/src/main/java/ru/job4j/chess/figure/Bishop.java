@@ -29,16 +29,19 @@ public class Bishop extends Figure {
         if (position.getX() > dest.getX() & position.getY() > dest.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneLeft(super.oneDown(position));
+                position = waysToDist[i];
                 count++;
             }
         } else if (position.getX() < dest.getX() & position.getY() > dest.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneRight(super.oneDown(position));
+                position = waysToDist[i];
                 count++;
             }
         } else if (position.getX() < dest.getX() & position.getY() < dest.getY()) {
             for (int i = 0; i < dest.getX() - position.getX(); i++) {
                 waysToDist[i] = super.oneRight(super.oneUp(position));
+                position = waysToDist[i];
                 count++;
             }
         } else if (position.getX() > dest.getX() & position.getY() < dest.getY()) {
