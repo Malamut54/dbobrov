@@ -49,6 +49,8 @@ public class BishopTest {
         Figure figure = new Bishop(source);
         Cell destination = new Cell(7, 2);
         board.move(source, destination);
+        Cell result = figure.getPosition();
+        assertThat(result, is(destination));
 
     }
 

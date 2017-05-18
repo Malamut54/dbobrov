@@ -20,6 +20,10 @@ public abstract class Figure {
         return position;
     }
 
+    public void setPosition(Cell position) {
+        this.position = position;
+    }
+
     public abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
 
     public Cell oneLeft(Cell cell) {

@@ -10,20 +10,28 @@ public class Board {
     Figure bishop1 = new Bishop(new Cell(2, 1));
     Figure bishop2 = new Bishop(new Cell(4, 3));
     Figure bishop3 = new Bishop(new Cell(3, 8));
-    Figure[] figures = {bishop1, bishop2, bishop3};
+    Figure bishop4 = new Bishop(new Cell(6, 1));
+    Figure[] figures = {bishop1, bishop2, bishop3, bishop4};
+
+    public Figure figureClone(Cell dist) {
+        figure.setPosition(dist);
+        return figure;
+    }
+
 
     boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
-        for (Figure figure : figures) {
-            if (figure.getPosition().getX() == source.getX() && figure.getPosition().getY() == source.getY()) {
-                this.figure = figure;
+
+
+        for (int i = 0; i < this.figures.length; ) {
+            if (figures[i].getPosition().getX() == source.getX() && figures[i].getPosition().getY() == source.getY()) {
+                this.figure = figures[i];
                 break;
-            } else if (figure.getPosition().getX() != source.getX() && figure.getPosition().getY() != source.getY()) {
-                continue;
+            } else if (figures[i].getPosition().getX() != source.getX() && figures[i].getPosition().getY() != source.getY()) {
+                i++;
             } else {
                 throw new FigureNotFoundException("Figure not found");
             }
         }
-
 
         Cell[] waysToDist = figure.way(dist);
         for (Figure x : figures) {
@@ -33,6 +41,7 @@ public class Board {
                 }
             }
         }
+        figure = figureClone(dist);
         return true;
     }
 
