@@ -21,15 +21,14 @@ public class Board {
 
     boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
 
-
         for (int i = 0; i < this.figures.length; ) {
             if (figures[i].getPosition().getX() == source.getX() && figures[i].getPosition().getY() == source.getY()) {
                 this.figure = figures[i];
                 break;
-            } else if (figures[i].getPosition().getX() != source.getX() && figures[i].getPosition().getY() != source.getY()) {
-                i++;
-            } else {
+            } else if (i == figures.length - 1) {
                 throw new FigureNotFoundException("Figure not found");
+            } else if (figures[i].getPosition().getX() != source.getX() || figures[i].getPosition().getY() != source.getY()) {
+                i++;
             }
         }
 
