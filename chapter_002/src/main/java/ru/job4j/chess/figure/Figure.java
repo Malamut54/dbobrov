@@ -3,9 +3,7 @@ package ru.job4j.chess.figure;
 import ru.job4j.chess.Cell;
 import ru.job4j.chess.exception.ImpossibleMoveException;
 
-/**
- * Final task. Chess.
- */
+
 public abstract class Figure {
     private Cell position;
 
@@ -18,10 +16,6 @@ public abstract class Figure {
 
     public Cell getPosition() {
         return position;
-    }
-
-    public void setPosition(Cell position) {
-        this.position = position;
     }
 
     public abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
@@ -41,5 +35,7 @@ public abstract class Figure {
     public Cell oneDown(Cell cell) {
         return new Cell(cell.getX(), cell.getY() - 1);
     }
+
+    public abstract Figure clone(Cell dist);
 
 }

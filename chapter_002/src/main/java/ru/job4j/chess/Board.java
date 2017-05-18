@@ -2,9 +2,7 @@ package ru.job4j.chess;
 
 import ru.job4j.chess.figure.*;
 import ru.job4j.chess.exception.*;
-/**
- * Final task. Chess.
- */
+
 public class Board {
     Figure figure;
     Figure bishop1 = new Bishop(new Cell(2, 1));
@@ -13,16 +11,15 @@ public class Board {
     Figure bishop4 = new Bishop(new Cell(6, 1));
     Figure[] figures = {bishop1, bishop2, bishop3, bishop4};
 
-    public Figure figureClone(Cell dist) {
-        figure.setPosition(dist);
-        return figure;
+    public Figure[] getFigures() {
+        return figures;
     }
 
-
     boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
-
+        int positions = 0;
         for (int i = 0; i < this.figures.length; ) {
             if (figures[i].getPosition().getX() == source.getX() && figures[i].getPosition().getY() == source.getY()) {
+                positions = i;
                 this.figure = figures[i];
                 break;
             } else if (i == figures.length - 1) {
@@ -40,7 +37,7 @@ public class Board {
                 }
             }
         }
-        figure = figureClone(dist);
+        this.figures[positions] = this.figures[positions].clone(dist);
         return true;
     }
 

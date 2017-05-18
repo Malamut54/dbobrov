@@ -46,10 +46,10 @@ public class BishopTest {
     public void WhenFigureSuccesfullyMakeMove() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         Board board = new Board();
         Cell source = new Cell(6, 1);
-        Figure figure = new Bishop(source);
         Cell destination = new Cell(7, 2);
         board.move(source, destination);
-        Cell result = figure.getPosition();
+        Figure[] figures = board.getFigures();
+        Cell result = figures[3].getPosition();
         assertThat(result, is(destination));
 
     }

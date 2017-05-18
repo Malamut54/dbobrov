@@ -5,11 +5,8 @@ import ru.job4j.chess.exception.ImpossibleMoveException;
 
 import java.util.Arrays;
 
-import static java.lang.System.*;
 
-/**
- * Created by kvazimoda on 12.05.2017.
- */
+
 public class Bishop extends Figure {
     private Cell position;
     private Cell[] waysToDist = new Cell[9];
@@ -55,6 +52,9 @@ public class Bishop extends Figure {
         }
 
         return Arrays.copyOf(waysToDist, count);
+    }
 
+    public Figure clone(Cell dist) {
+        return new Bishop(dist);
     }
 }
