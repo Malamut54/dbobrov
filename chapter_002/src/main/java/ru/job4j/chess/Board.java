@@ -5,11 +5,7 @@ import ru.job4j.chess.exception.*;
 
 public class Board {
     Figure figure;
-    //    Figure bishop1 = new Bishop(new Cell(2, 1));
-//    Figure bishop2 = new Bishop(new Cell(4, 3));
-//    Figure bishop3 = new Bishop(new Cell(3, 8));
-//    Figure bishop4 = new Bishop(new Cell(6, 1));
-//    Figure[] figures = {bishop1, bishop2, bishop3, bishop4};
+
     private Figure[] figures = new Figure[32];
     private int countArrFig = 0;
 
