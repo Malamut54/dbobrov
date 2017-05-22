@@ -17,4 +17,15 @@ public class Bishop extends Figure {
     public Figure clone(Cell dist) {
         return new Bishop(dist);
     }
+
+    @Override
+    public Cell[] way(Cell dest) throws ImpossibleMoveException {
+        Cell[] result;
+        if (Math.abs(this.position.getX() - dest.getX()) == Math.abs(this.position.getY() - dest.getY())) {
+            result = super.way(dest);
+        } else {
+            throw new ImpossibleMoveException("This move is impossible");
+        }
+        return result;
+    }
 }
