@@ -26,6 +26,7 @@ public class Bishop extends Figure {
         } else {
             throw new ImpossibleMoveException("This move is impossible");
         }
+
         return result;
     }
 }
