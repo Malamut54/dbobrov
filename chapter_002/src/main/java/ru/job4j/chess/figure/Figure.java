@@ -9,6 +9,7 @@ import java.util.Arrays;
 public abstract class Figure {
     private Cell position;
     private Cell[] waysToDest = new Cell[9];
+
     public Figure() {
     }
 
@@ -28,6 +29,7 @@ public abstract class Figure {
         if (dest.getX() > 8 && dest.getY() > 8 || dest.getX() < 1 && dest.getY() < 1) {
             throw new ImpossibleMoveException("You went beyond the Board");
         }
+
         if (this.position.getX() != dest.getX()) {
             lenghtMove = Math.abs(this.position.getX() - dest.getX());
         } else if (this.position.getY() != dest.getY()) {
@@ -41,11 +43,14 @@ public abstract class Figure {
             posY += yMove;
             waysToDest[i] = new Cell(posX, posY);
         }
+        waysToDest = Arrays.copyOf(waysToDest, lenghtMove);
 
-        return Arrays.copyOf(waysToDest, lenghtMove);
+        if (waysToDest[waysToDest.length - 1].getX() != dest.getX() ||
+                waysToDest[waysToDest.length - 1].getY() != dest.getY()) {
+            throw new ImpossibleMoveException("Impossible move");
+        }
+        return waysToDest;
     }
 
-
     public abstract Figure clone(Cell dist);
-
 }
