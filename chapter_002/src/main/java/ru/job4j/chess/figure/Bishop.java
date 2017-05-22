@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class Bishop extends Figure {
     private Cell position;
-    private Cell[] waysToDist = new Cell[9];
+//    private Cell[] waysToDist = new Cell[9];
 
     public Bishop(Cell position) {
         super(position);

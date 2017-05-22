@@ -6,6 +6,7 @@ import ru.job4j.chess.exception.ImpossibleMoveException;
 
 public abstract class Figure {
     private Cell position;
+    private Cell[] waysToDest
 
     public Figure() {
     }
@@ -18,23 +19,27 @@ public abstract class Figure {
         return position;
     }
 
-    public abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
+    public Cell[] way(Cell dist) throws ImpossibleMoveException {
 
-    public Cell oneLeft(Cell cell) {
-        return new Cell(cell.getX() - 1, cell.getY());
     }
+//
+//    public Cell oneLeft(Cell cell) {
+//        return new Cell(cell.getX() - 1, cell.getY());
+//    }
+//
+//    public Cell oneRight(Cell cell) {
+//        return new Cell(cell.getX() + 1, cell.getY());
+//    }
+//
+//    public Cell oneUp(Cell cell) {
+//        return new Cell(cell.getX(), cell.getY() + 1);
+//    }
+//
+//    public Cell oneDown(Cell cell) {
+//        return new Cell(cell.getX(), cell.getY() - 1);
+//    }
 
-    public Cell oneRight(Cell cell) {
-        return new Cell(cell.getX() + 1, cell.getY());
-    }
 
-    public Cell oneUp(Cell cell) {
-        return new Cell(cell.getX(), cell.getY() + 1);
-    }
-
-    public Cell oneDown(Cell cell) {
-        return new Cell(cell.getX(), cell.getY() - 1);
-    }
 
     public abstract Figure clone(Cell dist);
 

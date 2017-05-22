@@ -12,27 +12,32 @@ import static org.junit.Assert.assertThat;
 
 public class BishopTest {
 
-
+    /**
+     * Test when move takes place outside the board
+     *
+     * @throws FigureNotFoundException
+     * @throws OccupiedWayException
+     * @throws ImpossibleMoveException
+     */
     @Test(expected = ImpossibleMoveException.class)
     public void WhenWentBeyondTheBoard() throws FigureNotFoundException, OccupiedWayException, ImpossibleMoveException {
         Figure figure = new Bishop(new Cell(2, 1));
         figure.way(new Cell(10, 10));
-
     }
 
     @Test(expected = FigureNotFoundException.class)
     public void WhenFigureNotFound() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         Board board = new Board();
-        board.fillBoard();
         Cell source = new Cell(3, 1);
         Cell destination = new Cell(7, 1);
+        board.addFigureToBoard(new Bishop(new Cell(2, 1)));
         board.move(source, destination);
     }
 
     @Test(expected = ImpossibleMoveException.class)
     public void WhenFigureMakeImpossibleMove() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         Board board = new Board();
-        board.fillBoard();
+        board.addFigureToBoard(new Bishop(new Cell(3, 8)));
         Cell source = new Cell(3, 8);
         Cell destination = new Cell(5, 7);
         board.move(source, destination);
@@ -42,7 +47,8 @@ public class BishopTest {
     @Test(expected = OccupiedWayException.class)
     public void WhenFigureGoThroughtOccupiedCell() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         Board board = new Board();
-        board.fillBoard();
+        board.addFigureToBoard(new Bishop(new Cell(2, 1)));
+        board.addFigureToBoard(new Bishop(new Cell(3, 2)));
         Cell source = new Cell(2, 1);
         Cell destination = new Cell(6, 5);
         board.move(source, destination);
@@ -51,12 +57,12 @@ public class BishopTest {
     @Test
     public void WhenFigureSuccesfullyMakeMove() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         Board board = new Board();
-        board.fillBoard();
+        board.addFigureToBoard(new Bishop(new Cell(6, 1)));
         Cell source = new Cell(6, 1);
         Cell destination = new Cell(7, 2);
         board.move(source, destination);
         Figure[] figures = board.getFigures();
-        Cell result = figures[3].getPosition();
+        Cell result = figures[0].getPosition();
         assertThat(result, is(destination));
 
     }
