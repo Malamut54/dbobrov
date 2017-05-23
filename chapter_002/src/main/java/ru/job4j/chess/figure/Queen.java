@@ -4,7 +4,7 @@ import ru.job4j.chess.Cell;
 import ru.job4j.chess.exception.ImpossibleMoveException;
 
 /**
- * Created by kvazimoda on 23.05.2017.
+ * Task Chess.
  */
 public class Queen extends Figure {
     /**

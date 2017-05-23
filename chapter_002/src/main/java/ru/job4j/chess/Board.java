@@ -1,24 +1,59 @@
 package ru.job4j.chess;
 
-import ru.job4j.chess.figure.*;
-import ru.job4j.chess.exception.*;
+import ru.job4j.chess.figure.Figure;
+import ru.job4j.chess.exception.FigureNotFoundException;
+import ru.job4j.chess.exception.ImpossibleMoveException;
+import ru.job4j.chess.exception.OccupiedWayException;
 
+/**
+ * Task Chess.
+ */
 public class Board {
-    Figure figure;
+    /**
+     * Class Board.
+     */
 
+    /**
+     * Private fields.
+     */
+    private Figure figure;
+
+    /**
+     * Private fields.
+     */
     private Figure[] figures = new Figure[32];
+
+    /**
+     * Private fields.
+     */
     private int countArrFig = 0;
 
-
+    /**
+     * Getter for array figure.
+     *
+     * @return array figure.
+     */
     public Figure[] getFigures() {
         return figures;
     }
 
-
+    /**
+     * Add figure to array.
+     * @param figure which add to array.
+     */
     public void addFigureToBoard(Figure figure) {
         figures[countArrFig++] = figure;
     }
 
+    /**
+     * Perform move figure.
+     * @param source figure.
+     * @param dest figure.
+     * @return boolean.
+     * @throws FigureNotFoundException Figure not found.
+     * @throws OccupiedWayException Figure on the way.
+     * @throws ImpossibleMoveException Figure make imposible move.
+     */
     boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         int positions = 0;
 
@@ -26,7 +61,7 @@ public class Board {
             throw new ImpossibleMoveException("You went beyond the Board");
         }
 
-        for (int i = 0; i < this.figures.length; ) {
+        for (int i = 0; i < this.figures.length;) {
             if (i == figures.length - 1 & figures[i] == null) {
                 throw new FigureNotFoundException("Figure not found");
             }
@@ -42,6 +77,7 @@ public class Board {
                 }
             }
         }
+
 
         Cell[] waysToDist = figure.way(dest);
         for (Figure x : figures) {

@@ -6,9 +6,9 @@ import ru.job4j.chess.exception.ImpossibleMoveException;
 /**
  * Task Chess.
  */
-public class King extends Figure {
+public class Knight extends Figure {
     /**
-     * Class King. Provides the logic of the movements of the figures.
+     * Class Knight. Provides the logic of the movements of the figures.
      */
 
     /**
@@ -21,7 +21,7 @@ public class King extends Figure {
      *
      * @param position Set figure position.
      */
-    public King(Cell position) {
+    public Knight(Cell position) {
         super(position);
         this.position = position;
     }
@@ -35,13 +35,13 @@ public class King extends Figure {
      */
     @Override
     public Cell[] way(Cell dest) throws ImpossibleMoveException {
-
-        Cell[] result;
-        if (Math.abs(this.position.getX() - dest.getX()) <= 1 && Math.abs(this.position.getY() - dest.getY()) <= 1) {
-            result = super.way(dest);
+        Cell[] result = new Cell[0];
+        if (Math.abs(position.getY() - dest.getY()) == 1 & Math.abs(position.getX() - dest.getX()) == 2) {
+            clone(dest);
         } else {
             throw new ImpossibleMoveException("This move is impossible");
         }
+
         return result;
     }
 
@@ -53,6 +53,7 @@ public class King extends Figure {
      */
     @Override
     public Figure clone(Cell dest) {
-        return new King(dest);
+
+        return new Knight(dest);
     }
 }
