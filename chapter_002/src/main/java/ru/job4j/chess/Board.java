@@ -19,8 +19,13 @@ public class Board {
         figures[countArrFig++] = figure;
     }
 
-    boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
+    boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         int positions = 0;
+
+        if (dest.getX() > 8 & dest.getY() > 8 || dest.getX() < 1 & dest.getY() < 1) {
+            throw new ImpossibleMoveException("You went beyond the Board");
+        }
+
         for (int i = 0; i < this.figures.length; ) {
             if (i == figures.length - 1 & figures[i] == null) {
                 throw new FigureNotFoundException("Figure not found");
@@ -38,7 +43,7 @@ public class Board {
             }
         }
 
-        Cell[] waysToDist = figure.way(dist);
+        Cell[] waysToDist = figure.way(dest);
         for (Figure x : figures) {
             if (x != null) {
                 for (Cell cell : waysToDist) {
@@ -48,7 +53,7 @@ public class Board {
                 }
             }
         }
-        this.figures[positions] = this.figures[positions].clone(dist);
+        this.figures[positions] = this.figures[positions].clone(dest);
         return true;
     }
 

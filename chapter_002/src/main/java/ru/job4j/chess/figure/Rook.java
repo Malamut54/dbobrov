@@ -6,9 +6,9 @@ import ru.job4j.chess.exception.ImpossibleMoveException;
 /**
  * Task Chess.
  */
-public class Bishop extends Figure {
+public class Rook extends Figure {
     /**
-     * Class Bishop. Provides the logic of the movements of the figures.
+     * Class Rook. Provides the logic of the movements of the figures.
      */
 
     /**
@@ -21,7 +21,7 @@ public class Bishop extends Figure {
      *
      * @param position Set figure position.
      */
-    public Bishop(Cell position) {
+    public Rook(Cell position) {
         super(position);
         this.position = position;
     }
@@ -32,13 +32,13 @@ public class Bishop extends Figure {
      * @param dest Destination figure on the board.
      * @return Figure with new position.
      */
-    @Override
     public Figure clone(Cell dest) {
-        return new Bishop(dest);
+        return new Rook(dest);
     }
 
     /**
      * Method way. Provides the movement of the figures.
+     *
      * @param dest Destination figure on the board.
      * @return way to destination.
      * @throws ImpossibleMoveException Figure make impossible move.
@@ -46,12 +46,12 @@ public class Bishop extends Figure {
     @Override
     public Cell[] way(Cell dest) throws ImpossibleMoveException {
         Cell[] result;
-        if (Math.abs(this.position.getX() - dest.getX()) == Math.abs(this.position.getY() - dest.getY())) {
+        if (this.position.getX() == dest.getX() & this.position.getY() != dest.getY()
+                || this.position.getY() == dest.getY() & this.position.getX() != dest.getX()) {
             result = super.way(dest);
         } else {
             throw new ImpossibleMoveException("This move is impossible");
         }
-
         return result;
     }
 }

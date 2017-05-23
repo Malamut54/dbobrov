@@ -4,11 +4,11 @@ import ru.job4j.chess.Cell;
 import ru.job4j.chess.exception.ImpossibleMoveException;
 
 /**
- * Task Chess.
+ * Created by kvazimoda on 23.05.2017.
  */
-public class Bishop extends Figure {
+public class King extends Figure {
     /**
-     * Class Bishop. Provides the logic of the movements of the figures.
+     * Class King. Provides the logic of the movements of the figures.
      */
 
     /**
@@ -21,9 +21,28 @@ public class Bishop extends Figure {
      *
      * @param position Set figure position.
      */
-    public Bishop(Cell position) {
+    public King(Cell position) {
         super(position);
         this.position = position;
+    }
+
+    /**
+     * Method way. Provides the movement of the figures.
+     *
+     * @param dest Destination figure on the board.
+     * @return way to destination.
+     * @throws ImpossibleMoveException Figure make impossible move.
+     */
+    @Override
+    public Cell[] way(Cell dest) throws ImpossibleMoveException {
+
+        Cell[] result;
+        if (Math.abs(this.position.getX() - dest.getX()) <= 1 && Math.abs(this.position.getY() - dest.getY()) <= 1) {
+            result = super.way(dest);
+        } else {
+            throw new ImpossibleMoveException("This move is impossible");
+        }
+        return result;
     }
 
     /**
@@ -34,24 +53,6 @@ public class Bishop extends Figure {
      */
     @Override
     public Figure clone(Cell dest) {
-        return new Bishop(dest);
-    }
-
-    /**
-     * Method way. Provides the movement of the figures.
-     * @param dest Destination figure on the board.
-     * @return way to destination.
-     * @throws ImpossibleMoveException Figure make impossible move.
-     */
-    @Override
-    public Cell[] way(Cell dest) throws ImpossibleMoveException {
-        Cell[] result;
-        if (Math.abs(this.position.getX() - dest.getX()) == Math.abs(this.position.getY() - dest.getY())) {
-            result = super.way(dest);
-        } else {
-            throw new ImpossibleMoveException("This move is impossible");
-        }
-
-        return result;
+        return new King(dest);
     }
 }
