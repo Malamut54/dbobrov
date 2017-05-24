@@ -59,7 +59,7 @@ public class KnightTest {
         Board board = new Board();
         board.addFigureToBoard(new Knight(new Cell(5, 4)));
         Cell source = new Cell(5, 4);
-        Cell destination = new Cell(8, 5);
+        Cell destination = new Cell(5, 4);
         board.move(source, destination);
     }
 

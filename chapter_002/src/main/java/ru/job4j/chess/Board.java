@@ -59,6 +59,8 @@ public class Board {
 
         if (dest.getX() > 8 & dest.getY() > 8 || dest.getX() < 1 & dest.getY() < 1) {
             throw new ImpossibleMoveException("You went beyond the Board");
+        } else if (source.getX() == dest.getX() && source.getY() == dest.getY()) {
+            throw new ImpossibleMoveException("Source equals destination");
         }
 
         for (int i = 0; i < this.figures.length;) {
@@ -77,7 +79,6 @@ public class Board {
                 }
             }
         }
-
 
         Cell[] waysToDist = figure.way(dest);
         for (Figure x : figures) {

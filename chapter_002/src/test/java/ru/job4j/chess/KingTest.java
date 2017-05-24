@@ -75,7 +75,7 @@ public class KingTest {
         Board board = new Board();
         board.addFigureToBoard(new King(new Cell(1, 1)));
         Cell source = new Cell(1, 1);
-        Cell destination = new Cell(1, 1);
+        Cell destination = new Cell(1, 2);
         board.move(source, destination);
         Figure[] figures = board.getFigures();
         Cell result = figures[0].getPosition();
