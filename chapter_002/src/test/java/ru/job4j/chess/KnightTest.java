@@ -75,10 +75,11 @@ public class KnightTest {
         Board board = new Board();
         board.addFigureToBoard(new Knight(new Cell(5, 4)));
         Cell source = new Cell(5, 4);
-        Cell destination = new Cell(7, 5);
+        Cell destination = new Cell(3, 3);
         board.move(source, destination);
         Figure[] figures = board.getFigures();
         Cell result = figures[0].getPosition();
         assertThat(result, is(destination));
     }
+
 }

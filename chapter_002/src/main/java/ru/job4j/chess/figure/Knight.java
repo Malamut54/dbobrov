@@ -36,7 +36,8 @@ public class Knight extends Figure {
     @Override
     public Cell[] way(Cell dest) throws ImpossibleMoveException {
         Cell[] result = new Cell[0];
-        if (Math.abs(position.getY() - dest.getY()) == 1 & Math.abs(position.getX() - dest.getX()) == 2) {
+        if (Math.abs(position.getY() - dest.getY()) == 1 && Math.abs(position.getX() - dest.getX()) == 2
+                || Math.abs(position.getY() - dest.getY()) == 2 && Math.abs(position.getX() - dest.getX()) == 1) {
             clone(dest);
         } else {
             throw new ImpossibleMoveException("This move is impossible");
@@ -44,6 +45,7 @@ public class Knight extends Figure {
 
         return result;
     }
+
 
     /**
      * Method record new position if figure successfully make move.

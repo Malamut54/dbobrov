@@ -71,7 +71,7 @@ public class KingTest {
      * @throws ImpossibleMoveException Figure make imposible move.
      */
     @Test
-    public void whenFigureSuccesfullyMakeMove() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
+    public void whenFigureSuccessfullyMakeMove() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         Board board = new Board();
         board.addFigureToBoard(new King(new Cell(5, 4)));
         Cell source = new Cell(5, 4);
@@ -81,5 +81,16 @@ public class KingTest {
         Cell result = figures[0].getPosition();
         assertThat(result, is(destination));
     }
+//    @Test
+//    public void qwhenFigureSuccesfullyMakeMove() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
+//        Board board = new Board();
+//        board.addFigureToBoard(new King(new Cell(1, 1)));
+//        Cell source = new Cell(1, 1);
+//        Cell destination = new Cell(1, 1);
+//        board.move(source, destination);
+//        Figure[] figures = board.getFigures();
+//        Cell result = figures[0].getPosition();
+//        assertThat(result, is(destination));
+//    }
 
 }
