@@ -39,6 +39,6 @@ public class Parentheses {
                 }
             }
         }
-        return check;
+        return counter == 0;
     }
 }
