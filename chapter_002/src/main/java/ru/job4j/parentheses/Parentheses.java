@@ -1,5 +1,7 @@
 package ru.job4j.parentheses;
 
+import java.util.Arrays;
+
 /**
  * Final Task OOP.
  *
@@ -23,15 +25,20 @@ public class Parentheses {
      * @return boolean.
      */
     public boolean checkParentheses(String par) {
+        int counter = 0;
 
         char[] symbol = par.toCharArray();
-        for (int i = 0; i < (symbol.length / 2); i++) {
-            if (symbol[i] == '(' && symbol[symbol.length - i - 1] == ')') {
-                this.check = true;
+        for (int i = 0; i < symbol.length; i++) {
+            if (symbol[i] == '(') {
+                counter += 1;
             } else {
-                this.check = false;
+                counter -= 1;
+                if (counter < 0) {
+                    this.check = false;
+                    break;
+                }
             }
         }
-        return this.check;
+        return check;
     }
 }

@@ -15,7 +15,7 @@ public class ParenthesesTest {
     @Test
     public void whenParenthesesInCorrectOrder() {
         Parentheses parentheses = new Parentheses();
-        boolean result = parentheses.checkParentheses("((()()()))");
+        boolean result = parentheses.checkParentheses("(((()))((()))()())");
         boolean expected = true;
         assertThat(result, is(expected));
     }
