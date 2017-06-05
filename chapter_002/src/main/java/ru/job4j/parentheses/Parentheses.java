@@ -25,20 +25,12 @@ public class Parentheses {
     public boolean checkParentheses(String par) {
 
         char[] symbol = par.toCharArray();
-        if (symbol[0] == ')' || symbol.length % 2 != 0) {
-            this.check = false;
-        } else {
-            for (int i = 0; i < symbol.length; ) {
-                if (symbol[i] == '(' && symbol[i + 1] == ')') {
-                    i += 2;
-                } else {
-                    this.check = false;
-                    break;
-                }
+        for (int i = 0; i < (symbol.length / 2); i++) {
+            if (symbol[i] == '(' && symbol[symbol.length - i - 1] == ')') {
+                this.check = true;
+            } else {
+                this.check = false;
             }
-        }
-        for (int i = 0; i < symbol.length; i++) {
-
         }
         return this.check;
     }
