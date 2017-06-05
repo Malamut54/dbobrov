@@ -37,6 +37,9 @@ public class Parentheses {
                 }
             }
         }
+        for (int i = 0; i < symbol.length; i++) {
+
+        }
         return this.check;
     }
 }

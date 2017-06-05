@@ -26,7 +26,7 @@ public class ParenthesesTest {
     @Test
     public void whenFirstParenthesesNotCorrect() {
         Parentheses parentheses = new Parentheses();
-        boolean result = parentheses.checkParentheses("))()()");
+        boolean result = parentheses.checkParentheses("())(()");
         boolean expected = false;
         assertThat(result, is(expected));
     }
