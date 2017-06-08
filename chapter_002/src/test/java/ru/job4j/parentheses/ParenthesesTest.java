@@ -5,9 +5,7 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-/**
- * Created by kvazimoda on 05.06.2017.
- */
+
 public class ParenthesesTest {
     /**
      * Test. When Correct.
