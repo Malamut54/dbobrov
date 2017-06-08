@@ -6,7 +6,9 @@ package ru.job4j.parentheses;
  * @author Dmitriy Bobrov (mailto:bobrov.dmitriy@gmail.com)
  * @since 0.1
  */
+
 public class Parentheses {
+
     /**
      * Class Parentheses.
      */
