@@ -1,7 +1,5 @@
 package ru.job4j.parentheses;
 
-import java.util.Arrays;
-
 /**
  * Final Task OOP.
  *
