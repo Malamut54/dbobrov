@@ -45,9 +45,10 @@ public class PerfomanceCollection {
         Iterator<String> iter = collection.iterator();
         Date start = new Date();
         for (int i = 0; i < amount; i++) {
-            iter.hasNext();
-            iter.next();
-            iter.remove();
+            while (iter.hasNext()) {
+                iter.next();
+                iter.remove();
+            }
         }
         Date finish = new Date();
         return this.resultInMs = finish.getTime() - start.getTime();
