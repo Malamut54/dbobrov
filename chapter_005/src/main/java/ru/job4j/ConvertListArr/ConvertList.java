@@ -47,19 +47,22 @@ public class ConvertList {
     public int[][] toArray(List<Integer> list, int rows) {
         //Initialization array
         int iter = 0;
+        int listSize = list.size();
         if (list.size() % rows == 0) {
-            this.arr = new int[rows][list.size() / rows];
+            this.arr = new int[rows][listSize / rows];
         } else {
-            while (list.size() % rows != 0) {
-                list.add(0);
+            while (listSize % rows != 0) {
+                listSize++;
             }
-            this.arr = new int[rows][list.size() / rows];
+            this.arr = new int[rows][listSize / rows];
         }
 
         //Fill array
         for (int i = 0; i < this.arr.length; i++) {
-            for (int j = 0; j < this.arr[0].length; j++) {
-                this.arr[i][j] = list.get(iter++);
+            for (int j = 0; j < this.arr[i].length; j++) {
+                if (iter < list.size()) {
+                    this.arr[i][j] = list.get(iter++);
+                }
             }
         }
         return this.arr;

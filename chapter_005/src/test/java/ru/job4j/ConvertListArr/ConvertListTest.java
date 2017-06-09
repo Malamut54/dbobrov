@@ -28,10 +28,10 @@ public class ConvertListTest {
     }
 
     /**
-     * Test converting List to ArrayList when size arr is even.
+     * Test converting List to ArrayList when size arr is odd.
      */
     @Test
-    public void convertListToArrayWhenSizeIsEven() {
+    public void convertListToArrayWhenSizeIsOdd() {
         List<Integer> list = new ArrayList<Integer>();
         for (int i = 0; i < 7; i++) {
             list.add(i);
@@ -43,10 +43,10 @@ public class ConvertListTest {
     }
 
     /**
-     * Test converting List to ArrayList when size arr is odd.
+     * Test converting List to ArrayList when size arr is even.
      */
     @Test
-    public void convertListToArrayWhenSizeIsOdd() {
+    public void convertListToArrayWhenSizeIsEven() {
         List<Integer> list = new ArrayList<Integer>();
         for (int i = 0; i < 6; i++) {
             list.add(i);
