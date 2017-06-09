@@ -24,7 +24,7 @@ public class ConvertList {
     private int[][] arr;
 
     /**
-     * Convert Array to ArrayList.
+     * Convert Array to List.
      *
      * @param array Input array.
      * @return ArrayList.
@@ -39,7 +39,7 @@ public class ConvertList {
     }
 
     /**
-     * Convert ArrayList to Array.
+     * Convert List to Array.
      * @param list Input list.
      * @param rows Number of rows.
      * @return Array.
@@ -66,5 +66,20 @@ public class ConvertList {
             }
         }
         return this.arr;
+    }
+
+    /**
+     * Convert List<int[]> to List<Integer>
+     *
+     * @param list Input List.
+     * @return List<Integer>.
+     */
+    public List<Integer> convert(List<int[]> list) {
+        for (int[] ints : list) {
+            for (int i : ints) {
+                this.list.add(i);
+            }
+        }
+        return this.list;
     }
 }
