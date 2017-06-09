@@ -17,7 +17,7 @@ public class ConvertList {
     /**
      * Private variable.
      */
-    private ArrayList<Integer> list = new ArrayList<Integer>();
+    private List<Integer> list = new ArrayList<Integer>();
     /**
      * Private variable
      */
@@ -67,5 +67,4 @@ public class ConvertList {
         }
         return this.arr;
     }
-
 }
