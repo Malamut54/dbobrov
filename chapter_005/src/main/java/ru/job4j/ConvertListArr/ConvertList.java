@@ -15,27 +15,19 @@ public class ConvertList {
      */
 
     /**
-     * Private variable.
-     */
-    private List<Integer> list = new ArrayList<Integer>();
-    /**
-     * Private variable
-     */
-    private int[][] arr;
-
-    /**
      * Convert Array to List.
      *
      * @param array Input array.
      * @return ArrayList.
      */
     public List<Integer> toList(int[][] array) {
+        List<Integer> list = new ArrayList<Integer>();
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
                 list.add(array[i][j]);
             }
         }
-        return this.list;
+        return list;
     }
 
     /**
@@ -46,26 +38,27 @@ public class ConvertList {
      */
     public int[][] toArray(List<Integer> list, int rows) {
         //Initialization array
+        int[][] arr;
         int iter = 0;
         int listSize = list.size();
         if (list.size() % rows == 0) {
-            this.arr = new int[rows][listSize / rows];
+            arr = new int[rows][listSize / rows];
         } else {
             while (listSize % rows != 0) {
                 listSize++;
             }
-            this.arr = new int[rows][listSize / rows];
+            arr = new int[rows][listSize / rows];
         }
 
         //Fill array
-        for (int i = 0; i < this.arr.length; i++) {
-            for (int j = 0; j < this.arr[i].length; j++) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
                 if (iter < list.size()) {
-                    this.arr[i][j] = list.get(iter++);
+                    arr[i][j] = list.get(iter++);
                 }
             }
         }
-        return this.arr;
+        return arr;
     }
 
     /**
@@ -75,11 +68,12 @@ public class ConvertList {
      * @return List<Integer>.
      */
     public List<Integer> convert(List<int[]> list) {
+        List<Integer> listArr = new ArrayList<Integer>();
         for (int[] ints : list) {
             for (int i : ints) {
-                this.list.add(i);
+                listArr.add(i);
             }
         }
-        return this.list;
+        return listArr;
     }
 }
