@@ -1,17 +1,28 @@
 package ru.job4j.ConvertListMap;
 
-
 import java.util.HashMap;
 import java.util.List;
 
-
 /**
- * Created by kvazimoda on 09.06.2017.
+ * Task user convert.
  */
 public class UserConvert {
-    HashMap<Integer, User> listUsers = new HashMap<Integer, User>();
+    /**
+     * Class UserConvert.
+     */
 
+    /**
+     * Method covert List to HashMap.
+     *
+     * @param list contains User.
+     * @return Hasmap User with ID.
+     */
     public HashMap<Integer, User> process(List<User> list) {
-        return this.listUsers;
+        HashMap<Integer, User> listUsers = new HashMap<Integer, User>();
+        for (User user : list) {
+            listUsers.put(user.getId(), user);
+        }
+        return listUsers;
     }
+
 }
