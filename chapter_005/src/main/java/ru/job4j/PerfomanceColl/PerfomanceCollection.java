@@ -45,7 +45,7 @@ public class PerfomanceCollection {
         Iterator<String> iter = collection.iterator();
         Date start = new Date();
         for (int i = 0; i < amount; i++) {
-            while (iter.hasNext()) {
+            if (iter.hasNext()) {
                 iter.next();
                 iter.remove();
             }
