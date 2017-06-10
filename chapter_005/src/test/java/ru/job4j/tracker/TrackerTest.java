@@ -2,6 +2,8 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -18,12 +20,12 @@ public class TrackerTest {
      */
     @Test
     public void testFindAllItemFromArray() {
-        Item[] result = new Item[2];
+        ArrayList<Item> result = new ArrayList<Item>();
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         Item item1 = new Item("Obladi-oblada", "withoutSecondName", 1234L);
         Tracker tracker = new Tracker();
-        result[0] = item;
-        result[1] = item1;
+        result.add(item);
+        result.add(item1);
         tracker.add(item);
         tracker.add(item1);
         assertThat(tracker.findAll(), is(result));
@@ -37,7 +39,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         tracker.add(item);
-        assertThat(tracker.findAll()[0], is(item));
+        assertThat(tracker.findAll().get(0), is(item));
     }
 
     /**
@@ -47,7 +49,7 @@ public class TrackerTest {
     public void testFindItemByStringID() {
         Tracker tracker = new Tracker();
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
-        Item item1 = new Item("Obladi-oblada", "withoutSecondName", 1234L);
+        Item item1 = new Item("Obladi-obla-da", "withoutSecondName", 1234L);
         tracker.add(item);
         tracker.add(item1);
         Item result = tracker.findById(item1.getId());
@@ -66,8 +68,10 @@ public class TrackerTest {
         tracker.add(item);
         tracker.add(item1);
         tracker.add(item2);
-        Item[] result = {item, item1};
-        Item[] expected = tracker.findByName("withoutName");
+        ArrayList<Item> result = new ArrayList<Item>();
+        result.add(item);
+        result.add(item1);
+        ArrayList<Item> expected = tracker.findByName("withoutName");
         assertThat(result, is(expected));
     }
 
@@ -83,7 +87,9 @@ public class TrackerTest {
         tracker.add(item);
         tracker.add(item1);
         tracker.add(item2);
-        Item[] result = {item, item2};
+        ArrayList<Item> result = new ArrayList<Item>();
+        result.add(item);
+        result.add(item2);
         tracker.delete(item1);
         assertThat(result, is(tracker.findAll()));
     }
@@ -96,9 +102,9 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item = new Item("tra-ta-ta", "withoutName", 123L);
         tracker.add(item);
-        String id = tracker.findAll()[0].getId();
+        String id = tracker.findAll().get(0).getId();
         Item item1 = new Item(id, "withoutSecondName", 1234L);
         tracker.upddate(item1);
-        assertThat(tracker.findAll()[0].getName(), is(item1.getName()));
+        assertThat(tracker.findAll().get(0).getName(), is(item1.getName()));
     }
 }

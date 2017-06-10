@@ -2,6 +2,8 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
@@ -19,12 +21,15 @@ public class StartUITest {
      */
     @Test
     public void addNewTask() {
+
         String[] add = {"0", "name", "desc", "y"};
         Tracker tracker = new Tracker();
         Input input = new StubInput(add);
         new StartUI(tracker, input).init();
-        assertThat(tracker.findAll()[0].getName(), is(add[1]));
+        assertThat(tracker.findAll().get(0).getName(), is(add[1]));
+
     }
+
 
     /**
      * Test. Find all Items.
@@ -35,7 +40,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Input input = new StubInput(add);
         new StartUI(tracker, input).init();
-        String[] result = {tracker.findAll()[0].getName(), tracker.findAll()[1].getName()};
+        String[] result = {tracker.findAll().get(0).getName(), tracker.findAll().get(1).getName()};
         String[] expected = {"name", "name2"};
         assertThat(result, is(expected));
     }
@@ -52,7 +57,7 @@ public class StartUITest {
         String[] edit = {"2", id, "newName", "descr", "y"};
         Input input = new StubInput(edit);
         new StartUI(tracker, input).init();
-        String result = tracker.findAll()[0].getName();
+        String result = tracker.findAll().get(0).getName();
         String expected = "newName";
         assertThat(result, is(expected));
     }
@@ -62,7 +67,7 @@ public class StartUITest {
      */
     @Test
     public void deleteItemById() {
-        Item item = new Item("123", "name", "descr");
+        Item item = new Item("1234", "name", "descr");
         Tracker tracker = new Tracker();
         tracker.add(item);
         String id = item.getId();
@@ -86,8 +91,9 @@ public class StartUITest {
         String[] find = {"5", "Fedor", "y"};
         Input input = new StubInput(find);
         new StartUI(tracker, input).init();
-        Item[] result = tracker.findByName("Fedor");
-        Item[] expected = {item0};
+        ArrayList<Item> result = tracker.findByName("Fedor");
+        ArrayList<Item> expected = new ArrayList<Item>();
+        expected.add(item0);
         assertThat(result, is(expected));
     }
 
