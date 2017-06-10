@@ -3,11 +3,11 @@ package ru.job4j.ConvertListMap;
 /**
  * Task user convert.
  */
-public class User {
-    /**
-     * Class User.
-     */
 
+/**
+ * Class User.
+ */
+public class User {
     /**
      * Private fields.
      */

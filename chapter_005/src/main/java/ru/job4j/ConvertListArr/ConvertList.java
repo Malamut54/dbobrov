@@ -9,11 +9,11 @@ import java.util.List;
  * @author Dmitriy Bobrov (mailto:bobrov.dmitriy@gmail.com)
  * @since 0.1
  */
-public class ConvertList {
-    /**
-     * Class ConvertList.
-     */
 
+/**
+ * Class ConvertList.
+ */
+public class ConvertList {
     /**
      * Convert Array to List.
      *

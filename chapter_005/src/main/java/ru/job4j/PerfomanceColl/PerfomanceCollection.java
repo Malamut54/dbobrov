@@ -5,11 +5,11 @@ import java.util.*;
 /**
  * Task Measuring perfomance of collection.
  */
-public class PerfomanceCollection {
-    /**
-     * Main class
-     */
 
+/**
+ * Main class
+ */
+public class PerfomanceCollection {
     /**
      * Private variable.
      */
