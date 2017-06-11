@@ -1,6 +1,7 @@
 package ru.job4j.ConvertListArr;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class ConvertList {
 
     /**
      * Convert List to Array.
+     *
      * @param list Input list.
      * @param rows Number of rows.
      * @return Array.
@@ -39,7 +41,6 @@ public class ConvertList {
     public int[][] toArray(List<Integer> list, int rows) {
         //Initialization array
         int[][] arr;
-        int iter = 0;
         int listSize = list.size();
         if (list.size() % rows == 0) {
             arr = new int[rows][listSize / rows];
@@ -51,10 +52,11 @@ public class ConvertList {
         }
 
         //Fill array
+        Iterator<Integer> iterator = list.iterator();
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
-                if (iter < list.size()) {
-                    arr[i][j] = list.get(iter++);
+                if (iterator.hasNext()) {
+                    arr[i][j] = iterator.next();
                 }
             }
         }
