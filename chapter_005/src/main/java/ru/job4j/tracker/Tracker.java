@@ -84,14 +84,14 @@ public class Tracker {
      * @param item input item for delete.
      */
     public void delete(Item item) {
-
-        for (Item itemForDel : this.items) {
-            if (itemForDel.getId().equals(item.getId())) {
-                this.items.remove(itemForDel);
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getId().equals(item.getId())) {
+                this.items.remove(i);
                 break;
             }
+            }
         }
-    }
+
 
     /**
      * Update concrete item.
@@ -99,10 +99,9 @@ public class Tracker {
      * @param item input item for update.
      */
     public void upddate(Item item) {
-        for (Item itemForUpd : this.items) {
-            if (itemForUpd.getId().equals(item.getId())) {
-                this.items.remove(itemForUpd);
-                this.items.add(item);
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getId().equals(item.getId())) {
+                this.items.set(i, item);
                 break;
             }
         }
