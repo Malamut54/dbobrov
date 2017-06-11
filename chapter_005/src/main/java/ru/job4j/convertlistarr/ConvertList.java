@@ -1,4 +1,4 @@
-package ru.job4j.ConvertListArr;
+package ru.job4j.convertlistarr;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -64,7 +64,7 @@ public class ConvertList {
     }
 
     /**
-     * Convert List<int[]> to List<Integer>
+     * Convert List<int[]> to List<Integer>.
      *
      * @param list Input List.
      * @return List<Integer>.

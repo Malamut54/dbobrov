@@ -1,28 +1,39 @@
-package ru.job4j.PerfomanceColl;
-
-import java.util.*;
-
+package ru.job4j.perfomancecoll;
 /**
  * Task Measuring perfomance of collection.
  */
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.TreeSet;
 /**
- * Main class
+ * Main class.
  */
 public class PerfomanceCollection {
     /**
      * Private variable.
      */
-    private long resultInMs;
     private long resultAdd;
+    /**
+     * Private variable.
+     */
     private long resultDel;
+    /**
+     * Private variable.
+     */
+    private long resultInMs;
 
     /**
      * Add value to collection.
      *
      * @param collection Type of collection.
-     * @param amount     Number of records.
-     * @return
+     * @param amount Number of records.
+     * @return time to execute.
      */
     public long add(Collection<String> collection, int amount) {
 
@@ -31,7 +42,8 @@ public class PerfomanceCollection {
             collection.add(Integer.toString(i));
         }
         Date finish = new Date();
-        return this.resultInMs = finish.getTime() - start.getTime();
+        this.resultInMs = finish.getTime() - start.getTime();
+        return this.resultInMs;
     }
 
     /**
@@ -39,7 +51,7 @@ public class PerfomanceCollection {
      *
      * @param collection Type of collection.
      * @param amount     Number of records.
-     * @return
+     * @return time to execute.
      */
     public long delete(Collection<String> collection, int amount) {
         Iterator<String> iter = collection.iterator();
@@ -51,9 +63,15 @@ public class PerfomanceCollection {
             }
         }
         Date finish = new Date();
-        return this.resultInMs = finish.getTime() - start.getTime();
+        this.resultInMs = finish.getTime() - start.getTime();
+        return this.resultInMs;
     }
 
+    /**
+     * Main method execute program.
+     *
+     * @param args input args.
+     */
     public static void main(String[] args) {
         List<String> lnkL = new LinkedList<String>();
         List<String> arrL = new ArrayList<String>();

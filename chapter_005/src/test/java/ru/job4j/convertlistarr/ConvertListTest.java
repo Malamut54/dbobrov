@@ -1,4 +1,4 @@
-package ru.job4j.ConvertListArr;
+package ru.job4j.convertlistarr;
 
 import org.junit.Test;
 
@@ -53,12 +53,12 @@ public class ConvertListTest {
         }
         ConvertList convert = new ConvertList();
         int[][] excpected = convert.toArray(list, 3);
-        int[][] result = {{0, 1,}, {2, 3}, {4, 5}};
+        int[][] result = {{0, 1}, {2, 3}, {4, 5}};
         assertThat(result, is(excpected));
     }
 
     /**
-     * Test converting List<arr[]> to List
+     * Test converting List<arr[]> to List.
      */
     @Test
     public void convertArrInListToList() {

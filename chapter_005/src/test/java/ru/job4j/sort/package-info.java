@@ -1,8 +1,8 @@
 /**
- * Package for convert task.
+ * Package for sort task.
  *
  * @author Dmitriy Bobrov (mailto:bobrov.dmitriy@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-package ru.job4j.ConvertListMap;
+package ru.job4j.sort;

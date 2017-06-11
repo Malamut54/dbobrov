@@ -1,8 +1,8 @@
 /**
- * Package for Convert task.
+ * Package for convert task.
  *
  * @author Dmitriy Bobrov (mailto:bobrov.dmitriy@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-package ru.job4j.ConvertListArr;
+package ru.job4j.convertlistmap;

@@ -1,4 +1,4 @@
-package ru.job4j.ConvertListMap;
+package ru.job4j.convertlistmap;
 
 import org.junit.Test;
 
