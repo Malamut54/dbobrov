@@ -48,4 +48,25 @@ public class SortUserTest {
         String result = sort.sortNameLength(list).toString();
         assertThat(result, is(expected));
     }
+
+    /**
+     * Test sort by two fields.
+     */
+    @Test
+    public void sortUserByNameLengthAndAge() {
+        SortUser sort = new SortUser();
+        ArrayList<User> list = new ArrayList<User>();
+        list.addAll(
+                Arrays.asList(
+                        new User("Bob", 5),
+                        new User("Serg", 10),
+                        new User("Buch", 6),
+                        new User("Pop", 6)
+                )
+        );
+        String expected = "[Name: Bob Age 5, Name: Pop Age 6, Name: Buch Age 6, Name: Serg Age 10]";
+        String result = sort.sortByAllFields(list).toString();
+        assertThat(result, is(expected));
+    }
+
 }
