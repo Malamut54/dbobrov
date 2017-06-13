@@ -3,6 +3,7 @@ package ru.job4j.sort;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -24,9 +25,27 @@ public class SortUserTest {
         list.add(dima);
         list.add(sergey);
         list.add(andrey);
-        String expected = "[age: 1, age: 4, age: 10]";
+        String expected = "[Name: Sergey Age 1, Name: Dima Age 4, Name: Andrey Age 10]";
         String result = sort.sort(list).toString();
         assertThat(result, is(expected));
     }
 
+    /**
+     * Test sort name length.
+     */
+    @Test
+    public void sortUserByNameLength() {
+        SortUser sort = new SortUser();
+        ArrayList<User> list = new ArrayList<User>();
+        list.addAll(
+                Arrays.asList(
+                        new User("Dima", 14),
+                        new User("Sergey", 1),
+                        new User("Bob", 10)
+                )
+        );
+        String expected = "[Name: Bob Age 10, Name: Dima Age 14, Name: Sergey Age 1]";
+        String result = sort.sortNameLength(list).toString();
+        assertThat(result, is(expected));
+    }
 }
