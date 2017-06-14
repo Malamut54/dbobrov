@@ -51,14 +51,16 @@ public class ManageTest {
         User user = new User("Sergey", "123");
         Manage manage = new Manage();
         Account account = new Account(100, 1773);
+        Account account1 = new Account(150, 2001);
         Map<User, List<Account>> dep = manage.getDep();
         manage.addUser(user);
         manage.addAccountToUser(user, account);
-        boolean result = false;
+        manage.addAccountToUser(user, account1);
+        String result = "";
         for (Map.Entry<User, List<Account>> userListEntry : dep.entrySet()) {
-            result = (userListEntry.getValue().contains(account));
+            result = (userListEntry.getValue().toString());
         }
-        boolean expected = true;
+        String expected = "[Account{value=100.0, requisites=1773}, Account{value=150.0, requisites=2001}]";
         assertThat(result, is(expected));
     }
 
@@ -71,11 +73,13 @@ public class ManageTest {
         Manage manage = new Manage();
         Account accountFirst = new Account(100, 1773);
         Account accountSecond = new Account(100, 2000);
+        Account accountThird = new Account(100, 1500);
         Map<User, List<Account>> dep = manage.getDep();
         List<Account> listAccountsTest = new ArrayList<Account>();
         manage.addUser(user);
         manage.addAccountToUser(user, accountFirst);
         manage.addAccountToUser(user, accountSecond);
+        manage.addAccountToUser(user, accountThird);
         for (Map.Entry<User, List<Account>> entry : dep.entrySet()) {
             if (entry.getKey().equals(user)) {
                 listAccountsTest = entry.getValue();
@@ -87,10 +91,10 @@ public class ManageTest {
         assertThat(result, is(expected));
     }
 
-    @Test
     /**
      * Return all account for selected users.
      */
+    @Test
     public void returnListAllAccountsFromSpecifiedUser() {
         User user = new User("Sergey", "123");
         Manage manage = new Manage();
@@ -105,5 +109,51 @@ public class ManageTest {
         expected.add(accountFirst);
         expected.add(accountSecond);
         assertEquals(result, expected);
+    }
+
+    /**
+     * Successful transfer money from one user to another.
+     */
+    @Test
+    public void successfulTransferMoneyFromOneUserToAnother() {
+        User user = new User("Sergey", "123");
+        User user1 = new User("Andrey", "321");
+        Manage manage = new Manage();
+        Account accountFirst = new Account(100, 1773);
+        Account accountSecond = new Account(100, 2000);
+        Account accountThird = new Account(100, 2001);
+        Account accountFourth = new Account(100, 1234);
+        manage.addUser(user);
+        manage.addUser(user1);
+        manage.addAccountToUser(user, accountFirst);
+        manage.addAccountToUser(user, accountSecond);
+        manage.addAccountToUser(user1, accountThird);
+        manage.addAccountToUser(user1, accountFourth);
+        boolean result = manage.transferMoney(user, accountSecond, user1, accountThird, 50);
+        boolean expected = true;
+        assertThat(result, is(expected));
+    }
+
+    /**
+     * Unsuccessful transfer money from one user to another.
+     */
+    @Test
+    public void unsuccessfulTransferMoneyFromOneUserToAnother() {
+        User user = new User("Sergey", "123");
+        User user1 = new User("Andrey", "321");
+        Manage manage = new Manage();
+        Account accountFirst = new Account(100, 1773);
+        Account accountSecond = new Account(100, 2000);
+        Account accountThird = new Account(100, 2001);
+        Account accountFourth = new Account(100, 1234);
+        manage.addUser(user);
+        manage.addUser(user1);
+        manage.addAccountToUser(user, accountFirst);
+        manage.addAccountToUser(user, accountSecond);
+        manage.addAccountToUser(user1, accountThird);
+        manage.addAccountToUser(user1, accountFourth);
+        boolean result = manage.transferMoney(user, accountSecond, user1, accountThird, 200);
+        boolean expected = false;
+        assertThat(result, is(expected));
     }
 }

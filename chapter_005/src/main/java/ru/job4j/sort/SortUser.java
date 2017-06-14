@@ -3,7 +3,7 @@ package ru.job4j.sort;
 import java.util.Set;
 import java.util.List;
 import java.util.TreeSet;
-import java.util.Comparator;
+
 
 /**
  * Task sort.

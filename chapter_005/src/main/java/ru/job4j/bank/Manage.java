@@ -14,7 +14,7 @@ public class Manage {
      * Private filed.
      */
     private Map<User, List<Account>> dep = new HashMap<User, List<Account>>();
-    List<Account> acc = new ArrayList<Account>();
+//    List<Account> acc = new ArrayList<Account>();
 
     /**
      * Getter.
@@ -31,7 +31,7 @@ public class Manage {
      * @param user user.
      */
     public void addUser(User user) {
-        dep.put(user, null);
+        dep.put(user, new ArrayList<Account>());
     }
 
     /**
@@ -50,10 +50,9 @@ public class Manage {
      * @param account account.
      */
     public void addAccountToUser(User user, Account account) {
-        this.acc.add(account);
         for (Map.Entry<User, List<Account>> entry : dep.entrySet()) {
             if (entry.getKey().equals(user)) {
-                entry.setValue(this.acc);
+                entry.getValue().add(account);
             }
         }
     }
@@ -65,14 +64,15 @@ public class Manage {
      * @param account account.
      */
     public void deleteAccountFromUser(User user, Account account) {
+        List<Account> acc = new ArrayList<>();
         for (Map.Entry<User, List<Account>> entry : dep.entrySet()) {
-            if (entry.equals(user)) {
-                this.acc = entry.getValue();
+            if (entry.getKey().equals(user)) {
+                acc = entry.getValue();
             }
         }
-        for (int i = 0; i < this.acc.size(); i++) {
-            if (this.acc.get(i).equals(account)) {
-                this.acc.remove(i);
+        for (int i = 0; i < acc.size(); i++) {
+            if (acc.get(i).equals(account)) {
+                acc.remove(i);
             }
         }
     }
@@ -84,16 +84,17 @@ public class Manage {
      * @return List accounts.
      */
     public List<Account> getUserAccounts(User user) {
+        List<Account> acc = new ArrayList<>();
         for (Map.Entry<User, List<Account>> entry : dep.entrySet()) {
-            if (entry.equals(user)) {
-                this.acc = entry.getValue();
+            if (entry.getKey().equals(user)) {
+                acc = entry.getValue();
             }
         }
-        return this.acc;
+        return acc;
     }
 
     /**
-     * Method transfer money from one account to another/
+     * Method transfer money from one account to another.
      *
      * @param srcUser    source user.
      * @param srcAccount source account.
@@ -103,20 +104,36 @@ public class Manage {
      * @return boolean.
      */
     public boolean transferMoney(User srcUser, Account srcAccount, User dstUser, Account dstAccount, double amount) {
-
+        List<Account> tmp = new ArrayList<>();
+        //Withdraw money
         for (Map.Entry<User, List<Account>> entry : dep.entrySet()) {
-            this.acc = entry.getValue();
-            if (!entry.getValue().equals(srcAccount)) {
+            if (entry.getKey().equals(srcUser) && entry.getValue().contains(srcAccount)) {
+                tmp = entry.getValue();
+                break;
+            } else {
                 return false;
-            } else if (entry.getValue().equals(srcAccount)) {
-                for (int i = 0; i < acc.size(); i++) {
-                    if (acc.get(i).getValue() < amount) {
-                        return false;
-                    }
-                }
             }
-            if (entry.getValue().equals(srcAccount)) {
+        }
+        for (Account account : tmp) {
+            if (account.equals(srcAccount) && account.getValue() >= amount) {
+                account.setValue(account.getValue() - amount);
+                break;
+            } else if (account.equals(srcAccount) && account.getValue() < amount) {
+                return false;
+            }
+        }
 
+        //Deposit money
+        for (Map.Entry<User, List<Account>> entry : dep.entrySet()) {
+            if (entry.getKey().equals(dstUser) && entry.getValue().contains(dstAccount)) {
+                tmp = entry.getValue();
+                break;
+            }
+        }
+        for (Account account : tmp) {
+            if (account.equals(dstAccount)) {
+                account.setValue(account.getValue() + amount);
+                break;
             }
         }
         return true;
