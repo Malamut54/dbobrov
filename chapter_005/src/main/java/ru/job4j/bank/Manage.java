@@ -14,7 +14,6 @@ public class Manage {
      * Private filed.
      */
     private Map<User, List<Account>> dep = new HashMap<User, List<Account>>();
-//    List<Account> acc = new ArrayList<Account>();
 
     /**
      * Getter.
