@@ -16,6 +16,10 @@ public class Account {
      */
     private int requisites;
 
+    public int getValue() {
+        return value;
+    }
+
     public Account(int value, int requisites) {
         this.value = value;
         this.requisites = requisites;

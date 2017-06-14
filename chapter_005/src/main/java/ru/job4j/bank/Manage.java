@@ -104,6 +104,21 @@ public class Manage {
      */
     public boolean transferMoney(User srcUser, Account srcAccount, User dstUser, Account dstAccount, double amount) {
 
-        return false;
+        for (Map.Entry<User, List<Account>> entry : dep.entrySet()) {
+            this.acc = entry.getValue();
+            if (!entry.getValue().equals(srcAccount)) {
+                return false;
+            } else if (entry.getValue().equals(srcAccount)) {
+                for (int i = 0; i < acc.size(); i++) {
+                    if (acc.get(i).getValue() < amount) {
+                        return false;
+                    }
+                }
+            }
+            if (entry.getValue().equals(srcAccount)) {
+
+            }
+        }
+        return true;
     }
 }
