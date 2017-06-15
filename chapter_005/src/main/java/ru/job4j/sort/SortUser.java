@@ -43,10 +43,11 @@ public class SortUser {
     public List<User> sortByAllFields(List<User> list) {
         list.sort(
                 (User first, User second) -> {
-                    if (Integer.compare(first.getName().length(), second.getName().length()) == 0) {
+                    int i = Integer.compare(first.getName().length(), second.getName().length());
+                    if (i == 0) {
                         return Integer.compare(first.getAge(), second.getAge());
                     } else {
-                        return Integer.compare(first.getName().length(), second.getName().length());
+                        return i;
                     }
                 }
         );
