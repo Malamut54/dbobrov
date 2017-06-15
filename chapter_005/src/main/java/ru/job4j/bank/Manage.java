@@ -53,7 +53,7 @@ public class Manage {
      * @param account account.
      */
     public void addAccountToUser(User user, Account account) {
-        if (user != null && dep.containsKey(user)) {
+        if (user != null && account != null && dep.containsKey(user)) {
             dep.get(user).add(account);
         }
     }
@@ -65,7 +65,7 @@ public class Manage {
      * @param account account.
      */
     public void deleteAccountFromUser(User user, Account account) {
-        if (user != null && dep.containsKey(user)) {
+        if (user != null && account != null && dep.containsKey(user)) {
             dep.get(user).remove(account);
         }
     }
