@@ -101,20 +101,25 @@ public class Manage {
         } else {
             return false;
         }
-        for (Account account : tmp) {
-            if (account.equals(srcAccount) && account.getValue() >= amount) {
-                account.setValue(account.getValue() - amount);
-                break;
-            } else if (account.equals(srcAccount) && account.getValue() < amount) {
-                return false;
+        // check that all user and accounts exist.
+        if (dep.get(srcUser).contains(srcAccount) && dep.get(dstUser).contains(dstAccount)) {
+            for (Account account : tmp) {
+                if (account.equals(srcAccount) && account.getValue() >= amount) {
+                    account.setValue(account.getValue() - amount);
+                    break;
+                } else if (account.equals(srcAccount) && account.getValue() < amount) {
+                    return false;
+                }
             }
-        }
-        tmp = dep.get(dstUser);
-        for (Account account : tmp) {
-            if (account.equals(dstAccount)) {
-                account.setValue(account.getValue() + amount);
-                break;
+            tmp = dep.get(dstUser);
+            for (Account account : tmp) {
+                if (account.equals(dstAccount)) {
+                    account.setValue(account.getValue() + amount);
+                    break;
+                }
             }
+        } else {
+            return false;
         }
         return true;
     }
