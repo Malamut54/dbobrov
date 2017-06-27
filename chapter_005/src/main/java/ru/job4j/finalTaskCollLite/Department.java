@@ -36,31 +36,23 @@ public class Department {
 
     public List<String> sortByDescending(List<String> srcDep) {
         List<String> resultAsc = new ArrayList<>(this.fillDeprt(srcDep));
+
         resultAsc.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
                 int result = 0;
 
-                int left = o1.length();
-                int right = o1.length();
+                Integer left = o1.length();
+                Integer right = o2.length();
                 int size = left > right ? left : right;
-                for (int i = 0; i != size; i++) {
-                    if (left > i && right > i) {
-                        result = -o2.substring(i, i).compareTo(o1.substring(i, i));
-                        if (result != 0) {
-                            break;
-                        } else if (left > i) {
-                            result = -1;
-                            break;
-                        } else {
-                            result = 1;
-                            break;
-                        }
-                    }
+                for (int i = 0; i < resultAsc.size(); i++) {
+                    result = left.compareTo(right);
                 }
                 return result;
             }
+
         });
+
         return resultAsc;
     }
 }
