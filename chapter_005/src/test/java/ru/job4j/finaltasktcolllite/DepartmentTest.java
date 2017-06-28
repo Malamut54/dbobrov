@@ -1,4 +1,4 @@
-package ru.job4j.finalTaskCollLite;
+package ru.job4j.finaltasktcolllite;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -6,16 +6,15 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-
-
 
 /**
  * Test SortDeprt.
  */
 public class DepartmentTest {
 
+    /**
+     * Fill list.
+     */
     @Test
     public void fillingMissingValues() {
         List<String> list = new ArrayList();
@@ -43,6 +42,9 @@ public class DepartmentTest {
 
     }
 
+    /**
+     * Sort by ascending.
+     */
     @Test
     public void sortByAscend() {
         List<String> list = new ArrayList();
@@ -66,10 +68,12 @@ public class DepartmentTest {
         expected.add("K2\\SK1");
         expected.add("K2\\SK1\\SSK1");
         expected.add("K2\\SK1\\SSK2");
-        System.out.println(result);
         Assert.assertEquals(result, expected);
     }
 
+    /**
+     * Sort by descending.
+     */
     @Test
     public void sortBydescend() {
         List<String> list = new ArrayList();
@@ -93,7 +97,6 @@ public class DepartmentTest {
         expected.add("K1\\SK1");
         expected.add("K1\\SK1\\SSK2");
         expected.add("K1\\SK1\\SSK1");
-        System.out.println(result);
         Assert.assertEquals(result, expected);
     }
 }
