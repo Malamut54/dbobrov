@@ -3,7 +3,7 @@ package ru.job4j.iterator;
 import java.util.Iterator;
 
 /**
- * TODO: comment
+ * Task Double Iterator
  *
  * @author dbobrov
  * @since 28.06.2017
