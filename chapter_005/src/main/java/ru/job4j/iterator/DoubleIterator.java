@@ -10,13 +10,33 @@ import java.util.Iterator;
  */
 
 public class DoubleIterator implements Iterator {
+
+    private final int[][] array;
+    private int table;
+    private int row ;
+    int countIndex;
+
+
+    public DoubleIterator(int[][] array) {
+        this.array = array;
+    }
+
+
     @Override
     public boolean hasNext() {
-        return false;
+        boolean a = array.length * array[row].length > countIndex;
+        return a;
     }
 
     @Override
     public Object next() {
-        return null;
+        for (int i = 0; i < array.length; i++) {
+            if (array[row].length <= table) {
+                row++;
+                table = 0;
+            }
+        }
+        countIndex++;
+        return array[row][table++];
     }
 }
