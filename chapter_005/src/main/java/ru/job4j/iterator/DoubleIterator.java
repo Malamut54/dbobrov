@@ -48,7 +48,7 @@ public class DoubleIterator implements Iterator {
 
     /**
      * Implementation of the method next.
-     * @return value.
+     * @return value from array.
      */
     @Override
     public Object next() {
