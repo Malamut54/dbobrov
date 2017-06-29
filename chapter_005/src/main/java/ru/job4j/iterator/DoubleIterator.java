@@ -3,31 +3,53 @@ package ru.job4j.iterator;
 import java.util.Iterator;
 
 /**
- * Task Double Iterator
+ * Task Double Iterator.
  *
  * @author dbobrov
  * @since 28.06.2017
  */
 
 public class DoubleIterator implements Iterator {
-
+    /**
+     * Private field.
+     */
     private final int[][] array;
+    /**
+     * Private field.
+     */
     private int table;
-    private int row ;
-    int countIndex;
+    /**
+     * Private field.
+     */
+    private int row;
+    /**
+     * Private field.
+     */
+    private int countIndex;
 
-
+    /**
+     * Constructor for array.
+     *
+     * @param array Input array.
+     */
     public DoubleIterator(int[][] array) {
         this.array = array;
     }
 
-
+    /**
+     * Implementation of the method hasNext.
+     *
+     * @return boolean.
+     */
     @Override
     public boolean hasNext() {
-        boolean a = array.length * array[row].length > countIndex;
-        return a;
+        return array.length * array[row].length > countIndex;
     }
 
+    /**
+     * Implementation of the method next.
+     * @return value.
+     */
     @Override
     public Object next() {
         for (int i = 0; i < array.length; i++) {
