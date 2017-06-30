@@ -1,5 +1,5 @@
 /**
- * Package for iterator array[][].
+ * Package for iterator.
  *
  * @author dbobrov
  * @since 29.06.2017
