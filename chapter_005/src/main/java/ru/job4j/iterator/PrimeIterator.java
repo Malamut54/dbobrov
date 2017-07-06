@@ -35,14 +35,7 @@ public class PrimeIterator implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        while (this.index < array.length) {
-            if (isPrime(array[this.index])) {
-                return true;
-            } else {
-                this.index++;
-            }
-        }
-        return this.index <= array.length - 1;
+        return checkPrime() != -1;
     }
 
     /**
@@ -51,29 +44,31 @@ public class PrimeIterator implements Iterator {
      */
     @Override
     public Object next() {
-        if (this.index <= array.length - 1) {
-            return this.array[this.index++];
+        if (this.array.length > this.index) {
+            return array[this.index++];
         } else {
             return new NoSuchElementException();
         }
-
     }
 
     /**
-     * Check if the input number is prime.
-     *
-     * @param n input number.
-     * @return boolean.
+     * Check prime number in array.
+     * @return index of prime number.
      */
-    boolean isPrime(int n) {
-        if (n < 2) {
-            return false;
-        }
-        for (int i = 2; i * i <= n; i++) {
-            if (n % i == 0) {
-                return false;
+    private int checkPrime() {
+        while (this.index < array.length) {
+            if (this.array[this.index] < 2) {
+                this.index++;
+                return -1;
             }
+            for (int i = 2; i * i <= this.array[this.index]; i++) {
+                if (this.array[this.index] % i == 0) {
+                    this.index++;
+                    return -1;
+                }
+            }
+            return this.index;
         }
-        return true;
+        return -1;
     }
 }
