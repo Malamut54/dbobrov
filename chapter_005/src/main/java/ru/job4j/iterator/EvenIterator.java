@@ -59,7 +59,7 @@ public class EvenIterator implements Iterator {
      *
      * @return index of even number.
      */
-    public int checkEven() {
+    private int checkEven() {
         while (this.index < array.length) {
             if (array[this.index] % 2 == 0) {
                 return this.index;
