@@ -18,7 +18,7 @@ public class EvenIterator implements Iterator {
     /**
      * Private field.
      */
-    private int index;
+    private int index = 0;
 
     /**
      * Constructor for array.
@@ -36,20 +36,7 @@ public class EvenIterator implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        for (int i = 0; this.index < array.length; i++) {
-            if (array[this.index] % 2 == 0) {
-                return true;
-            } else {
-                for (int j = this.index; this.index < array.length; j++) {
-                    if (array[this.index] % 2 != 0) {
-                        this.index++;
-                    } else {
-                        return true;
-                    }
-                }
-            }
-        }
-        return array.length > index;
+        return checkEven() != -1;
     }
 
     /**
@@ -59,13 +46,27 @@ public class EvenIterator implements Iterator {
      */
     @Override
     public Object next() {
-        for (int i = 0; this.index < array.length; ) {
+        if (this.array.length > this.index) {
+            return array[this.index++];
+        } else {
+            return new NoSuchElementException();
+        }
+
+    }
+
+    /**
+     * Check even numbers in array.
+     *
+     * @return index of even number.
+     */
+    public int checkEven() {
+        while (this.index < array.length) {
             if (array[this.index] % 2 == 0) {
-                return array[this.index++];
+                return this.index;
             } else {
                 this.index++;
             }
         }
-        return new NoSuchElementException();
+        return -1;
     }
 }

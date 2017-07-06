@@ -1,9 +1,8 @@
 package ru.job4j.iterator;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * Iterator of even numbers.
@@ -15,27 +14,19 @@ import static org.junit.Assert.assertThat;
 public class EvenIteratorTest {
 
     /**
-     * Test method next().
+     * Test even Iterator.
      */
     @Test
-    public void whenGetNextCallShouldPointerForward() {
-        EvenIterator eit = new EvenIterator(new int[]{0, 3, 4, 6, 1, 6});
-        eit.next();
-        int result = (Integer) eit.next();
-        assertThat(result, is(4));
-    }
-
-    /**
-     * Test method hasNext().
-     */
-    @Test
-    public void whenCheckNextPositionShouldReturnConstatntvalue() {
+    public void testEvenIteratorInRealCondition() {
+        int[] expected = (new int[]{0, 4, 6, 0, 0, 0});
+        int[] result = new int[6];
         EvenIterator eit = new EvenIterator(new int[]{0, 3, 4, 6, 1, 1});
-        for (int i = 0; i < 6; i++) {
-            eit.next();
+        for (int i = 0; i < result.length; i++) {
+            if (eit.hasNext()) {
+                result[i] = (int) eit.next();
+            }
         }
-        boolean result = eit.hasNext();
-        assertThat(result, is(false));
+        Assert.assertArrayEquals(expected, result);
     }
 
 }
