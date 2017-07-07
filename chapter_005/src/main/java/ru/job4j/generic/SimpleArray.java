@@ -48,6 +48,7 @@ public class SimpleArray<E> {
         for (int i = 0; i < this.array.length; i++) {
             if (this.array[i].equals(value)) {
                 this.array[i] = newValue;
+                break;
             }
         }
     }
@@ -75,5 +76,14 @@ public class SimpleArray<E> {
      */
     public E get(int index) {
         return (E) this.array[index];
+    }
+
+    /**
+     * Get array length.
+     *
+     * @return int.
+     */
+    public int length() {
+        return this.array.length;
     }
 }
