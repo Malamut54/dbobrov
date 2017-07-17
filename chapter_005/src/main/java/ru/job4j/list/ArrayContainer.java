@@ -1,6 +1,7 @@
 package ru.job4j.list;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Task List.
@@ -23,6 +24,10 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
      * Private field.
      */
     private int index;
+    /**
+     * Private field.
+     */
+    private int caretka = 0;
 
     /**
      * Getter for length array.
@@ -67,10 +72,9 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
     public void add(E e) {
         if (length - 1 == this.index) {
             increaseSize();
-            arrContainer[this.index++] = e;
-        } else {
-            arrContainer[this.index++] = e;
         }
+        arrContainer[this.index++] = e;
+
     }
 
     /**
@@ -84,8 +88,6 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         E result = null;
         if (index > length && index < 0) {
             throw new IndexOutOfBoundsException();
-        } else if (index > this.index) {
-            return result;
         } else {
             result = (E) arrContainer[index];
         }
@@ -111,5 +113,40 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         System.arraycopy(this.arrContainer, 0, tmp, 0, this.index);
         this.length = newSizeCont;
         this.arrContainer = tmp;
+    }
+
+    /**
+     * Iterator for ArrayContainer.
+     *
+     * @param <E>
+     */
+    private class ArrayContainerIterator<E> implements Iterator<E> {
+
+
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         *
+         * @return {@code true} if the iteration has more elements
+         */
+        @Override
+        public boolean hasNext() {
+            return caretka < getLength() && caretka < index;
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         *
+         * @return the next element in the iteration
+         * @throws NoSuchElementException if the iteration has no more elements
+         */
+        @Override
+        public E next() {
+            if (caretka >= getLength()) {
+                throw new NoSuchElementException();
+            }
+            return (E) get(caretka++);
+        }
     }
 }

@@ -54,9 +54,8 @@ public class ArrayContainerTest {
         for (int i = 0; i < 5; i++) {
             cont.add(String.valueOf(i));
         }
-        ArrayContainerIterator<String> it = new ArrayContainerIterator(cont);
-        while (it.hasNext()) {
-            result = it.next();
+        while (cont.iterator().hasNext()) {
+            result = cont.iterator().next();
         }
         String expected = "4";
         assertThat(result, is(expected));
