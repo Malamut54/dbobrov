@@ -93,15 +93,17 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
     public void removeLast() {
         Node<E> node = last.prev;
         if (length == 0) {
-            throw new NoSuchElementException(); //May be wrong exception
+            throw new NoSuchElementException();
         } else if (length == 1) {
             first.next = last;
             last.prev = first;
             node = null;
+            length--;
         } else {
             node.prev.next = last;
             last.prev = node.prev;
             node = null;
+            length--;
         }
 
     }
