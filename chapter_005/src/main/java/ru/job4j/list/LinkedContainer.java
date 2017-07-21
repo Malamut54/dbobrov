@@ -113,6 +113,15 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
     }
 
     /**
+     * Getter for counter.
+     *
+     * @return
+     */
+    public int getLength() {
+        return length;
+    }
+
+    /**
      * Class realizing Node.
      * @param <E>
      */
