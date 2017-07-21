@@ -77,6 +77,36 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
     }
 
     /**
+     * Return last value from LinkedContainer.
+     * Create for StackContainer.
+     *
+     * @return value.
+     */
+    public E getLast() {
+        return last.prev.item;
+    }
+
+    /**
+     * Remove last value from LinkedContainer.
+     * Create for StackContainer.
+     */
+    public void removeLast() {
+        Node<E> node = last.prev;
+        if (length == 0) {
+            throw new NoSuchElementException(); //May be wrong exception
+        } else if (length == 1) {
+            first.next = last;
+            last.prev = first;
+            node = null;
+        } else {
+            node.prev.next = last;
+            last.prev = node.prev;
+            node = null;
+        }
+
+    }
+
+    /**
      * Iterator for LinkedContainer.
      * @return Iterator.
      */
@@ -115,7 +145,7 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
     /**
      * Getter for counter.
      *
-     * @return
+     * @return length list.
      */
     public int getLength() {
         return length;
