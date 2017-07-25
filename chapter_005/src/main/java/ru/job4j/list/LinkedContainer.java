@@ -115,7 +115,6 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
             node = null;
             length--;
         }
-
     }
 
     /**
