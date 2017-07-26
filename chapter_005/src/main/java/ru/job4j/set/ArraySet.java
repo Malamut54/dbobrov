@@ -15,22 +15,35 @@ public class ArraySet<E> implements Iterable<E> {
     private Object[] arrSet;
     private int pointer = 0;
     int index = 0;
-    // add constructor
+
+    public ArraySet() {
+        this.arrSet = new Object[10];
+        this.size = 10;
+    }
 
     public boolean add(E value) {
         if (size == 0) {
             arrSet[index++] = value;
+            size++;
             return true;
         } else if (contains(value)) {
             return false;
         } else {
             arrSet[index++] = value;
+            size++;
             return true;
         }
     }
 
     public void remove(E value) {
-
+        for (int i = 0; i < this.size; i++) {
+            if (arrSet[i].equals(value)) {
+                System.arraycopy(this.arrSet, i + 1, this.arrSet, i, this.arrSet.length - 1);
+                this.arrSet[arrSet.length - 1] = null;
+                size--;
+                break;
+            }
+        }
     }
 
     public boolean contains(E value) {
