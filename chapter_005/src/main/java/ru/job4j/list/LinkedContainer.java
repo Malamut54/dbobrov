@@ -29,6 +29,7 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
      */
     private int counter = 0;
 
+
     /**
      * Default constructor. Create last and first node with value == null.
      */
@@ -144,6 +145,7 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
     @Override
     public Iterator<E> iterator() {
         return new LinkedContainerIterator<>();
+
     }
 
     /**
@@ -151,6 +153,8 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
      * @param <E>
      */
     private class LinkedContainerIterator<E> implements Iterator<E> {
+
+
         /**
          * Realization method hasNext().
          * @return if the iteration has more elements.
