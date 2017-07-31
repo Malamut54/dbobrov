@@ -4,10 +4,11 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * TODO: comment
+ * Task Set.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 28.07.2017
+ * @param <E>
  */
 
 public class LinkedSet<E> implements Iterable<E> {
@@ -32,6 +33,12 @@ public class LinkedSet<E> implements Iterable<E> {
         first = new Node<E>(null, null, last);
     }
 
+    /**
+     * Add value.
+     *
+     * @param value input value.
+     * @return boolean.
+     */
     public boolean add(E value) {
         if (contains(value)) {
             return false;
@@ -45,6 +52,11 @@ public class LinkedSet<E> implements Iterable<E> {
         }
     }
 
+    /**
+     * Check contains a value in linkedSet.
+     * @param value input value.
+     * @return boolean.
+     */
     public boolean contains(E value) {
         Iterator<E> linkedSetIter = iterator();
         while (linkedSetIter.hasNext()) {
@@ -55,20 +67,69 @@ public class LinkedSet<E> implements Iterable<E> {
         return false;
     }
 
+    /**
+     * Remove value from linkedSet.
+     *
+     * @param value input value.
+     * @return boolean.
+     */
+    public boolean remove(E value) {
+        if (first.next.equals(last)) { // Empty set
+            return false;
+        } else {
+            Node rmNode = first.next;
+            while (rmNode != this.last) {
+                if (rmNode.item.equals(value)) {
+                    rmNode.prev.next = rmNode.next;
+                    rmNode.next.prev = rmNode.prev;
+                    rmNode.next = null;
+                    rmNode.prev = null;
+                    this.length--;
+                    return true;
+                } else {
+                    rmNode = rmNode.next;
+                }
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Iterator for LinkedSet.
+     * @return iterator.
+     */
     @Override
     public Iterator<E> iterator() {
         return new LinkedSetIterator<E>();
     }
 
+    /**
+     * Realization Iterator.
+     * @param <E>
+     */
     private class LinkedSetIterator<E> implements Iterator<E> {
-        Node node = first;
-        int counter;
+        /**
+         * Pointer to first node.
+         */
+        private Node node = first;
+        /**
+         * Counter.
+         */
+        private int counter;
 
+        /**
+         * Realization hasNext.
+         * @return boolean.
+         */
         @Override
         public boolean hasNext() {
             return counter < length && length != 0;
         }
 
+        /**
+         * Realization next.
+         * @return value.
+         */
         @Override
         public E next() {
             if (counter >= length) {
