@@ -77,7 +77,7 @@ public class OptimizedArraySet<E> implements Iterable<E> {
                 if (arrSet[i] == null) {
                     arrSet[i] = value;
                     this.count++;
-                    return false;
+                    return true;
                 }
             }
         }
