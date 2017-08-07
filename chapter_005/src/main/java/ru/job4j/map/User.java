@@ -44,4 +44,11 @@ public class User {
         if (children != user.children) return false;
         return name != null ? name.equals(user.name) : user.name == null;
     }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + children;
+        return result;
+    }
 }
