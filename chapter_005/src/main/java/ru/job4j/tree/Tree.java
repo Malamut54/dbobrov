@@ -5,19 +5,34 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * TODO: comment
+ * Task tree.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 14.08.2017
+ * @param <E>
  */
 
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
+    /**
+     * Root node of tree.
+     */
     private Node root;
 
+    /**
+     * Default constructor.
+     */
     public Tree() {
         this.root = new Node(new ArrayList<Node>(), null);
     }
 
+    /**
+     * Add child in parent.
+     * Parent can have list of child
+     *
+     * @param parent input parent value.
+     * @param child  input child value.
+     * @return boolean.
+     */
     @Override
     public boolean add(E parent, E child) {
         Node node;
@@ -49,6 +64,10 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return true;
     }
 
+    /**
+     * Fill List for Iterator.
+     * @return List.
+     */
     public List fillList() {
         List<E> listChild = new ArrayList<>();
 
@@ -62,32 +81,68 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return listChild;
     }
 
-
+    /**
+     * Iterator for Tree.
+     * @return Iterator.
+     */
     @Override
     public Iterator<E> iterator() {
         return new TreeIterator<E>();
     }
 
+    /**
+     * Realization Iterator for tree.
+     * @param <E>
+     */
     public class TreeIterator<E> implements Iterator<E> {
+        /**
+         * List of all value.
+         */
         private List listFromTree = fillList();
+        /**
+         * Pointer.
+         */
         private int pointer = 0;
 
+        /**
+         * Realization hasNext.
+         * @return boolean.
+         */
         @Override
         public boolean hasNext() {
             return pointer < listFromTree.size();
         }
 
+        /**
+         * Realization next.
+         * @return value.
+         */
         @Override
         public E next() {
             return (E) listFromTree.get(pointer++);
         }
     }
 
+    /**
+     * Class node. Store List and value.
+     */
     private class Node {
-        List<Node> children;
-        E value;
+        /**
+         * List of children.
+         */
+        private List<Node> children;
+        /**
+         * Value.
+         */
+        private E value;
 
-        public Node(List<Node> children, E value) {
+        /**
+         * Constructor.
+         *
+         * @param children List children (if exist).
+         * @param value    input value for store.
+         */
+        Node(List<Node> children, E value) {
             this.children = children;
             this.value = value;
         }
