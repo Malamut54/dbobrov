@@ -65,6 +65,19 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     }
 
     /**
+     * Check if the tree is binary
+     *
+     * @return boolean
+     */
+    public boolean isBinary() {
+        for (Node child : this.root.children) {
+            if (child.children.size() > 2) {
+                return false;
+            }
+        }
+        return true;
+    }
+    /**
      * Fill List for Iterator.
      * @return List.
      */
