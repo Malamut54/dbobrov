@@ -1,6 +1,8 @@
 package ru.job4j.tree;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * TODO: comment
@@ -11,6 +13,7 @@ import java.util.Iterator;
 
 public class BinaryTree<E extends Comparable<E>> implements Iterable<E> {
     private Node rootNode;
+    private int size;
 
 
     public BinaryTree() {
@@ -21,6 +24,7 @@ public class BinaryTree<E extends Comparable<E>> implements Iterable<E> {
 
         if (rootNode == null) {
             rootNode = new Node(e, null, null);
+            size++;
             return;
         }
         Node current = rootNode;
@@ -31,21 +35,42 @@ public class BinaryTree<E extends Comparable<E>> implements Iterable<E> {
                 current = current.left;
                 if (current == null) {
                     parent.left = new Node(e, null, null);
+                    size++;
                     return;
                 }
             } else {
                 current = current.right;
                 if (current == null) {
                     parent.right = new Node(e, null, null);
+                    size++;
                     return;
                 }
             }
         }
     }
 
+    private List<E> fillList() {
+        List<E> list = new ArrayList<>();
+
+    }
+
     @Override
     public Iterator<E> iterator() {
         return null;
+    }
+
+    private class BinaryTreeIterator<E> implements Iterator<E> {
+        int pointer;
+
+        @Override
+        public boolean hasNext() {
+            return pointer < size && size != 0;
+        }
+
+        @Override
+        public E next() {
+
+        }
     }
 
     private class Node {

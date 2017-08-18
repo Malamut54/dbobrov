@@ -23,6 +23,5 @@ public class BinaryTreeTest {
         binTree.add(3);
         binTree.add(7);
         binTree.add(2);
-
     }
 }
