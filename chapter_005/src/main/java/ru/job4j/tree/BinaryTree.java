@@ -1,30 +1,37 @@
 package ru.job4j.tree;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Stack;
 
 /**
- * TODO: comment
+ * Task Tree.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 17.08.2017
+ * @param <E>
  */
 
 public class BinaryTree<E extends Comparable<E>> implements Iterable<E> {
+    /**
+     * Root node.
+     */
     private Node rootNode;
-    private int size;
 
-
+    /**
+     * Default constructor.
+     */
     public BinaryTree() {
         this.rootNode = null;
     }
 
+    /**
+     * Add value to BinaryTree.
+     *
+     * @param e input value.
+     */
     public void add(E e) {
-
         if (rootNode == null) {
             rootNode = new Node(e, null, null);
-            size++;
             return;
         }
         Node current = rootNode;
@@ -35,44 +42,81 @@ public class BinaryTree<E extends Comparable<E>> implements Iterable<E> {
                 current = current.left;
                 if (current == null) {
                     parent.left = new Node(e, null, null);
-                    size++;
                     return;
                 }
             } else {
                 current = current.right;
                 if (current == null) {
                     parent.right = new Node(e, null, null);
-                    size++;
                     return;
                 }
             }
         }
     }
 
-    private List<E> fillList() {
-        List<E> list = new ArrayList<>();
-
-    }
-
+    /**
+     * Iterator for BinaryTree.
+     * @return
+     */
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new BinaryTreeIterator<>(rootNode);
     }
 
+    /**
+     * Realization Iterator.
+     * @param <E>
+     */
     private class BinaryTreeIterator<E> implements Iterator<E> {
-        int pointer;
+        /**
+         * Private stack for value in BinaryTree.
+         */
+        private Stack<Node> stack;
 
+        /**
+         * Constructor.
+         *
+         * @param root input root Node.
+         */
+        BinaryTreeIterator(Node root) {
+            stack = new Stack<>();
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+        }
+
+        /**
+         * realization method hasNext.
+         * @return boolean.
+         */
         @Override
         public boolean hasNext() {
-            return pointer < size && size != 0;
+            return !stack.isEmpty();
         }
 
+        /**
+         * realization method next.
+         * @return value.
+         */
         @Override
         public E next() {
-
+            Node node = stack.pop();
+            E result = (E) node.item;
+            if (node.right != null) {
+                node = node.right;
+                while (node != null) {
+                    stack.push(node);
+                    node = node.left;
+                }
+            }
+            return result;
         }
     }
 
+    /**
+     * Class node.
+     */
     private class Node {
         /**
          * Private field.
@@ -87,7 +131,14 @@ public class BinaryTree<E extends Comparable<E>> implements Iterable<E> {
          */
         private Node left;
 
-        public Node(E item, Node right, Node left) {
+        /**
+         * Constructor.
+         *
+         * @param item  input value
+         * @param right link to right Node.
+         * @param left  link to left Node.
+         */
+        Node(E item, Node right, Node left) {
             this.item = item;
             this.right = right;
             this.left = left;
