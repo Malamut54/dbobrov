@@ -5,6 +5,7 @@ package ru.job4j.tree;
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 14.08.2017
+ * @param <E>
  */
 
 public interface SimpleTree<E extends Comparable<E>> extends Iterable<E> {
