@@ -1,7 +1,5 @@
 package ru.job4j.map;
 
-import java.util.Calendar;
-
 /**
  * Task Map.
  *
@@ -11,44 +9,44 @@ import java.util.Calendar;
 
 public class User {
     /**
-     * Name.
+     * Field name.
      */
-    String name;
-    /**
-     * Number of children.
-     */
-    int children;
-    /**
-     * Date of Birthday
-     */
-    Calendar birthday;
+    private String name;
 
     /**
-     * Default constructor.
+     * Constrcutor.
      *
-     * @param name     First Name.
-     * @param children Number of children
+     * @param name input name.
      */
-    public User(String name, int children) {
+    public User(String name) {
         this.name = name;
-        this.children = children;
     }
 
+    /**
+     * Override equals.
+     * @param o input Object User.
+     * @return boolean
+     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         User user = (User) o;
 
-        if (children != user.children) return false;
         return name != null ? name.equals(user.name) : user.name == null;
     }
 
+    /**
+     * Override hashCode.
+     * @return int hashcode.
+     */
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + children;
-        return result;
+        return name != null ? name.hashCode() : 0;
     }
 }

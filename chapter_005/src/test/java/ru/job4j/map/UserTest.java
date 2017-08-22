@@ -2,12 +2,8 @@ package ru.job4j.map;
 
 import org.junit.Test;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * TODO: comment
+ * Task map.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 04.08.2017
@@ -18,15 +14,10 @@ public class UserTest {
      * Test.
      */
     @Test
-    public void whenCreateUserWithoutOverride() {
-        User first = new User("Bob", 2);
-        User second = new User("Bob", 2);
+    public void testEquals() {
+        User andrey = new User("Andrey");
+        User andreyDuplicate = new User("Andrey");
+        System.out.println(andrey.equals(andreyDuplicate));
 
-        Map<User, Object> map = new HashMap<>();
-
-        map.put(first, "first");
-        map.put(second, "second");
-
-        System.out.println(map);
     }
 }
