@@ -17,19 +17,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     /**
      * Root Tree.
      */
-    private TreeNode root;
-
-    /**
-     * Constructor.
-     * @param rootValue inpur value for root.
-     */
-    public Tree(E rootValue) {
-        if (rootValue == null) {
-            throw new NullPointerException();
-        } else {
-            this.root = new TreeNode(rootValue);
-        }
-    }
+    private Node root;
 
     /**
      * Add parent and child to tree.
@@ -39,66 +27,103 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      */
     @Override
     public boolean add(E parent, E child) {
-        List<TreeNode> tmp;
-        List<TreeNode> rootParentList = this.root.children;
+        Node tmp;
+        boolean isAdded = true;
+
         if (parent == null || child == null) {
-            return false;
+            isAdded = false;
         }
-        //Add first element
-        if (this.root.children.isEmpty()) {
-            this.root.children.add(new TreeNode(parent));
-            tmp = this.root.children.get(0).children;
-            tmp.add(new TreeNode(child));
-            return true;
+        //Add root and his child.
+        if (root == null) {
+            root = new Node(parent);
+            root.children.add(new Node(child));
+        } else {
+            tmp = serchNode(parent, root);
+            tmp.children.add(new Node(child));
+            isAdded = true;
+
         }
-        //Check exist parent.
-        for (TreeNode treeNode : rootParentList) {
-            if (treeNode.value.compareTo(parent) == 0) {
-                tmp = treeNode.children;
-                tmp.add(new TreeNode(child));
-                return true;
-            }
-        }
-        //Add new parent and child.
-        rootParentList.add(new TreeNode(parent));
-        for (TreeNode treeNode : rootParentList) {
-            if (treeNode.value.compareTo(parent) == 0) {
-                treeNode.children.add(new TreeNode(child));
-                return true;
-            }
-        }
-        return false;
+
+        return isAdded;
     }
 
     /**
-     * Fill list for iterator.
-     * @return List.
+     * Search Node, use for add value.
+     *
+     * @param input   value
+     * @param current input node
+     * @return node
      */
-    private List fillList() {
-        List<E> list = new ArrayList<>();
-        List<TreeNode> tmp;
-        for (int i = 0; i < root.children.size(); i++) {
-            tmp = root.children.get(i).children;
-            list.add(root.children.get(i).value);
-            for (int j = 0; j < tmp.size(); j++) {
-                list.add(tmp.get(j).value);
+    private Node serchNode(E input, Node current) {
+        Node node = null;
+        if (current.value.equals(input)) {
+            node = current;
+        } else {
+            List<Node> children = current.children;
+            for (Node child : children) {
+                node = serchNode(input, child);
+                if (node != null) {
+                    break;
+                }
             }
         }
-        return list;
+        return node;
+    }
+
+    /**
+     * Public method for check if tree is binary.
+     * @return boolean.
+     */
+    public boolean isBinary() {
+        return checkBinary(root);
     }
 
     /**
      * Check if the tree is binary.
-     * @return boolean.
+     * @param current input node
+     * @return boolean
      */
-    public boolean isBinary() {
-        for (TreeNode child : this.root.children) {
-            if (child.children.size() > 2) {
-                return false;
+    private boolean checkBinary(Node current) {
+        boolean binary = true;
+        int size = current.children.size();
+        if (size > 2 && size != 0) {
+            binary = false;
+        } else if (size == 1) {
+            binary = checkBinary(current.children.get(0));
+        } else if (size == 2) {
+            binary = checkBinary(current.children.get(0));
+            if (binary) {
+                binary = checkBinary(current.children.get(1));
             }
         }
-        return true;
+        return binary;
     }
+
+    /**
+     * Fill a list of all nodes.
+     *
+     * @param node input node
+     * @return List
+     */
+    private List<Node> returnAllNodes(Node node) {
+        List<Node> listOfNodes = new ArrayList<Node>();
+        if (node != null) {
+            listOfNodes.add(node);
+            for (int i = 0; i < listOfNodes.size(); ++i) {
+                Node n = listOfNodes.get(i);
+                List<Node> children = n.children;
+                if (children != null) {
+                    for (Node child : children) {
+                        if (!listOfNodes.contains(child)) {
+                            listOfNodes.add(child);
+                        }
+                    }
+                }
+            }
+        }
+        return listOfNodes;
+    }
+
 
     /**
      * Iterator for Tree.
@@ -116,9 +141,10 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      */
     private class TreeIterator<E> implements Iterator<E> {
         /**
-         * List of all value.
+         * Get list of all node.
          */
-        private List<E> list = fillList();
+        private List<Node> listAllNode = returnAllNodes(root);
+
         /**
          * Pointer.
          */
@@ -130,30 +156,30 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
          */
         @Override
         public boolean hasNext() {
-            return pointer < list.size();
+            return pointer < listAllNode.size() && listAllNode.size() != 0;
         }
 
         /**
          * Realization method next.
-         * @return value.
+         * @return value
          */
         @Override
         public E next() {
-            if (pointer >= list.size()) {
+            if (pointer >= listAllNode.size()) {
                 throw new NoSuchElementException();
             }
-            return (E) list.get(pointer++);
+            return (E) listAllNode.get(pointer++).value;
         }
     }
 
     /**
      * Class Node. Store value and List children.
      */
-    private class TreeNode {
+    private class Node {
         /**
          * List children.
          */
-        private List<TreeNode> children = new ArrayList<>();
+        private List<Node> children = new ArrayList<>();
         /**
          * Value for store.
          */
@@ -164,9 +190,10 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
          *
          * @param value input value for store.
          */
-        TreeNode(E value) {
+        Node(E value) {
             this.value = value;
         }
+
     }
 
 }
