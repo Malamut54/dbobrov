@@ -1,7 +1,5 @@
 package ru.job4j.orderbook;
 
-import java.util.Date;
-
 /**
  * Task TO DO
  *
@@ -11,7 +9,7 @@ public class Order {
     /**
      * Book number.
      */
-    public final String book;
+    public final int book;
     /**
      * Buy or Sell.
      */
@@ -32,12 +30,22 @@ public class Order {
      * @param price
      * @param volume
      */
-    public Order(String book, String operation, float price, int volume) {
+    public Order(int book, String operation, float price, int volume) {
         this.book = book;
         this.operation = operation;
         this.price = price;
         this.volume = volume;
 
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "book=" + book +
+                ", operation='" + operation + '\'' +
+                ", price=" + price +
+                ", volume=" + volume +
+                '}';
     }
 
 }

@@ -1,8 +1,6 @@
 package ru.job4j.orderbook;
 
 
-import ru.job4j.tree.Tree;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -25,7 +23,7 @@ public class Parser {
                 if (reader.getLocalName().equals("AddOrder")) {
 
                     Integer id = Integer.parseInt(reader.getAttributeValue(4));
-                    String book = reader.getAttributeValue(0);
+                    int book = Integer.parseInt(reader.getAttributeValue(0).substring(5));
                     String operation = reader.getAttributeValue(1);
                     float price = Float.parseFloat(reader.getAttributeValue(2));
                     int volume = Integer.parseInt(reader.getAttributeValue(3));
@@ -39,7 +37,8 @@ public class Parser {
             }
         }
         Book book = new Book();
-        book.summaryOrder(mapOrder);
+        book.divideOnOperation(mapOrder);
+        book.summVolumme();
         return mapOrder;
     }
 }
