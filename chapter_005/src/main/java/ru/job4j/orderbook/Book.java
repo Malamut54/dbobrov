@@ -1,8 +1,6 @@
 package ru.job4j.orderbook;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Task TO DO
@@ -12,6 +10,7 @@ import java.util.Map;
 public class Book {
     private List<Order> sell = new ArrayList<>();
     private List<Order> buy = new ArrayList<>();
+
 
     void divideOnOperation(Map<Integer, Order> orders) {
         for (Order order : orders.values()) {
@@ -23,7 +22,7 @@ public class Book {
         }
     }
 
-    void summVolume() {
+    void sumVolume() {
         List<Order> sellTmp = new ArrayList<>();
         List<Order> buyTmp = new ArrayList<>();
 
@@ -60,6 +59,28 @@ public class Book {
         }
         this.sell = sellTmp;
         this.buy = buyTmp;
+    }
+
+    void calcBook() {
+        Set<Order> sellSort = new TreeSet<>(new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+
+                return Float.compare(o1.price, o2.price);
+            }
+        });
+        Set<Order> buySort = new TreeSet<>(new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+                return Float.compare(o2.price, o1.price);
+            }
+        });
+
+        for (Order order : sell) {
+            sellSort.add(order);
+        }
+        sellSort.addAll(sell);
+        buySort.addAll(buy);
     }
 
 }

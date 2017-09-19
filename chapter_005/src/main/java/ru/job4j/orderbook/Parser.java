@@ -38,7 +38,8 @@ public class Parser {
         }
         Book book = new Book();
         book.divideOnOperation(mapOrder);
-        book.summVolumme();
+        book.sumVolume();
+        book.calcBook();
         return mapOrder;
     }
 }
