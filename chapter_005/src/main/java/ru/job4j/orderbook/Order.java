@@ -48,8 +48,4 @@ public class Order {
                 '}';
     }
 
-//    @Override
-//    public int compareTo(Order o) {
-//        return price > o.price ? 1 : price == o.price ? 0 : -1;
-//    }
 }

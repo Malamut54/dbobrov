@@ -13,7 +13,7 @@ public class ParserTest {
 
         Parser parser = new Parser();
 //        parser.fillOrders("/home/malamut/orders_orig.xml");
-        parser.fillOrders("C:\\Users\\kvazimoda\\Downloads\\orders.xml"); //SSD
+        parser.fillOrders("C:\\Users\\kvazimoda\\Downloads\\orders_little.xml"); //SSD
 //        parser.fillOrders("H:\\orders.xml"); //HDD
 
     }

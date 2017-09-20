@@ -76,11 +76,42 @@ public class Book {
             }
         });
 
-        for (Order order : sell) {
-            sellSort.add(order);
-        }
         sellSort.addAll(sell);
         buySort.addAll(buy);
+
+        this.sell.clear();
+        this.buy.clear();
+
+        this.sell.addAll(sellSort);
+        this.buy.addAll(buySort);
+
+        for (int i = 0; i < buy.size(); i++) {
+            for (int j = 0; j < sell.size(); j++) {
+                if (buy.get(i).price >= sell.get(j).price && buy.get(i).book == sell.get(j).book) {
+
+                    int volume = buy.get(i).volume - sell.get(j).volume;
+
+                    if (volume > 0) {
+                        buy.set(i, new Order(buy.get(i).book, "BUY", buy.get(i).price, volume));
+                        sell.remove(j);
+
+                    } else if (volume < 0) {
+                        sell.set(j, new Order(sell.get(j).book, "SELL", sell.get(j).price, Math.abs(volume)));
+                        buy.remove(i);
+
+                    } else {
+                        buy.remove(i);
+                        sell.remove(j);
+                    }
+                }
+            }
+        }
+        System.out.println(buy);
+        System.out.println(sell);
+
+
+
+
     }
 
 }
