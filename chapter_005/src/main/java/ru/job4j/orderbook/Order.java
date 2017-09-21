@@ -40,12 +40,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "book=" + book +
-                ", operation='" + operation + '\'' +
-                ", price=" + price +
-                ", volume=" + volume +
-                '}';
+        return volume + "@" + price + " " + "Book-" + book + operation;
     }
 
 }

@@ -11,6 +11,13 @@ public class Book {
     private List<Order> sell = new ArrayList<>();
     private List<Order> buy = new ArrayList<>();
 
+    public List<Order> getSell() {
+        return sell;
+    }
+
+    public List<Order> getBuy() {
+        return buy;
+    }
 
     void divideOnOperation(Map<Integer, Order> orders) {
         for (Order order : orders.values()) {
@@ -45,7 +52,6 @@ public class Book {
             }
         }
 
-
         for (int i = 0; i < buy.size(); i++) {
             for (int j = 0; j < buyTmp.size(); j++) {
                 if (buy.get(i).book == buyTmp.get(j).book && buy.get(i).price == buyTmp.get(j).price) {
@@ -59,6 +65,7 @@ public class Book {
         }
         this.sell = sellTmp;
         this.buy = buyTmp;
+
     }
 
     void calcBook() {
@@ -87,33 +94,39 @@ public class Book {
 
         for (int i = 0; i < buy.size(); i++) {
             for (int j = 0; j < sell.size(); j++) {
-                if (buy.get(i).price >= sell.get(j).price && buy.get(i).book == sell.get(j).book) {
+                if (buy.get(i).book != 0 && sell.get(j).book != 0 && buy.get(i).price >= sell.get(j).price && buy.get(i).book == sell.get(j).book) {
 
                     int volume = buy.get(i).volume - sell.get(j).volume;
 
                     if (volume > 0) {
                         buy.set(i, new Order(buy.get(i).book, "BUY", buy.get(i).price, volume));
-                        sell.remove(j);
+                        sell.set(j, new Order(0, "SELL", 0, 0));
 
                     } else if (volume < 0) {
                         sell.set(j, new Order(sell.get(j).book, "SELL", sell.get(j).price, Math.abs(volume)));
-                        buy.remove(i);
+                        buy.set(i, new Order(0, "BUY", 0, 0));
 
                     } else {
-                        buy.remove(i);
-                        sell.remove(j);
+                        buy.set(i, new Order(0, "BUY", 0, 0));
+                        sell.set(j, new Order(0, "SELL", 0, 0));
                     }
                 }
             }
         }
-        System.out.println(buy);
-        System.out.println(sell);
+        Iterator<Order> iterBuy = buy.iterator();
+        Iterator<Order> iterSell = sell.iterator();
 
-
-
-
+        while (iterBuy.hasNext()) {
+            if (iterBuy.next().book == 0) {
+                iterBuy.remove();
+            }
+        }
+        while (iterSell.hasNext()) {
+            if (iterSell.next().book == 0) {
+                iterSell.remove();
+            }
+        }
     }
-
 }
 
 

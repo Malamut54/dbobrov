@@ -11,10 +11,10 @@ public class ParserTest {
     @Test
     public void test() throws Exception {
 
-        Parser parser = new Parser();
+        Main book = new Main();
 //        parser.fillOrders("/home/malamut/orders_orig.xml");
-        parser.fillOrders("C:\\Users\\kvazimoda\\Downloads\\orders_little.xml"); //SSD
-//        parser.fillOrders("H:\\orders.xml"); //HDD
+//        parser.fillOrders("C:\\Users\\kvazimoda\\Downloads\\orders.xml"); //SSD
+        book.formBook("C:\\\\Users\\kvazimoda\\Downloads\\orders.xml"); //HDD
 
     }
 
