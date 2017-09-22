@@ -9,10 +9,25 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Task Order Book.
+ *
+ * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
+ */
 public class Parser {
-    Map<Integer, Order> mapOrder = new HashMap<>();
+    /**
+     * Store order by id.
+     */
+    private Map<Integer, Order> mapOrder = new HashMap<>();
 
+    /**
+     * Parser. Add and remove order.
+     *
+     * @param file input file.
+     * @return Map.
+     * @throws XMLStreamException    exception.
+     * @throws FileNotFoundException exception.
+     */
     Map fillOrders(String file) throws XMLStreamException, FileNotFoundException {
 
         XMLInputFactory factory = XMLInputFactory.newInstance();

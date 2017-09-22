@@ -1,7 +1,7 @@
 package ru.job4j.orderbook;
 
 /**
- * Task TO DO
+ * Task Order Book.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  */
@@ -25,10 +25,10 @@ public class Order {
 
 
     /**
-     * @param book
-     * @param operation
-     * @param price
-     * @param volume
+     * @param book id book.
+     * @param operation sell or buy.
+     * @param price price.
+     * @param volume volume.
      */
     public Order(int book, String operation, float price, int volume) {
         this.book = book;
@@ -37,10 +37,4 @@ public class Order {
         this.volume = volume;
 
     }
-
-    @Override
-    public String toString() {
-        return volume + "@" + price + " " + "Book-" + book + operation;
-    }
-
 }

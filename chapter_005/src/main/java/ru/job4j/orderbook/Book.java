@@ -1,24 +1,49 @@
 package ru.job4j.orderbook;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Comparator;
+import java.util.Iterator;
 
 /**
- * Task TO DO
+ * Task Order Book.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  */
 public class Book {
+    /**
+     * Order sell.
+     */
     private List<Order> sell = new ArrayList<>();
+    /**
+     * Order bid.
+     */
     private List<Order> buy = new ArrayList<>();
 
+    /**
+     * Getter for sell.
+     *
+     * @return List.
+     */
     public List<Order> getSell() {
         return sell;
     }
 
+    /**
+     * Getter for buy.
+     * @return List.
+     */
     public List<Order> getBuy() {
         return buy;
     }
 
+    /**
+     * Divide by operation (sell or buy).
+     * @param orders mixed map.
+     */
     void divideOnOperation(Map<Integer, Order> orders) {
         for (Order order : orders.values()) {
             if (order.operation.equals("SELL")) {
@@ -29,6 +54,9 @@ public class Book {
         }
     }
 
+    /**
+     * summ volume by price.
+     */
     void sumVolume() {
         List<Order> sellTmp = new ArrayList<>();
         List<Order> buyTmp = new ArrayList<>();
@@ -68,6 +96,9 @@ public class Book {
 
     }
 
+    /**
+     * Main method for calculation Order Book.
+     */
     void calcBook() {
         Set<Order> sellSort = new TreeSet<>(new Comparator<Order>() {
             @Override
