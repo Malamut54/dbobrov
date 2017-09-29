@@ -16,6 +16,34 @@ import java.util.Map;
  */
 public class Parser {
     /**
+     * Add Order.
+     */
+    private static final String ADD = "AddOrder";
+    /**
+     * Delete Order.
+     */
+    private static final String DEL = "DeleteOrder";
+    /**
+     * ID order/
+     */
+    private static final String ID = "orderId";
+    /**
+     * Number of book.
+     */
+    private static final String BOOK = "book";
+    /**
+     * Operation(Sell or Buy).
+     */
+    private static final String OPER = "operation";
+    /**
+     * Price.
+     */
+    private static final String PRICE = "price";
+    /**
+     * Volume.
+     */
+    private static final String VOLUME = "volume";
+    /**
      * Store order by id.
      */
     private Map<Integer, Order> mapOrder = new HashMap<>();
@@ -35,18 +63,19 @@ public class Parser {
         while (reader.hasNext()) {
             reader.next();
             if (reader.isStartElement()) {
-                if (reader.getLocalName().equals("AddOrder")) {
+                if (ADD.equals(reader.getLocalName())) {
 
-                    Integer id = Integer.parseInt(reader.getAttributeValue(4));
-                    int book = Integer.parseInt(reader.getAttributeValue(0).substring(5));
-                    String operation = reader.getAttributeValue(1);
-                    float price = Float.parseFloat(reader.getAttributeValue(2));
-                    int volume = Integer.parseInt(reader.getAttributeValue(3));
+
+                    Integer id = Integer.parseInt(reader.getAttributeValue(null, ID));
+                    int book = Integer.parseInt(reader.getAttributeValue(null, BOOK).substring(5));
+                    String operation = reader.getAttributeValue(null, OPER);
+                    float price = Float.parseFloat(reader.getAttributeValue(null, PRICE));
+                    int volume = Integer.parseInt(reader.getAttributeValue(null, VOLUME));
 
                     mapOrder.put(id, new Order(book, operation, price, volume));
 
-                } else if (reader.getLocalName().equals("DeleteOrder")) {
-                    Integer id = Integer.parseInt(reader.getAttributeValue(1));
+                } else if (DEL.equals(reader.getLocalName())) {
+                    Integer id = Integer.parseInt(reader.getAttributeValue(null, ID));
                     mapOrder.remove(id);
                 }
             }

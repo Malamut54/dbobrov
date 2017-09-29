@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 
 /**
@@ -15,17 +16,9 @@ import java.util.Map;
 
 public class Main {
     /**
-     * Book - 1.
+     * Formed Book.
      */
-    private List<String> book1 = new ArrayList<>();
-    /**
-     * Book - 2.
-     */
-    private List<String> book2 = new ArrayList<>();
-    /**
-     * Book - 3.
-     */
-    private List<String> book3 = new ArrayList<>();
+    Map<Integer, List<String>> resultBook = new TreeMap<>();
 
     /**
      * Form and print final Book.
@@ -44,36 +37,31 @@ public class Main {
         List<Order> buy = book.getBuy();
         List<Order> sell = book.getSell();
 
-        for (int i = 0; i < buy.size(); ) {
+        for (int i = 0; i < buy.size(); i++) {
             for (int j = 0; j < sell.size(); j++) {
-                if (buy.get(i).book == sell.get(j).book && buy.get(i).book == 1) {
-                    book1.add(buy.get(i).volume + "@" + buy.get(i).price + " - " + sell.get(i).volume + "@" + sell.get(i).price);
-                    i++;
-                    break;
-                } else if (buy.get(i).book == sell.get(j).book && buy.get(i).book == 2) {
-                    book2.add(buy.get(i).volume + "@" + buy.get(i).price + " - " + sell.get(i).volume + "@" + sell.get(i).price);
-                    i++;
-                    break;
-                } else if (buy.get(i).book == sell.get(j).book && buy.get(i).book == 3) {
-                    book3.add(buy.get(i).volume + "@" + buy.get(i).price + " - " + sell.get(i).volume + "@" + sell.get(i).price);
-                    i++;
-                    break;
+                if (buy.get(i).book == sell.get(j).book) {
+                    if (resultBook.containsKey(buy.get(i).book)) {
+                        List<String> tmp = resultBook.get(buy.get(i).book);
+                        tmp.add(String.format("%d@%.1f - %d@%.1f", buy.get(i).volume, buy.get(i).price,
+                                sell.get(j).volume, sell.get(j).price));
+                        sell.remove(j);
+                        break;
+                    } else {
+                        List<String> tmp = new ArrayList<>();
+                        tmp.add((String.format("Book - %d%nBID ASK", buy.get(i).book)));
+                        tmp.add(String.format("%d@%.1f - %d@%.1f", buy.get(i).volume, buy.get(i).price,
+                                sell.get(j).volume, sell.get(j).price));
+                        resultBook.put(buy.get(i).book, tmp);
+                        sell.remove(j);
+                        break;
+                    }
                 }
-
             }
         }
-
-        System.out.println("Order book - 1");
-        for (int i = 0; i < book1.size(); i++) {
-            System.out.println(book1.get(i));
-        }
-        System.out.println("Order book - 2");
-        for (int i = 0; i < book2.size(); i++) {
-            System.out.println(book2.get(i));
-        }
-        System.out.println("Order book - 3");
-        for (int i = 0; i < book3.size(); i++) {
-            System.out.println(book3.get(i));
+        for (List<String> list : resultBook.values()) {
+            for (String s : list) {
+                System.out.println(s);
+            }
         }
     }
 }
