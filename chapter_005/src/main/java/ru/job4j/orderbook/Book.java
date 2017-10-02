@@ -18,6 +18,9 @@ public class Book {
      * Operation SELL.
      */
     private static final String SELL = "SELL";
+    /**
+     * Operation BUY.
+     */
     private static final String BUY = "BUY";
     /**
      * Order sell.
