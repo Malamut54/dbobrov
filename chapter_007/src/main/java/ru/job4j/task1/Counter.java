@@ -7,7 +7,7 @@ package ru.job4j.task1;
  * @since 26.09.2017
  */
 
-public class Counter extends Thread {
+public class Counter {
     /**
      * Count for spaces.
      */
