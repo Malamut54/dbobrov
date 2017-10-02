@@ -1,7 +1,6 @@
 package ru.job4j.finaltasklogic;
 
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
