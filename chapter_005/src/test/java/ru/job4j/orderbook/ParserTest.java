@@ -19,7 +19,7 @@ public class ParserTest {
     public void test() throws Exception {
         Main book = new Main();
         Date start = new Date();
-        book.formBook("C:\\Users\\kvazimoda\\Downloads\\orders.xml"); //HDD
+        book.formBook("/home/malamut/orders_orig.xml"); //HDD
         Date finish = new Date();
         System.out.println((finish.getTime() - start.getTime()) + " ms");
     }

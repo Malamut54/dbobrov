@@ -14,10 +14,6 @@ import java.util.TreeMap;
  */
 
 public class Main {
-    /**
-     * Formed Book.
-     */
-    Map<Integer, List<String>> resultBook = new TreeMap<>();
 
     /**
      * Form and print final Book.
@@ -37,6 +33,13 @@ public class Main {
         }
     }
 
+    /**
+     * Print Book.
+     *
+     * @param book num of books.
+     * @param sell sell.
+     * @param buy  price.
+     */
     void printBook(Integer book, Map<Float, Integer> sell, Map<Float, Integer> buy) {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format("Book %d\n", book));

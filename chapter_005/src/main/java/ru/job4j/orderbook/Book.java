@@ -12,9 +12,21 @@ import java.util.TreeMap;
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  */
 public class Book {
+    /**
+     * Operation sell.
+     */
     private final String operSell = "SELL";
+    /**
+     * Operation buy.
+     */
     private final String operBuy = "BUY";
+    /**
+     * Store price and volume for sell.
+     */
     private Map<Float, Integer> sell = new TreeMap<>();
+    /**
+     * Store price and volume for buy.
+     */
     private Map<Float, Integer> buy = new TreeMap<>(new Comparator<Float>() {
         @Override
         public int compare(Float o1, Float o2) {
@@ -22,14 +34,27 @@ public class Book {
         }
     });
 
+    /**
+     * Getter for sell.
+     *
+     * @return sell.
+     */
     public Map<Float, Integer> getSell() {
         return sell;
     }
 
+    /**
+     * Getter for buy.
+     * @return
+     */
     public Map<Float, Integer> getBuy() {
         return buy;
     }
 
+    /**
+     * Form sell and buy for concrete book.
+     * @param list Orders.
+     */
     public void formLadder(List<Order> list) {
 
         for (Order order : list) {
