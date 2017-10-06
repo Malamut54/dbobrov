@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class OrderSplit {
     private Map<Integer, Order> list;
-    private Map<Integer, Book> splitOrder = new HashMap<>();
+    private Map<Integer, Book> formOrder = new HashMap<>();
 
     public OrderSplit(Map<Integer, Order> list) {
         this.list = list;
@@ -24,21 +24,21 @@ public class OrderSplit {
         List<Order> listOfOSrcOrder = new ArrayList<>(list.values());
         List<Order> tmp = new ArrayList<>();
 
-        //Fill splitOrder by key, value - empty.
+        //Fill only book number.
         for (Order order : listOfOSrcOrder) {
-            splitOrder.put(order.book, null);
+            formOrder.put(order.book, null);
         }
-        for (Integer numOfBook : splitOrder.keySet()) {
+        for (Integer numOfBook : formOrder.keySet()) {
             for (Order order : listOfOSrcOrder) {
                 if (numOfBook == order.book) {
                     tmp.add(order);
                 }
             }
             Book book = new Book();
-            book.splitByOperation(tmp);
-            splitOrder.put(numOfBook, book);
+            book.formLadder(tmp);
+            formOrder.put(numOfBook, book);
         }
-        return splitOrder;
+        return formOrder;
     }
 
 }

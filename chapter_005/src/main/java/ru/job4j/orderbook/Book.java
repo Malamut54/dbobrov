@@ -22,10 +22,15 @@ public class Book {
         }
     });
 
-    public void splitByOperation(List<Order> list) {
+    public Map<Float, Integer> getSell() {
+        return sell;
+    }
 
-        Iterator<Map.Entry<Float, Integer>> buyIt = buy.entrySet().iterator();
-        Iterator<Map.Entry<Float, Integer>> sellIt = sell.entrySet().iterator();
+    public Map<Float, Integer> getBuy() {
+        return buy;
+    }
+
+    public void formLadder(List<Order> list) {
 
         for (Order order : list) {
             if (order.operation.equals(operBuy)) {
@@ -61,6 +66,9 @@ public class Book {
                 }
             }
         }
+
+        Iterator<Map.Entry<Float, Integer>> buyIt = buy.entrySet().iterator();
+        Iterator<Map.Entry<Float, Integer>> sellIt = sell.entrySet().iterator();
 
         while (buyIt.hasNext()) {
             Map.Entry<Float, Integer> entry = buyIt.next();
