@@ -2,6 +2,7 @@ package ru.job4j.orderbook;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -41,15 +42,34 @@ public class Main {
      * @param buy  price.
      */
     void printBook(Integer book, Map<Float, Integer> sell, Map<Float, Integer> buy) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(String.format("Book %d\n", book));
+        List<String> buyList = new ArrayList<>();
+        List<String> sellList = new ArrayList<>();
+        List<String> listFinal = new ArrayList<>();
+        listFinal.add(String.format("Book %d\n", book));
         for (Map.Entry<Float, Integer> entry : sell.entrySet()) {
-            builder.append(String.format("SELL \t\t%5s %7s\n", entry.getKey(), entry.getValue()));
+            sellList.add(String.format("%.1f@%d", entry.getKey(), entry.getValue()));
         }
         for (Map.Entry<Float, Integer> entry : buy.entrySet()) {
-            builder.append(String.format("BUY \t\t%5s %7s\n", entry.getKey(), entry.getValue()));
+            buyList.add(String.format("%.1f@%d", entry.getKey(), entry.getValue()));
         }
-        System.out.println(builder);
+        int dummy = buyList.size() - sellList.size();
+        if (dummy > 0) {
+            for (int i = 0; i < dummy; i++) {
+                sellList.add("------------");
+            }
+        } else if (dummy < 0) {
+            for (int i = 0; i < Math.abs(dummy); i++) {
+                buyList.add("------------");
+            }
+        }
+
+        for (int i = 0; i < sellList.size(); i++) {
+            listFinal.add(String.format(sellList.get(i) + "\t" + buyList.get(i)));
+        }
+        for (int i = 0; i < listFinal.size(); i++) {
+            System.out.println(listFinal.get(i));
+        }
+        ;
     }
 }
 
