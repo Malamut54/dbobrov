@@ -1,7 +1,10 @@
 package ru.job4j.task2;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
- * TODO: comment
+ * Task 2.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 03.10.2017
@@ -11,30 +14,38 @@ public class Word extends Thread {
     /**
      * Count for words.
      */
-    private int word;
+    private int wordCount;
     /**
      * Array to count spaces and words.
      */
     private char[] tmpText;
-    Thread t;
 
-
+    /**
+     * Constructor.
+     *
+     * @param tmpText input text.
+     */
     public Word(char[] tmpText) {
         this.tmpText = tmpText;
-        Thread t = new Thread(this);
     }
 
+    /**
+     * Method calculate words in text.
+     */
     @Override
     public void run() {
+        List list = new LinkedList<>();
         if (tmpText[0] != ' ') {
-            word++;
+            wordCount++;
         }
         for (int i = 1; i < tmpText.length; i++) {
 
             if (tmpText[i - 1] == ' ' && tmpText[i] != ' ') {
-                word++;
+                wordCount++;
+                list.add(tmpText[i]);
+
             }
         }
-        System.out.println(String.format("Words: %d", word));
+        System.out.println(String.format("Words: %d", wordCount));
     }
 }

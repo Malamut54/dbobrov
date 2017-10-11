@@ -1,28 +1,36 @@
 package ru.job4j.task2;
 
+import java.util.Date;
+
 /**
- * TODO: comment
+ * Task 2.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 03.10.2017
  */
 
 public class Counter {
-    /**
-     * Count for spaces.
-     */
-    private int space;
-    /**
-     * Count for words.
-     */
-    private int word;
+
     /**
      * Array to count spaces and words.
      */
     private char[] tmpText;
-
-    Thread s;
-    Thread w;
+    /**
+     * Thread space.
+     */
+    private Thread space;
+    /**
+     * Thread word.
+     */
+    private Thread word;
+    /**
+     * Time execution.
+     */
+    private long timeExec;
+    /**
+     * limit timer.
+     */
+    private int timer = 1000;
 
     /**
      * Constructor.
@@ -34,25 +42,36 @@ public class Counter {
         start();
     }
 
+    /**
+     * Start Threads and check limit timer.
+     */
     void start() {
         spaceCount();
         wordsCount();
         try {
-            s.join();
-            w.join();
+            long start = new Date().getTime();
+            space.join();
+            word.join();
+            long finish = new Date().getTime();
+            timeExec = (finish - start);
+            if (timeExec > timer) {
+                space.interrupt();
+                word.interrupt();
+            }
             System.out.println("The end");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
+
     /**
      * Counting spaces.
      */
     public void spaceCount() {
         Space space = new Space(tmpText);
-        s = new Thread(space);
-        s.start();
+        this.space = new Thread(space);
+        this.space.start();
 
 
     }
@@ -62,8 +81,8 @@ public class Counter {
      */
     public void wordsCount() {
         Word word = new Word(tmpText);
-        w = new Thread(word);
-        w.start();
+        this.word = new Thread(word);
+        this.word.start();
 
 
     }
