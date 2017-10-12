@@ -43,7 +43,10 @@ public class Word extends Thread {
             if (tmpText[i - 1] == ' ' && tmpText[i] != ' ') {
                 wordCount++;
                 list.add(tmpText[i]);
-
+                if (isInterrupted()){
+                    System.out.println("Thread is interrupted");
+                    break;
+                }
             }
         }
         System.out.println(String.format("Words: %d", wordCount));
