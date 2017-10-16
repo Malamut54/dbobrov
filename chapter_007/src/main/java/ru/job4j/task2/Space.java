@@ -34,7 +34,8 @@ public class Space extends Thread {
         for (int i = 0; i < tmpText.length; i++) {
             if (tmpText[i] == ' ') {
                 spaceCount++;
-            }   if (isInterrupted()) {
+            }
+            if (isInterrupted()) {
                 System.out.println("Thread is interrupted");
                 break;
             }
