@@ -23,15 +23,13 @@ class Count implements Runnable {
     /**
      * Increment and print value.
      */
-    public void increment() {
+    public synchronized void increment() {
         val++;
         System.out.println(val);
     }
     @Override
     public void run() {
-        synchronized (this) {
-            increment();
-        }
+        increment();
     }
 }
 
