@@ -17,7 +17,7 @@ class Count implements Runnable {
     /**
      * value for count.
      */
-    @GuardedBy("this")
+    @GuardedBy("increment")
     private int val;
 
     /**
