@@ -12,7 +12,7 @@ import net.jcip.annotations.ThreadSafe;
  */
 
 @ThreadSafe
-class Count implements Runnable {
+class Count {
 
     /**
      * value for count.
@@ -27,24 +27,31 @@ class Count implements Runnable {
         val++;
         System.out.println(val);
     }
-    @Override
-    public void run() {
-        increment();
-    }
+
 }
 
 /**
  * Demo class.
  */
-class Demo {
+class Demo implements Runnable {
+    /**
+     * Object count.
+     */
+    private Count count = new Count();
+
+    @Override
+    public void run() {
+        count.increment();
+    }
+
     /**
      * Main method.
      * @param args input args.
      */
     public static void main(String[] args) {
-        Count count = new Count();
+        Demo demo = new Demo();
         for (int i = 0; i < 10; i++) {
-            new Thread(count).start();
+            new Thread(demo).start();
         }
     }
 }
