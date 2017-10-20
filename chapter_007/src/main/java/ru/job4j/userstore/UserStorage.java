@@ -1,5 +1,7 @@
 package ru.job4j.userstore;
 
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ import java.util.List;
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 20.10.2017
  */
-
+@ThreadSafe
 public class UserStorage {
     /**
      * Store for users.
