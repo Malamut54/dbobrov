@@ -1,4 +1,4 @@
-package ru.job4j.list;
+package ru.job4j.synclist;
 
 import org.junit.Test;
 
@@ -6,18 +6,17 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Task List.
+ * Task synchronize list.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
- * @since 14.07.2017
  */
-public class LinkedContainerTest {
+public class SyncListLinkTest {
     /**
      * Test add.
      */
     @Test
     public void whenAddValueToLinkedConatainer() {
-        LinkedContainer<Integer> linkedList = new LinkedContainer<>();
+        SyncListLink<Integer> linkedList = new SyncListLink<>();
         for (int i = 0; i < 6; i++) {
             linkedList.add(i);
         }
@@ -30,9 +29,9 @@ public class LinkedContainerTest {
      * Test Iterator.
      */
     @Test
-    public void testIterator() {
+    public void testIteratorInRealCondition() {
         Integer result = null;
-        LinkedContainer<Integer> linkedList = new LinkedContainer<>();
+        SyncListLink<Integer> linkedList = new SyncListLink<>();
         for (int i = 0; i < 6; i++) {
             linkedList.add(i);
         }
