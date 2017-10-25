@@ -2,29 +2,29 @@ package ru.job4j.findtext;
 
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 
 /**
- * TODO: comment
+ * Task parallel search.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 24.10.2017
  */
 
 public class ParallelSearchTest {
+    /**
+     * Demo.
+     */
     @Test
-    public void searchText() throws IOException {
+    public void searchText() {
         List<String> ext = new ArrayList<>();
         ext.add(".conf");
-        ext.add(".db");
+        ext.add(".sh");
+        ext.add(".schema");
         ParallelSearch parallelSearch = new ParallelSearch();
-
-
-        parallelSearch.searchText("H:\\job4j", "some text", ext);
+        System.out.println(parallelSearch.searchText("H:\\job4j", "backup", ext));
     }
 
 }
