@@ -43,6 +43,15 @@ public class ParallelSearch {
     }
 
     /**
+     * Add files to List.
+     *
+     * @param path path.
+     */
+    private synchronized void add(String path) {
+        resultFiles.add(path);
+    }
+
+    /**
      * Class for find files.
      */
     class FindFiles implements Runnable {
@@ -166,7 +175,7 @@ public class ParallelSearch {
             String[] tmp = stringAllText.split("[ #=,;:.!?\"+\\n\\t]");
             for (String s : tmp) {
                 if (searchText.equals(s)) {
-                    resultFiles.add(inputPath);
+                    add(inputPath);
                     break;
                 }
             }
