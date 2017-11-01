@@ -11,36 +11,29 @@ public class Producer implements Runnable {
     /**
      * Start value.
      */
-    private Integer value = 0;
-    /**
-     * Timeout.
-     */
-    private Integer pause = 1000;
+    private Integer value = (int) (Math.random() * 100);
     /**
      * Link to buffer.
      */
-    private Buffer buffer;
+    private BlockingQueue buffer;
 
     /**
      * Constructor.
      *
      * @param buffer link to buffer.
      */
-    public Producer(Buffer buffer) {
+    public Producer(BlockingQueue buffer) {
         this.buffer = buffer;
     }
 
     @Override
     public void run() {
-        while (true) {
-
-            try {
-                System.out.println(String.format("%d produced", value));
-                buffer.add(this.value++);
-                Thread.sleep(pause);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            System.out.println(String.format("Try to Put value %d in Queue", value));
+            buffer.put(this.value);
+            System.out.println(String.format("%d success put", value));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

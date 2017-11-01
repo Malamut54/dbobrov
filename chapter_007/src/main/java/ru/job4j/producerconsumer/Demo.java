@@ -8,19 +8,19 @@ package ru.job4j.producerconsumer;
  */
 
 public class Demo {
-
     /**
      * Main method.
-     *
-     * @param args args.
+     * @param args input args.
+     * @throws InterruptedException exception.
      */
-    public static void main(String[] args) {
-        Buffer buffer = new Buffer();
-        Thread consumer = new Thread(new Consumer(buffer));
-        Thread producer = new Thread(new Producer(buffer));
-
-        consumer.start();
-        producer.start();
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue buffer = new BlockingQueue();
+        for (int i = 0; i < 10; i++) {
+            new Thread(new Producer(buffer)).start();
+        }
+        for (int i = 0; i < 3; i++) {
+            new Thread(new Consumer(buffer)).start();
+        }
 
     }
 }

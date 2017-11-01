@@ -11,26 +11,25 @@ public class Consumer implements Runnable {
     /**
      * Link to buffer.
      */
-    private Buffer buffer;
+    private BlockingQueue buffer;
 
     /**
      * Constructor.
      *
      * @param buffer link to buffer.
      */
-    public Consumer(Buffer buffer) {
+    public Consumer(BlockingQueue buffer) {
         this.buffer = buffer;
     }
 
     @Override
     public void run() {
-        while (true) {
             try {
-                Integer result = buffer.get();
+                System.out.println("Try to take value from Queue");
+                Object result = (Integer) buffer.take();
                 System.out.println(String.format("%d Consumed", result));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
     }
 }
