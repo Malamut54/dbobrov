@@ -2,43 +2,72 @@ package ru.job4j.pool;
 
 import ru.job4j.producerconsumer.BlockingQueue;
 
-import java.util.List;
-
 /**
  * Task ThreadPool.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 01.11.2017
+ *
  */
 
 public class ThreadPool {
-    private int noOfThreads = Runtime.getRuntime().availableProcessors();
-    private BlockingQueue blockingQueue;
-    private Worker[] threads = new Worker[noOfThreads];
-    private boolean isStopped = false;
+    /**
+     * Store workers who do the work.
+     */
+    private PoolWorker[] threads;
+    /**
+     * Store tasks.
+     */
+    private BlockingQueue<Runnable> queue;
 
+    /**
+     * Default constructor.
+     */
     public ThreadPool() {
-        blockingQueue = new BlockingQueue();
+        threads = new PoolWorker[Runtime.getRuntime().availableProcessors()];
+        queue = new BlockingQueue(10);
 
-        for (int i = 0; i < noOfThreads; i++) {
-            threads[i] = new Worker(blockingQueue);
-        }
-        for (Worker thread : threads) {
+        for (PoolWorker thread : threads) {
+            thread = new PoolWorker();
             thread.start();
         }
     }
 
-    public synchronized void execute(Runnable task) throws Exception {
-        if (this.isStopped) {
-            throw new IllegalStateException("ThreadPool is stopped");
+    /**
+     * Add task to {@link BlockingQueue}.
+     *
+     * @param task input task.
+     * @throws InterruptedException exception.
+     */
+    public void execute(Runnable task) throws InterruptedException {
+        synchronized (queue) {
+            queue.put(task);
         }
-        this.blockingQueue.put(task);
     }
 
-    public synchronized void stop() {
-        this.isStopped = true;
-        for (Worker thread : threads) {
-            thread.doStop();
+    /**
+     * Class create worker that does the work.
+     */
+    private class PoolWorker extends Thread {
+        /**
+         * Task.
+         */
+        private Runnable task;
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    task = queue.take();
+                } catch (InterruptedException e) {
+
+                }
+                try {
+                    task.run();
+                } catch (RuntimeException e) {
+
+                }
+            }
         }
     }
 }
