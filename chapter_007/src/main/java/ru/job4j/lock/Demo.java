@@ -10,38 +10,27 @@ import java.util.List;
  * @since 02.11.2017
  */
 
-public class Demo {
+public class Demo implements Runnable {
+    Incr incr = new Incr();
 
-    public static void main(String[] args) {
-        Counter counter = new Counter();
-        List<Thread> list = new ArrayList();
-        for (int i = 0; i < 10; i++) {
-            list.add(new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        counter.increment();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }));
-        }
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).start();
-        }
+    @Override
+    public void run() {
+        incr.increment();
     }
 
-
+    public static void main(String[] args) {
+        Demo demo = new Demo();
+        for (int i = 0; i < 10; i++) {
+            new Thread(demo).start();
+        }
+    }
 }
 
-class Counter {
-    private int number = 0;
-    SimpleLock simpleLock = new SimpleLock();
+class Incr {
+    private int i;
 
-    public void increment() throws InterruptedException {
-//        simpleLock.lock();
-        System.out.println(number++);
-//        simpleLock.unlock();
+    public void increment() {
+        i++;
+        System.out.println(i);
     }
 }
