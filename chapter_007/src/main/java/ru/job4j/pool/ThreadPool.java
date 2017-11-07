@@ -60,12 +60,12 @@ public class ThreadPool {
                 try {
                     task = queue.take();
                 } catch (InterruptedException e) {
-
+                    e.printStackTrace();
                 }
                 try {
                     task.run();
                 } catch (RuntimeException e) {
-
+                    e.printStackTrace();
                 }
             }
         }
