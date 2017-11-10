@@ -18,7 +18,8 @@ public class Model {
     private String name;
 
     /**
-     * Default constructor.
+     * Constructor.
+     * @param name name.
      */
     public Model(String name) {
         this.version = 0;
@@ -26,7 +27,7 @@ public class Model {
     }
 
     /**
-     * Getter for version
+     * Getter for version.
      *
      * @return version.
      */
@@ -34,7 +35,10 @@ public class Model {
         return version;
     }
 
-    public void update() {
+    /**
+     * Increment version.
+     */
+    public void increment() {
         this.version++;
     }
 

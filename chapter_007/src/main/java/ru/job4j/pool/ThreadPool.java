@@ -66,6 +66,7 @@ public class ThreadPool {
                     task.run();
                 } catch (RuntimeException e) {
                     e.printStackTrace();
+                    System.out.println();
                 }
             }
         }
