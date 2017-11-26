@@ -1,7 +1,6 @@
 package ru.job4j.pamperingwithdb;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,24 +14,42 @@ import java.sql.Statement;
  */
 
 public class FillDB {
-    private int numOfValue;
+    /**
+     * Number of values.
+     */
+    private int number;
+    /**
+     * Path to sqlite database.
+     */
     private String urlToDB;
 
-    public void fillDataBase(Init initParametr) {
+    /**
+     * Method fill Database.
+     *
+     * @param initParameter number of values and path to database.
+     */
+    public void fillDataBase(Init initParameter) {
         Connection conn = null;
-        urlToDB = initParametr.getConnectToDB();
+        urlToDB = initParameter.getConnectToDB();
+        number = initParameter.getNumber();
         Statement stmt;
         ResultSet rs;
 
         try {
             conn = DriverManager.getConnection(urlToDB);
             stmt = conn.createStatement();
-            stmt.execute("CREATE TABLE IF NOT EXISTS test(id INTEGER);");
+            stmt.execute("CREATE TABLE IF NOT EXISTS test(FIELD INTEGER);");
             rs = stmt.executeQuery("SELECT * FROM test");
-//            stmt.execute("INSERT INTO test (id) VALUES (1)");
-            while (rs.next()) {
-                System.out.println(rs.getInt("id"));
+            if (rs.next()) {
+                stmt.execute("DELETE FROM test;");
             }
+            conn.setAutoCommit(false);
+
+            for (int i = 1; i <= number; i++) {
+                stmt.addBatch(String.format("INSERT INTO test (FIELD) VALUES (%d)", i));
+            }
+            stmt.executeBatch();
+            conn.commit();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,4 +64,5 @@ public class FillDB {
         }
 
     }
+
 }
