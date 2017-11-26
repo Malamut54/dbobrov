@@ -1,5 +1,5 @@
 /**
- * Task UML
+ * Task UML.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 20.11.2017

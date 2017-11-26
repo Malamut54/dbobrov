@@ -1,6 +1,6 @@
-INSERT INTO role_permissions (name) VALUES ('can_read');
-INSERT INTO role_permissions (name) VALUES ('can_write');
-INSERT INTO role_permissions (name) VALUES ('can_delete');
+INSERT INTO role_permissions (name, read, write, close) VALUES ('can_read', true, false, false);
+INSERT INTO role_permissions (name, read, write, close) VALUES ('can_write', true, true, false);
+INSERT INTO role_permissions (name, read, write, close) VALUES ('can_close', true, true, false);
 
 INSERT INTO roles (role_name, permission) VALUES ('user', 1);
 INSERT INTO roles (role_name, permission) VALUES ('suport', 2);

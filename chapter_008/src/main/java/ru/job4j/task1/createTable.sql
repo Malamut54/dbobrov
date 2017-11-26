@@ -9,7 +9,10 @@ DROP TABLE IF EXISTS files CASCADE;
 
 CREATE TABLE role_permissions (
 	Id serial primary key,
-	name varchar(16) NOT NULL
+	name varchar(16) NOT NULL,
+	read boolean NOT NULL,
+	write boolean NOT NULL,
+	close boolean NOT NULL
 );
 
 CREATE TABLE roles (
