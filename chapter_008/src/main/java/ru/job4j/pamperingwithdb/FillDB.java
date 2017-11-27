@@ -38,10 +38,10 @@ public class FillDB {
         try {
             conn = DriverManager.getConnection(urlToDB);
             stmt = conn.createStatement();
-            stmt.execute("CREATE TABLE IF NOT EXISTS test(FIELD INTEGER);");
+            stmt.execute("CREATE TABLE IF NOT EXISTS test(FIELD INTEGER)");
             rs = stmt.executeQuery("SELECT * FROM test");
             if (rs.next()) {
-                stmt.execute("DELETE FROM test;");
+                stmt.execute("DELETE FROM test");
             }
             conn.setAutoCommit(false);
 

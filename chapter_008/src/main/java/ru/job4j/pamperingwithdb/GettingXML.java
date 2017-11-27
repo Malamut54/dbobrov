@@ -76,6 +76,6 @@ public class GettingXML {
         Transformer t = TransformerFactory.newInstance().newTransformer();
         t.setOutputProperty(OutputKeys.INDENT, "yes");
         t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-        t.transform(new DOMSource(document), new StreamResult(new FileOutputStream(System.getProperty("user.dir") + "1.xml")));
+        t.transform(new DOMSource(document), new StreamResult(new FileOutputStream(System.getProperty("user.dir") + "/1.xml")));
     }
 }
