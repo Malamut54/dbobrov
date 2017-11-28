@@ -49,7 +49,7 @@ public class FillDB {
                 stmt.addBatch(String.format("INSERT INTO test (FIELD) VALUES (%d)", i));
             }
             stmt.executeBatch();
-            conn.commit();
+            conn.rollback();
 
         } catch (SQLException e) {
             e.printStackTrace();
