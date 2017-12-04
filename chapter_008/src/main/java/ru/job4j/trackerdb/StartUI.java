@@ -1,12 +1,9 @@
-package ru.job4j.trackerDB;
+package ru.job4j.trackerdb;
 
 /**
  * Task Tracker.
  */
 public class StartUI {
-    /**
-     * Class StartUI. Perform logic app.
-     */
 
     /**
      * Private fields.
@@ -27,7 +24,7 @@ public class StartUI {
      *
      * @param tracker   tracker.
      * @param input     input.
-     * @param connectDB
+     * @param connectDB connect to DB.
      */
     public StartUI(Tracker tracker, Input input, ConnectDB connectDB) {
         this.tracker = tracker;

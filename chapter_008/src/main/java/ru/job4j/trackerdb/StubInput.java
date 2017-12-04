@@ -1,37 +1,51 @@
-package ru.job4j.trackerDB;
+package ru.job4j.trackerdb;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Task Tracker.
  */
-public class ConsoleInput implements Input {
+public class StubInput extends ValidateInput implements Input {
     /**
-     * Class ConsoleInput. Perform input fro console.
+     * Class Stubinput. Provide data entry.
      */
-    private Scanner scanner = new Scanner(System.in);
 
     /**
-     * IO.
-     *
-     * @param question question.
-     * @return user choice.
+     * Private field.
      */
-    public String ask(String question) {
-        System.out.println(question);
-        return this.scanner.nextLine();
+    private String[] answers;
+    /**
+     * Private field.
+     */
+    private int position = 0;
+
+    /**
+     * Constructor.
+     *
+     * @param answers answers.
+     */
+    public StubInput(String[] answers) {
+        this.answers = answers;
     }
 
     /**
-     * Asking question and Controls menu item numbers.
+     * Method return answers.
+     *
+     * @param question input.
+     * @return answers.
+     */
+    public String ask(String question) {
+        return answers[position++];
+    }
+
+    /**
+     * Method for testing exceptions.
      *
      * @param question question.
      * @param range    range.
-     * @return exception.
+     * @return key or exception.
      */
     public int ask(String question, ArrayList<Integer> range) {
-
         int key = Integer.valueOf(this.ask(question));
         boolean exist = false;
         for (int value : range) {

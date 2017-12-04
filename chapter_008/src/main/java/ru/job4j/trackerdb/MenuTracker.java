@@ -1,4 +1,4 @@
-package ru.job4j.trackerDB;
+package ru.job4j.trackerdb;
 
 /**
  * Task Tracker.
@@ -41,10 +41,10 @@ public class MenuTracker {
     public void fillActions() {
         this.actions.add(new AddItem("Add New Item", 0));
         this.actions.add(new ShowItems("Show all items", 1));
-//        this.actions.add(new EditItem("Edit item", 2));
-//        this.actions.add(new DeleteItem("Delete item", 3));
-//        this.actions.add(new FindItemByID("Find item by Id", 4));
-//        this.actions.add(new FindItemByName("Find item by name", 5));
+        this.actions.add(new EditItem("Edit item", 2));
+        this.actions.add(new DeleteItem("Delete item", 3));
+        this.actions.add(new FindItemByID("Find item by Id", 4));
+        this.actions.add(new FindItemByName("Find item by name", 5));
         this.actions.add(new ExitProgram("Exit program", 6));
     }
 
@@ -136,63 +136,63 @@ public class MenuTracker {
         }
 
     }
-//
-//    /**
-//     * class EditItem. Edit item.
-//     */
-//    private class EditItem extends BaseAction {
-//        /**
-//         * Constructor.
-//         *
-//         * @param name Name of the menu item.
-//         * @param key  Number of the menu item.
-//         */
-//        EditItem(String name, int key) {
-//            super(name, key);
-//        }
-//
-//        /**
-//         * Perform actions.
-//         *
-//         * @param input   ask.
-//         * @param tracker Object Tracker.
-//         */
-//        public void execute(Input input, Tracker tracker) {
-//            String id = input.ask("Enter Id");
-//            String name = input.ask("Enter new name");
-//            String desc = input.ask("Enter new description");
-//            tracker.upddate(new Item(id, name, desc));
-//
-//        }
-//
-//    }
-//
-//    /**
-//     * class DeleteItem. Delete item.
-//     */
-//    private class DeleteItem extends BaseAction {
-//        /**
-//         * Constructor.
-//         *
-//         * @param name Name of the menu item.
-//         * @param key  Number of the menu item.
-//         */
-//        DeleteItem(String name, int key) {
-//            super(name, key);
-//        }
-//
-//        /**
-//         * Perform actions.
-//         *
-//         * @param input   ask.
-//         * @param tracker Object Tracker.
-//         */
-//        public void execute(Input input, Tracker tracker) {
-//            String id = input.ask("Enetr Id items for delete");
-//            tracker.delete(tracker.findById(id));
-//        }
-//
-//    }
+
+    /**
+     * class EditItem. Edit item.
+     */
+    private class EditItem extends BaseAction {
+        /**
+         * Constructor.
+         *
+         * @param name Name of the menu item.
+         * @param key  Number of the menu item.
+         */
+        EditItem(String name, int key) {
+            super(name, key);
+        }
+
+        /**
+         * Perform actions.
+         *
+         * @param input   ask.
+         * @param tracker Object Tracker.
+         */
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("Enter Id");
+            String name = input.ask("Enter new name");
+            String desc = input.ask("Enter new description");
+            tracker.upddate(new Item(Integer.parseInt(id), name, desc));
+
+        }
+
+    }
+
+    /**
+     * class DeleteItem. Delete item.
+     */
+    private class DeleteItem extends BaseAction {
+        /**
+         * Constructor.
+         *
+         * @param name Name of the menu item.
+         * @param key  Number of the menu item.
+         */
+        DeleteItem(String name, int key) {
+            super(name, key);
+        }
+
+        /**
+         * Perform actions.
+         *
+         * @param input   ask.
+         * @param tracker Object Tracker.
+         */
+        public void execute(Input input, Tracker tracker) {
+            Integer id = Integer.parseInt(input.ask("Enetr Id items for delete"));
+            tracker.delete(tracker.findById(id));
+        }
+
+    }
 //
 
     /**
@@ -218,42 +218,41 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             int id = Integer.parseInt(input.ask("Enter id"));
         }
-//
-//    }
-//
-//    /**
-//     * class FindItemByName. Find item by Name.
-//     */
-//    private class FindItemByName extends BaseAction {
-//        /**
-//         * Constructor.
-//         *
-//         * @param name Name of the menu item.
-//         * @param key  Number of the menu item.
-//         */
-//        FindItemByName(String name, int key) {
-//            super(name, key);
-//        }
-//
-//        /**
-//         * Perform actions.
-//         *
-//         * @param input   ask.
-//         * @param tracker Object Tracker.
-//         */
-//        public void execute(Input input, Tracker tracker) {
-//            String name = input.ask("Enter name");
-////            Item[] item = tracker.findByName(name);
-//            ArrayList<Item> item = tracker.findByName(name);
-//            for (Item x : item) {
-//                if (x != null) {
-//                    System.out.println(String.format("name - %s. description - %s. id - %s",
-//                            x.getName(), x.getDesc(), x.getId()));
-//                }
-//            }
-//        }
-//
-//    }
+
+    }
+
+    /**
+     * class FindItemByName. Find item by Name.
+     */
+    private class FindItemByName extends BaseAction {
+        /**
+         * Constructor.
+         *
+         * @param name Name of the menu item.
+         * @param key  Number of the menu item.
+         */
+        FindItemByName(String name, int key) {
+            super(name, key);
+        }
+
+        /**
+         * Perform actions.
+         *
+         * @param input   ask.
+         * @param tracker Object Tracker.
+         */
+        public void execute(Input input, Tracker tracker) {
+            String name = input.ask("Enter name");
+            ArrayList<Item> item = tracker.findByName(name);
+            for (Item x : item) {
+                if (x != null) {
+                    System.out.println(String.format("name - %s. description - %s. id - %s",
+                            x.getName(), x.getDesc(), x.getId()));
+                }
+            }
+        }
+
+    }
 
     }
 
@@ -282,5 +281,5 @@ public class MenuTracker {
         }
 
     }
-}
+
 

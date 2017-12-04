@@ -1,11 +1,7 @@
-package ru.job4j.trackerDB;
+package ru.job4j.trackerdb;
 
 /**
- * Task Tracker.
- */
-
-/**
- * Class BaseAction. Display number and name menu items.
+ * Task Tracker DataBase.
  */
 public abstract class BaseAction implements UserAction {
     /**

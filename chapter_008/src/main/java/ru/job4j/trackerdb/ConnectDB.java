@@ -1,4 +1,4 @@
-package ru.job4j.trackerDB;
+package ru.job4j.trackerdb;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,38 +10,69 @@ import java.sql.Statement;
 import java.util.Properties;
 
 /**
- * TODO: comment
+ * * Task Tracker DataBase.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 01.12.2017
  */
 
 public class ConnectDB {
+    /**
+     * Path to DB.
+     */
     private String urlToDB;
+    /**
+     * DB user.
+     */
     private String user;
+    /**
+     * DB password.
+     */
     private String password;
 
+    /**
+     * Default constructor.
+     */
     public ConnectDB() {
         connectAndInitialDB();
     }
 
+    /**
+     * Getter for path to DB.
+     *
+     * @return String
+     */
     public String getUrlToDB() {
         return urlToDB;
     }
 
+    /**
+     * Getter for user.
+     *
+     * @return String
+     */
     public String getUser() {
         return user;
     }
 
+    /**
+     * Getter for password.
+     *
+     * @return String
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Get credentials for DB from config.properties.
+     */
     private void getCredentials() {
 
         Properties properties = new Properties();
         try {
-            properties.load(new FileInputStream(new File("config.properties")));
+            File file = new File("config.properties");
+            properties.load(new FileInputStream(file));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,6 +81,9 @@ public class ConnectDB {
         password = properties.getProperty("Database.Prop.password");
     }
 
+    /**
+     * Create table if it not exist.
+     */
     private void connectAndInitialDB() {
         this.getCredentials();
         Connection connection = null;
@@ -57,8 +91,8 @@ public class ConnectDB {
         try {
             connection = DriverManager.getConnection(urlToDB, user, password);
             statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS item(id serial primary key," +
-                    " name VARCHAR(50), description TEXT)");
+            statement.execute("CREATE TABLE IF NOT EXISTS item(id serial primary key,"
+                    + " name VARCHAR(50), description TEXT)");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,7 +104,5 @@ public class ConnectDB {
                 e.printStackTrace();
             }
         }
-
     }
-
 }

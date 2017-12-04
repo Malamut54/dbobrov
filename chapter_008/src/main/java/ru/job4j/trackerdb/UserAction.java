@@ -1,4 +1,4 @@
-package ru.job4j.trackerDB;
+package ru.job4j.trackerdb;
 
 /**
  * Class UserAction.
