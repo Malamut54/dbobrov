@@ -1,0 +1,2 @@
+SELECT person.name, company.name FROM person JOIN company ON person.company_id = company.id WHERE NOT company.id = 5;
+SELECT company.name, COUNT(person.name) FROM person JOIN company ON person.company_id = company.id GROUP BY company.name ORDER BY count DESC LIMIT 1;
