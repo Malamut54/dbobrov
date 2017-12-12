@@ -13,6 +13,6 @@ public class StartProgram {
 //        init.getCredentials();
 
         Parser parser = new Parser();
-        parser.grab();
+        parser.checkDateVacancy("http://www.sql.ru/forum/1279811/ishhu-stazhirovku-html-verstalshhika-v-minske");
     }
 }

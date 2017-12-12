@@ -10,7 +10,9 @@ package ru.job4j.sqljob;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
+
 
 import java.io.IOException;
 import java.lang.annotation.Documented;
@@ -19,20 +21,46 @@ import java.util.List;
 
 public class Parser {
 
-    public void grab() {
-        Document document = null;
+    public void grabLinkVacation() {
+        int page = 1;
         try {
-            document = Jsoup.connect("http://www.sql.ru/forum/job/1").userAgent("Mozilla").get();
+            Document document = Jsoup.connect(String.format("http://www.sql.ru/forum/job/%d)", page++)).userAgent("Mozilla").get();
+            Elements elements = document.getElementsByAttributeValue("class", "postslisttopic");
+            ;
+            for (Element element : elements) {
+                String urlVacancy = (element.child(0).attr("href"));
+                if (checkDateVacancy(urlVacancy)) {
+                    checkOnlyJavaVacancy(urlVacancy);
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        Elements elements = document.getElementsByClass("postslisttopic");
-        Elements elements = document.getElementsByClass("altCol");
-        for (Element element : elements) {
-//            System.out.println(element.getElementsByAttribute("href").get(0).attr("href"));
-            System.out.println(element);
+
+    }
+
+    public void checkOnlyJavaVacancy(String link) {
+
+        if (link.contains("java") && !link.contains("javascript") && !link.contains("java-script")) {
 
         }
+
+    }
+
+    public boolean checkDateVacancy(String link) {
+        boolean result = false;
+        try {
+            Document document = Jsoup.connect(link).userAgent("Mozilla").get();
+            Elements elements = document.select("td.msgFooter");
+
+            String node = elements.first().childNode(0).toString().substring(0, 10);
+            System.out.println(node);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 //    public boolean isFirstLaunch() {
