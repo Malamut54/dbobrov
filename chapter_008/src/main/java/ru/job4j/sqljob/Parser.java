@@ -10,27 +10,34 @@ package ru.job4j.sqljob;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
+
 import org.jsoup.select.Elements;
+import ru.job4j.sqljob.db.Base;
 
 
 import java.io.IOException;
-import java.lang.annotation.Documented;
-import java.sql.*;
-import java.util.List;
+
 
 public class Parser {
+    private String date;
+    private String author;
+    private String title;
+    private String url;
+    private String description;
 
     public void grabLinkVacation() {
+        //Don't forget reset when method end
         int page = 1;
         try {
             Document document = Jsoup.connect(String.format("http://www.sql.ru/forum/job/%d)", page++)).userAgent("Mozilla").get();
             Elements elements = document.getElementsByAttributeValue("class", "postslisttopic");
-            ;
             for (Element element : elements) {
                 String urlVacancy = (element.child(0).attr("href"));
                 if (checkDateVacancy(urlVacancy)) {
                     checkOnlyJavaVacancy(urlVacancy);
+                } else {
+                    page = 1;
+                    return;
                 }
             }
         } catch (IOException e) {
@@ -42,19 +49,24 @@ public class Parser {
     public void checkOnlyJavaVacancy(String link) {
 
         if (link.contains("java") && !link.contains("javascript") && !link.contains("java-script")) {
-
+            this.url = link;
+            createValidVacancy(link);
         }
 
     }
 
     public boolean checkDateVacancy(String link) {
+        Base base = new Base();
+        Init init = new Init();
         boolean result = false;
+        int depthSearch = base.isFirstLaunch() ? 365 : init.getPeriodicity();
+
         try {
             Document document = Jsoup.connect(link).userAgent("Mozilla").get();
             Elements elements = document.select("td.msgFooter");
 
-            String node = elements.first().childNode(0).toString().substring(0, 10);
-            System.out.println(node);
+            String date = elements.first().childNode(0).toString().substring(0, 10);
+            this.date = date;
 
 
         } catch (Exception e) {
@@ -63,32 +75,9 @@ public class Parser {
         return result;
     }
 
-//    public boolean isFirstLaunch() {
-//        boolean result = false;
-//        Connection connection = null;
-//        Statement statement = null;
-//        ResultSet resultSet = null;
-//        String URL = "jdbc:postgresql://127.0.0.1:5432/sqlru";
-//        String user = "sqlru";
-//        String password = "12345678";
-//
-//        try {
-//            connection = DriverManager.getConnection(URL, user, password);
-//            statement = connection.createStatement();
-//            resultSet = statement.executeQuery("SELECT id FROM sqljob WHERE id = 1");
-//            result = resultSet.next();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                resultSet.close();
-//                statement.close();
-//                connection.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        return result;
-//    }
+    public void createValidVacancy(String link) {
+
+    }
+
+
 }
