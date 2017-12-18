@@ -35,7 +35,7 @@ public class DateCheck {
     }
 
     public Calendar convertFromString(String stringDate) {
-        Calendar dateVacancy = null;
+        Calendar dateVacancy = Calendar.getInstance();
         if (month.isEmpty()) {
             fillMap();
         }
@@ -51,7 +51,9 @@ public class DateCheck {
     }
 
     private int convertToYear(String year) {
-        return Integer.parseInt(year.substring(year.length() - 1, year.length() - 2));
+        System.out.println(year.length());
+        Integer tmp = Integer.parseInt(year.substring(year.length() - 2, year.length() - 1));
+        return (Integer.parseInt(year.substring(year.length() - 2, year.length() - 1))) + 2000;
     }
 
     private int convertToDay(String day) {
