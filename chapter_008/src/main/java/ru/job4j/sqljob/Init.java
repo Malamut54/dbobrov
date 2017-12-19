@@ -1,8 +1,11 @@
 package ru.job4j.sqljob;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Properties;
 
 /**
@@ -17,6 +20,10 @@ public class Init {
     private String urlToDB;
     private String user;
     private String password;
+
+    public Init() {
+        this.getCredentials();
+    }
 
     public int getPeriodicity() {
         return periodicity;
@@ -35,16 +42,10 @@ public class Init {
     }
 
     public void getCredentials() {
-        FileReader reader = null;
-        try {
-            reader = new FileReader("sqljob.properties");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         Properties properties = new Properties();
         try {
-            properties.load(reader);
+            File file = new File("sqljob.properties");
+            properties.load(new FileInputStream(file));
         } catch (IOException e) {
             e.printStackTrace();
         }
