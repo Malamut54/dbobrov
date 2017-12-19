@@ -64,7 +64,11 @@ public class DateCheck {
     }
 
     private int convertToYear(String year) {
-        year = year.substring(year.length() - 3, year.length() - 1).trim();
+        year = year.substring(year.length() - 2, year.length()).trim();
+        if (year.contains(",")) {
+            year = year.replaceAll("[,]", "");
+        }
+        System.out.println(year);
         Integer tmp = Integer.parseInt(year) + 2000;
         return tmp;
     }
@@ -72,7 +76,7 @@ public class DateCheck {
     private int convertToDay(String day) {
         Integer dayOfMonth = null;
         try {
-            dayOfMonth = Integer.parseInt(day.substring(0, 3).trim());
+            dayOfMonth = Integer.parseInt(day.substring(0, 2).trim());
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }

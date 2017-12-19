@@ -32,6 +32,7 @@ public class Parser {
     private Date dateVacancy = null;
     private DateCheck dateCheck = new DateCheck();
     private List<Vacancy> listVac = new ArrayList();
+    private Base base = new Base();
 
 
     public void grabLinkVacation() {
@@ -68,7 +69,7 @@ public class Parser {
         int year = Calendar.YEAR;
         int month = Calendar.MONTH;
         int day = Calendar.DAY_OF_MONTH;
-        Base base = new Base();
+
 
         Calendar borderDate = Calendar.getInstance();
         borderDate.set(Calendar.MILLISECOND, 0);
@@ -86,7 +87,8 @@ public class Parser {
             Document document = Jsoup.connect(link).userAgent("Mozilla").get();
             Elements elements = document.select("td.msgFooter");
 
-            String date = elements.first().childNode(0).toString().substring(0, 10);
+            String date = elements.first().childNode(0).toString().substring(1, 10);
+            System.out.println(date);
             dateVacancy = dateCheck.convertFromString(date).getTime();
 
         } catch (Exception e) {
