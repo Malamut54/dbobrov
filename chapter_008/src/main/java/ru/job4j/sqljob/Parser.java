@@ -29,25 +29,34 @@ public class Parser {
     private String title;
     private String url;
     private String description;
-    private Date dateVacancy = null;
+    //    private Date dateVacancy = null;
     private DateCheck dateCheck = new DateCheck();
     private List<Vacancy> listVac = new ArrayList();
     private Base base = new Base();
-
+    private int numPage = 1;
+    private Calendar borderDate = Calendar.getInstance();
+    private Calendar dateVacancy = Calendar.getInstance();
 
     public void grabLinkVacation() {
         //Don't forget reset when method end
-        int page = 1;
+        boolean nextPage = true;
+        while (nextPage)
         try {
-            Document document = Jsoup.connect("http://www.sql.ru/forum/job/1").get();
+            Document document = Jsoup.connect(String.format("http://www.sql.ru/forum/job/%d", numPage++)).get();
+
             Elements elements = document.getElementsByAttributeValue("class", "postslisttopic");
+            for (int i = 0; i < 3; i++) {
+                elements.remove(0);
+            }
             for (Element element : elements) {
                 String urlVacancy = (element.child(0).attr("href"));
-                if (checkDateVacancy(urlVacancy)) {
+                if (numPage < 3) {
+                    checkOnlyJavaVacancy(urlVacancy);
+                } else if (checkDateVacancy(urlVacancy)) {
                     checkOnlyJavaVacancy(urlVacancy);
                 } else {
-                    page = 1;
-                    return;
+                    numPage = 1;
+                    nextPage = false;
                 }
             }
         } catch (IOException e) {
@@ -57,7 +66,7 @@ public class Parser {
     }
 
     public void checkOnlyJavaVacancy(String link) {
-
+        link.toLowerCase();
         if (link.contains("java") && !link.contains("javascript") && !link.contains("java-script")) {
             this.url = link;
             createValidVacancy(link);
@@ -66,16 +75,13 @@ public class Parser {
     }
 
     public boolean checkDateVacancy(String link) {
-        int year = Calendar.YEAR;
+        int year = borderDate.get(Calendar.YEAR);
         int month = Calendar.MONTH;
         int day = Calendar.DAY_OF_MONTH;
 
-
-        Calendar borderDate = Calendar.getInstance();
         borderDate.set(Calendar.MILLISECOND, 0);
 
-
-        if (base.isFirstLaunch()) {
+        if (!base.isFirstLaunch()) {
             borderDate.set(year, 0, 1);
         } else {
 //            borderDate.set(year, month, day);
@@ -88,14 +94,15 @@ public class Parser {
             Elements elements = document.select("td.msgFooter");
 
             String date = elements.first().childNode(0).toString().substring(1, 10);
-            System.out.println(date);
-            dateVacancy = dateCheck.convertFromString(date).getTime();
+            dateVacancy = dateCheck.convertFromString(date);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return dateVacancy.before(borderDate.getTime()) || dateVacancy.equals(borderDate.getTime());
+        System.out.println(dateVacancy.before(borderDate) + "|||" + dateVacancy.after(borderDate));
+        System.out.println(dateVacancy.getTime() + " " + borderDate.getTime());
+        System.out.println(link);
+        return dateVacancy.after(borderDate);
     }
 
     public void createValidVacancy(String link) {
@@ -109,7 +116,7 @@ public class Parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        listVac.add(new Vacancy(this.dateVacancy, this.url, this.author, this.title, this.description));
+//        listVac.add(new Vacancy(this.dateVacancy, this.url, this.author, this.title, this.description));
     }
 
 

@@ -64,11 +64,10 @@ public class DateCheck {
     }
 
     private int convertToYear(String year) {
-        year = year.substring(year.length() - 2, year.length()).trim();
+        year = year.substring(year.length() - 3, year.length()).trim();
         if (year.contains(",")) {
             year = year.replaceAll("[,]", "");
         }
-        System.out.println(year);
         Integer tmp = Integer.parseInt(year) + 2000;
         return tmp;
     }
