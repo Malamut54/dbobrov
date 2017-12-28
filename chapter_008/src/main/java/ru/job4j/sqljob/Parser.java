@@ -33,36 +33,65 @@ public class Parser {
     private DateCheck dateCheck = new DateCheck();
     private List<Vacancy> listVac = new ArrayList();
     private Base base = new Base();
-    private int numPage = 1;
+    private int numPage = 2;
     private Calendar borderDate = Calendar.getInstance();
     private Calendar dateVacancy = Calendar.getInstance();
+    private Calendar dateVacancyOnPage = Calendar.getInstance();
+    private int year = borderDate.get(Calendar.YEAR);
+    private int month = Calendar.MONTH;
+    private int day = Calendar.DAY_OF_MONTH;
 
     public void grabLinkVacation() {
-        //Don't forget reset when method end
-        boolean nextPage = true;
-        while (nextPage)
-        try {
-            Document document = Jsoup.connect(String.format("http://www.sql.ru/forum/job/%d", numPage++)).get();
-
-            Elements elements = document.getElementsByAttributeValue("class", "postslisttopic");
-            for (int i = 0; i < 3; i++) {
-                elements.remove(0);
-            }
-            for (Element element : elements) {
-                String urlVacancy = (element.child(0).attr("href"));
-                if (numPage < 3) {
-                    checkOnlyJavaVacancy(urlVacancy);
-                } else if (checkDateVacancy(urlVacancy)) {
-                    checkOnlyJavaVacancy(urlVacancy);
-                } else {
-                    numPage = 1;
-                    nextPage = false;
+//        //Don't forget reset when method end
+//        boolean nextPage = true;
+//        while (nextPage)
+//        try {
+//            Document document = Jsoup.connect(String.format("http://www.sql.ru/forum/job/%d", numPage++)).get();
+//
+//            Elements elements = document.getElementsByAttributeValue("class", "postslisttopic");
+//            for (int i = 0; i < 3; i++) {
+//                elements.remove(0);
+//            }
+//            for (Element element : elements) {
+//                System.out.println(element);
+//                String urlVacancy = (element.child(0).attr("href"));
+//                if (numPage < 3) {
+//                    checkOnlyJavaVacancy(urlVacancy);
+//                } else if (checkDateVacancy(urlVacancy)) {
+//                    checkOnlyJavaVacancy(urlVacancy);
+//                } else {
+//                    numPage = 1;
+//                    nextPage = false;
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        while (true) {
+            try {
+                Document document = Jsoup.connect(String.format("http://www.sql.ru/forum/job/%d", numPage++)).get();
+                Elements elements = document.select("td.altcol");
+                Elements tmpelements = new Elements();
+                for (int i = 0; i < 6; i++) {
+                    elements.remove(0);
                 }
+                for (Element element : elements) {
+                    if (element.siblingIndex() == 11) {
+                        tmpelements.add(element);
+                    }
+                }
+                for (Element tmpelement : tmpelements) {
+                    if (checkDateOnPage(tmpelement.text())) {
+                        String link = tmpelement.parent().getElementsByAttributeValue("class", "postslisttopic").get(0).childNode(1).attributes().get("href");
+                        if (checkDateVacancy(link)) {
+                            checkOnlyJavaVacancy(link);
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
     }
 
     public void checkOnlyJavaVacancy(String link) {
@@ -75,19 +104,6 @@ public class Parser {
     }
 
     public boolean checkDateVacancy(String link) {
-        int year = borderDate.get(Calendar.YEAR);
-        int month = Calendar.MONTH;
-        int day = Calendar.DAY_OF_MONTH;
-
-        borderDate.set(Calendar.MILLISECOND, 0);
-
-        if (!base.isFirstLaunch()) {
-            borderDate.set(year, 0, 1);
-        } else {
-//            borderDate.set(year, month, day);
-//            get last date from DB
-        }
-//        System.out.println(borderDate.getTime());
 
         try {
             Document document = Jsoup.connect(link).userAgent("Mozilla").get();
@@ -99,10 +115,21 @@ public class Parser {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(dateVacancy.before(borderDate) + "|||" + dateVacancy.after(borderDate));
-        System.out.println(dateVacancy.getTime() + " " + borderDate.getTime());
-        System.out.println(link);
+
         return dateVacancy.after(borderDate);
+    }
+
+    public boolean checkDateOnPage(String str) {
+        borderDate.set(Calendar.MILLISECOND, 0);
+
+        if (!base.isFirstLaunch()) {
+            borderDate.set(year, 0, 1, 0, 0);
+        } else {
+//            borderDate.set(year, month, day);
+//            get last date from DB
+        }
+        dateVacancyOnPage = dateCheck.convertFromString(str);
+        return dateVacancyOnPage.after(borderDate);
     }
 
     public void createValidVacancy(String link) {
@@ -116,7 +143,9 @@ public class Parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        listVac.add(new Vacancy(this.dateVacancy, this.url, this.author, this.title, this.description));
+        listVac.add(new Vacancy(this.dateVacancy.getTime(), this.url, this.author, this.title, this.description));
+        System.out.println(listVac);
+
     }
 
 

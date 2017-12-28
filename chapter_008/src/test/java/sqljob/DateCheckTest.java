@@ -29,7 +29,7 @@ public class DateCheckTest {
     @Test
     public void checkConvertFromStringToCalendarWhenOneDigitInDay() {
         DateCheck dateCheck = new DateCheck();
-        String stringDate = " 1 янв 17";
+        String stringDate = "1 янв 17";
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MILLISECOND, 0);//remove milliseconds
         calendar.set(2017, 0, 1);

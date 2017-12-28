@@ -43,4 +43,14 @@ public class Vacancy {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "Vacancy{" +
+                "date=" + date +
+                ", link='" + link + '\'' +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }

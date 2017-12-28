@@ -50,6 +50,7 @@ public class DateCheck {
         } else if (stringDate.contains(YESTERDAY)) {
             dateVacancy.set(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH - 1);
         } else {
+            stringDate = stringDate.substring(0, 9);
             String monthStr = stringDate.substring(stringDate.length() - 7, stringDate.length() - 3).trim();
             try {
                 this.year = convertToYear(stringDate);
