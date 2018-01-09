@@ -29,11 +29,9 @@ public class Parser {
     private String title;
     private String url;
     private String description;
-    //    private Date dateVacancy = null;
     private DateCheck dateCheck = new DateCheck();
-    private List<Vacancy> listVac = new ArrayList();
     private Base base = new Base();
-    private int numPage = 2;
+    private int numPage = 1;
     private Calendar borderDate = Calendar.getInstance();
     private Calendar dateVacancy = Calendar.getInstance();
     private Calendar dateVacancyOnPage = Calendar.getInstance();
@@ -123,10 +121,11 @@ public class Parser {
         borderDate.set(Calendar.MILLISECOND, 0);
 
         if (!base.isFirstLaunch()) {
-            borderDate.set(year, 0, 1, 0, 0);
+            //only for test
+            borderDate.set(2017, 0, 1, 0, 0);
+//            borderDate.set(year, 0, 1, 0, 0);
         } else {
-//            borderDate.set(year, month, day);
-//            get last date from DB
+            borderDate = dateCheck.lastStartDate();
         }
         dateVacancyOnPage = dateCheck.convertFromString(str);
         return dateVacancyOnPage.after(borderDate);
@@ -143,14 +142,15 @@ public class Parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        listVac.add(new Vacancy(this.dateVacancy.getTime(), this.url, this.author, this.title, this.description));
-        System.out.println(listVac);
+        base.addVacancyToDb(new Vacancy(this.dateVacancy.getTime(), this.url, this.author, this.title, this.description));
+//        System.out.println(listVac);
 
     }
 
 
     private String parseTitle(String title) {
-        return title.substring(0, title.indexOf('/'));
+
+        return title.substring(0, title.length() - 18);
     }
 
 

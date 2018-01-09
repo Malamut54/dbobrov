@@ -2,6 +2,7 @@ package sqljob;
 
 import org.junit.Test;
 import ru.job4j.sqljob.Parser;
+import ru.job4j.sqljob.StartProgram;
 import ru.job4j.sqljob.date.DateCheck;
 
 import java.util.Calendar;
@@ -24,23 +25,5 @@ public class DateCheckTest {
         Date expected = calendar.getTime();
         Date result = dateCheck.convertFromString(stringDate).getTime();
         assertThat(result, is(expected));
-    }
-
-    @Test
-    public void checkConvertFromStringToCalendarWhenOneDigitInDay() {
-        DateCheck dateCheck = new DateCheck();
-        String stringDate = "1 янв 17";
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MILLISECOND, 0);//remove milliseconds
-        calendar.set(2017, 0, 1);
-        Date expected = calendar.getTime();
-        Date result = dateCheck.convertFromString(stringDate).getTime();
-        assertThat(result, is(expected));
-    }
-
-    @Test
-    public void sss() {
-        Parser parser = new Parser();
-        parser.grabLinkVacation();
     }
 }

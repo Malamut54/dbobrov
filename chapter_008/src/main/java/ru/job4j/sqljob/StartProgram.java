@@ -1,5 +1,8 @@
 package ru.job4j.sqljob;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Final task. Parse sql.ru.
  *
@@ -8,11 +11,22 @@ package ru.job4j.sqljob;
  */
 
 public class StartProgram {
-    public static void main(String[] args) {
-//        Init init = new Init();
-//        init.getCredentials();
+    private Init init = new Init();
+    private Parser parser = new Parser();
+    private Timer timer = new Timer();
+    long periodicity = 1000 * 60 * 60 * 24 * init.getPeriodicity();
 
-        Parser parser = new Parser();
-        parser.checkDateVacancy("http://www.sql.ru/forum/1279811/ishhu-stazhirovku-html-verstalshhika-v-minske");
+    public StartProgram() {
+        Task t = new Task();
+        timer.schedule(t, 100, periodicity);
+    }
+
+    private class Task extends TimerTask {
+        public void run() {
+            parser.grabLinkVacation();
+        }
+    }
+    public static void main(String[] args) {
+        new StartProgram();
     }
 }
