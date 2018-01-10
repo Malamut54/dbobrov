@@ -46,9 +46,15 @@ public class DateCheck {
         }
         //check today and yesterday
         if (stringDate.contains(TODAY)) {
-            dateVacancy.set(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
+            year = Calendar.getInstance().get(Calendar.YEAR);
+            monthTmp = Calendar.getInstance().get(Calendar.MONTH);
+            day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+            dateVacancy.set(year, monthTmp, day);
         } else if (stringDate.contains(YESTERDAY)) {
-            dateVacancy.set(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH - 1);
+            year = Calendar.getInstance().get(Calendar.YEAR);
+            monthTmp = Calendar.getInstance().get(Calendar.MONTH);
+            day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+            dateVacancy.set(year, monthTmp, day - 1);
         } else {
             stringDate = stringDate.substring(0, 9);
             String monthStr = stringDate.substring(stringDate.length() - 7, stringDate.length() - 3).trim();

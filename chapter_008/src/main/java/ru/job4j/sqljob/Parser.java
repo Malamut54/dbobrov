@@ -7,6 +7,9 @@ package ru.job4j.sqljob;
  * @since 11.12.2017
  */
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,7 +26,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
 public class Parser {
     private String author;
     private String title;
@@ -36,36 +38,15 @@ public class Parser {
     private Calendar dateVacancy = Calendar.getInstance();
     private Calendar dateVacancyOnPage = Calendar.getInstance();
     private int year = borderDate.get(Calendar.YEAR);
-    private int month = Calendar.MONTH;
-    private int day = Calendar.DAY_OF_MONTH;
+    private static final Logger logger = Logger.getLogger(Parser.class);
 
     public void grabLinkVacation() {
-//        //Don't forget reset when method end
-//        boolean nextPage = true;
-//        while (nextPage)
-//        try {
-//            Document document = Jsoup.connect(String.format("http://www.sql.ru/forum/job/%d", numPage++)).get();
-//
-//            Elements elements = document.getElementsByAttributeValue("class", "postslisttopic");
-//            for (int i = 0; i < 3; i++) {
-//                elements.remove(0);
-//            }
-//            for (Element element : elements) {
-//                System.out.println(element);
-//                String urlVacancy = (element.child(0).attr("href"));
-//                if (numPage < 3) {
-//                    checkOnlyJavaVacancy(urlVacancy);
-//                } else if (checkDateVacancy(urlVacancy)) {
-//                    checkOnlyJavaVacancy(urlVacancy);
-//                } else {
-//                    numPage = 1;
-//                    nextPage = false;
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        while (true) {
+        BasicConfigurator.configure();
+        logger.setLevel(Level.INFO);
+        boolean nextPage = true;
+        logger.info("Start parse sql.ru");
+
+        while (nextPage) {
             try {
                 Document document = Jsoup.connect(String.format("http://www.sql.ru/forum/job/%d", numPage++)).get();
                 Elements elements = document.select("td.altcol");
@@ -84,12 +65,16 @@ public class Parser {
                         if (checkDateVacancy(link)) {
                             checkOnlyJavaVacancy(link);
                         }
+                    } else {
+                        numPage = 1;
+                        nextPage = false;
                     }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        logger.info("Finish parse sql.ru");
     }
 
     public void checkOnlyJavaVacancy(String link) {
@@ -102,7 +87,7 @@ public class Parser {
     }
 
     public boolean checkDateVacancy(String link) {
-
+        //first make check that this vacancy doesnt contain in db
         try {
             Document document = Jsoup.connect(link).userAgent("Mozilla").get();
             Elements elements = document.select("td.msgFooter");
@@ -118,14 +103,15 @@ public class Parser {
     }
 
     public boolean checkDateOnPage(String str) {
-        borderDate.set(Calendar.MILLISECOND, 0);
+        this.borderDate.set(Calendar.MILLISECOND, 0);
 
         if (!base.isFirstLaunch()) {
             //only for test
-            borderDate.set(2017, 0, 1, 0, 0);
+            this.borderDate.set(2017, 0, 1, 0, 0);
 //            borderDate.set(year, 0, 1, 0, 0);
+//            dateCheck.lastStartDate();
         } else {
-            borderDate = dateCheck.lastStartDate();
+            this.borderDate = dateCheck.lastStartDate();
         }
         dateVacancyOnPage = dateCheck.convertFromString(str);
         return dateVacancyOnPage.after(borderDate);
@@ -138,20 +124,16 @@ public class Parser {
             this.description = document.select("td.msgBody").get(1).ownText();
             this.author = nameAuthor.get(0).childNode(1).childNode(0).toString();
             this.title = parseTitle(document.select("title").get(0).ownText());
-            System.out.println(this.title);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         base.addVacancyToDb(new Vacancy(this.dateVacancy.getTime(), this.url, this.author, this.title, this.description));
-//        System.out.println(listVac);
-
+        logger.info(String.format("Add vacancy %s to DB", this.title));
     }
-
 
     private String parseTitle(String title) {
-
         return title.substring(0, title.length() - 18);
     }
-
 
 }

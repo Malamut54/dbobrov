@@ -11,22 +11,23 @@ import java.util.TimerTask;
  */
 
 public class StartProgram {
-    private Init init = new Init();
-    private Parser parser = new Parser();
-    private Timer timer = new Timer();
-    long periodicity = 1000 * 60 * 60 * 24 * init.getPeriodicity();
 
-    public StartProgram() {
-        Task t = new Task();
-        timer.schedule(t, 100, periodicity);
-    }
-
-    private class Task extends TimerTask {
-        public void run() {
-            parser.grabLinkVacation();
-        }
-    }
     public static void main(String[] args) {
-        new StartProgram();
+        Init init = new Init();
+        final Parser parser = new Parser();
+        final long periodicity = 1000 * 60 * 60 * 24 * init.getPeriodicity();
+
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    try {
+                        parser.grabLinkVacation();
+                        Thread.sleep(periodicity);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 }

@@ -4,6 +4,7 @@ import ru.job4j.sqljob.Init;
 import ru.job4j.sqljob.Vacancy;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,6 +26,7 @@ public class Base {
     Connection connection = null;
     Statement statement = null;
     ResultSet resultSet = null;
+    PreparedStatement preparedStatement = null;
 
     public boolean isFirstLaunch() {
         boolean result = false;
@@ -36,33 +38,39 @@ public class Base {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            closeConnection();
+            try {
+                connection.close();
+                statement.close();
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }
 
     public void addVacancyToDb(Vacancy vacancy) {
-        java.sql.Date date = new java.sql.Date(vacancy.getDate().getTime());
-        System.out.println(date);
         try {
             connection = DriverManager.getConnection(URL, user, password);
-            statement = connection.createStatement();
-            statement.execute(String.format("INSERT INTO sqljob (author, title, description, create_date, url)" +
-                    "VALUES ('%s', '%s', '%s', '%s', '%s')", vacancy.getAuthor(), vacancy.getTitle(), vacancy.getDescription(), date.toString(), vacancy.getLink()));
+            preparedStatement = connection.prepareStatement("INSERT INTO sqljob (author, title, description, create_date, url) VALUES " +
+                    "(?, ?, ?, ?, ?)");
+            preparedStatement.setString(1, vacancy.getAuthor());
+            preparedStatement.setString(2, vacancy.getTitle());
+            preparedStatement.setString(3, vacancy.getDescription());
+            preparedStatement.setDate(4, new java.sql.Date(vacancy.getDate().getTime()));
+            preparedStatement.setString(5, vacancy.getLink());
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            closeConnection();
+            try {
+                connection.close();
+                preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void closeConnection() {
-        try {
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
 }
