@@ -2,10 +2,7 @@ package ru.job4j.sqljob;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.util.Properties;
 
 /**
@@ -16,32 +13,68 @@ import java.util.Properties;
  */
 
 public class Init {
+    /**
+     * Star frequency.
+     */
     private int periodicity;
+    /**
+     * URL to DB.
+     */
     private String urlToDB;
+    /**
+     * User for DB.
+     */
     private String user;
+
+    /**
+     * Password to DB.
+     */
     private String password;
 
+    /**
+     * Constructor.
+     */
     public Init() {
         this.getCredentials();
     }
 
-    public int getPeriodicity() {
+    /**
+     * Getter for startup frequency.
+     *
+     * @return Integer
+     */
+    int getPeriodicity() {
         return periodicity;
     }
 
+    /**
+     * Getter for URL.
+     * @return String
+     */
     public String getUrlToDB() {
         return urlToDB;
     }
 
+    /**
+     * Getter for user.
+     * @return String
+     */
     public String getUser() {
         return user;
     }
 
+    /**
+     * Getter for password.
+     * @return String
+     */
     public String getPassword() {
         return password;
     }
 
-    public void getCredentials() {
+    /**
+     * Get credentials from property file.
+     */
+    private void getCredentials() {
         Properties properties = new Properties();
         try {
             File file = new File("sqljob.properties");

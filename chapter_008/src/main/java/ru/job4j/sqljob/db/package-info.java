@@ -5,4 +5,4 @@
  * @since 11.12.2017
  */
 
-package sqljob;
+package ru.job4j.sqljob.db;

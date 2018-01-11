@@ -1,8 +1,5 @@
 package ru.job4j.sqljob;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 /**
  * Final task. Parse sql.ru.
  *
@@ -11,7 +8,11 @@ import java.util.TimerTask;
  */
 
 public class StartProgram {
-
+    /**
+     * Start app.
+     *
+     * @param args args.
+     */
     public static void main(String[] args) {
         Init init = new Init();
         final Parser parser = new Parser();

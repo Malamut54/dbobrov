@@ -8,30 +8,58 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Calendar;
 
 
 /**
- * TODO: comment
+ * Final task. Parse sql.ru.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
- * @since 14.12.2017
+ * @since 11.12.2017
  */
 
 public class Base {
-    Init init = new Init();
-    String URL = init.getUrlToDB();
-    String user = init.getUser();
-    String password = init.getPassword();
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
-    PreparedStatement preparedStatement = null;
+    /**
+     * Object for get credentials.
+     */
+    private Init init = new Init();
+    /**
+     * URL to DB.
+     */
+    private String url = init.getUrlToDB();
+    /**
+     * DB user.
+     */
+    private String user = init.getUser();
+    /**
+     * DB user pass.
+     */
+    private String password = init.getPassword();
+    /**
+     * Connection.
+     */
+    private Connection connection = null;
+    /**
+     * Statement.
+     */
+    private Statement statement = null;
+    /**
+     * ResultSet.
+     */
+    private ResultSet resultSet = null;
+    /**
+     * PreparedStatement.
+     */
+    private PreparedStatement preparedStatement = null;
 
+    /**
+     * Check first start app.
+     *
+     * @return boolean
+     */
     public boolean isFirstLaunch() {
         boolean result = false;
         try {
-            connection = DriverManager.getConnection(URL, user, password);
+            connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT id FROM sqljob WHERE id = 1");
             result = resultSet.next();
@@ -49,11 +77,15 @@ public class Base {
         return result;
     }
 
+    /**
+     * Add vacancy to DB.
+     * @param vacancy vacancy.
+     */
     public void addVacancyToDb(Vacancy vacancy) {
         try {
-            connection = DriverManager.getConnection(URL, user, password);
-            preparedStatement = connection.prepareStatement("INSERT INTO sqljob (author, title, description, create_date, url) VALUES " +
-                    "(?, ?, ?, ?, ?)");
+            connection = DriverManager.getConnection(url, user, password);
+            preparedStatement = connection.prepareStatement("INSERT INTO sqljob (author, title, description, create_date, url) VALUES "
+                    + "(?, ?, ?, ?, ?)");
             preparedStatement.setString(1, vacancy.getAuthor());
             preparedStatement.setString(2, vacancy.getTitle());
             preparedStatement.setString(3, vacancy.getDescription());
@@ -71,6 +103,36 @@ public class Base {
             }
         }
     }
+
+    /**
+     * Check duplicate vacancy.
+     *
+     * @param vacancy vacancy
+     * @return boolean
+     */
+    public boolean checkDuplicate(Vacancy vacancy) {
+        boolean result = false;
+        try {
+            connection = DriverManager.getConnection(url, user, password);
+            preparedStatement = connection.prepareStatement("SELECT author, title FROM sqljob WHERE author = ? AND title = ?");
+            preparedStatement.setString(1, vacancy.getAuthor());
+            preparedStatement.setString(2, vacancy.getTitle());
+            resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+                preparedStatement.close();
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
 
 
 }
