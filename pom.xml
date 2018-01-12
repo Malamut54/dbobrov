@@ -38,7 +38,7 @@
     </configuration>
 		</plugin>
 	</plugins>
-	</build> 
+    </build>
 		<properties>
 			<maven.compiller.source>1.8</maven.compiller.source>
 			<maven.compiller.target>1.8</maven.compiller.target>
@@ -50,6 +50,7 @@
             <module>chapter_005</module>
             <module>chapter_007</module>
             <module>chapter_008</module>
+            <module>chapter_009</module>
 		</modules>
 		<dependencies>
 			<dependency>
