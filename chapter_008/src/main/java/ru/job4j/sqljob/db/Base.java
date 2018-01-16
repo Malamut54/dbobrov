@@ -2,6 +2,7 @@ package ru.job4j.sqljob.db;
 
 import ru.job4j.sqljob.Init;
 import ru.job4j.sqljob.Vacancy;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -39,10 +40,6 @@ public class Base {
      */
     private Connection connection = null;
     /**
-     * Statement.
-     */
-    private Statement statement = null;
-    /**
      * ResultSet.
      */
     private ResultSet resultSet = null;
@@ -58,34 +55,29 @@ public class Base {
      */
     public boolean isFirstLaunch() {
         boolean result = false;
-        try {
-            connection = DriverManager.getConnection(url, user, password);
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT id FROM sqljob WHERE id = 1");
-            result = resultSet.next();
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery("SELECT id FROM sqljob WHERE id = 1");
+
+        ) {
+            result = rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-                statement.close();
-                resultSet.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return result;
     }
 
     /**
      * Add vacancy to DB.
+     *
      * @param vacancy vacancy.
      */
     public void addVacancyToDb(Vacancy vacancy) {
-        try {
-            connection = DriverManager.getConnection(url, user, password);
-            preparedStatement = connection.prepareStatement("INSERT INTO sqljob (author, title, description, create_date, url) VALUES "
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO sqljob (author, title, description, create_date, url) VALUES "
                     + "(?, ?, ?, ?, ?)");
+
+        ) {
             preparedStatement.setString(1, vacancy.getAuthor());
             preparedStatement.setString(2, vacancy.getTitle());
             preparedStatement.setString(3, vacancy.getDescription());
@@ -94,14 +86,27 @@ public class Base {
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-                preparedStatement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
+//        try {
+//            connection = DriverManager.getConnection(url, user, password);
+//            preparedStatement = connection.prepareStatement("INSERT INTO sqljob (author, title, description, create_date, url) VALUES "
+//                    + "(?, ?, ?, ?, ?)");
+//            preparedStatement.setString(1, vacancy.getAuthor());
+//            preparedStatement.setString(2, vacancy.getTitle());
+//            preparedStatement.setString(3, vacancy.getDescription());
+//            preparedStatement.setDate(4, new java.sql.Date(vacancy.getDate().getTime()));
+//            preparedStatement.setString(5, vacancy.getLink());
+//            preparedStatement.execute();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                connection.close();
+//                preparedStatement.close();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     /**
@@ -132,7 +137,6 @@ public class Base {
         }
         return result;
     }
-
 
 
 }
