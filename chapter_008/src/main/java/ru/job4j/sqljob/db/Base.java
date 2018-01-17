@@ -35,18 +35,6 @@ public class Base {
      * DB user pass.
      */
     private String password = init.getPassword();
-    /**
-     * Connection.
-     */
-    private Connection connection = null;
-    /**
-     * ResultSet.
-     */
-    private ResultSet resultSet = null;
-    /**
-     * PreparedStatement.
-     */
-    private PreparedStatement preparedStatement = null;
 
     /**
      * Check first start app.
@@ -87,26 +75,6 @@ public class Base {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        try {
-//            connection = DriverManager.getConnection(url, user, password);
-//            preparedStatement = connection.prepareStatement("INSERT INTO sqljob (author, title, description, create_date, url) VALUES "
-//                    + "(?, ?, ?, ?, ?)");
-//            preparedStatement.setString(1, vacancy.getAuthor());
-//            preparedStatement.setString(2, vacancy.getTitle());
-//            preparedStatement.setString(3, vacancy.getDescription());
-//            preparedStatement.setDate(4, new java.sql.Date(vacancy.getDate().getTime()));
-//            preparedStatement.setString(5, vacancy.getLink());
-//            preparedStatement.execute();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                connection.close();
-//                preparedStatement.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     /**
@@ -117,23 +85,16 @@ public class Base {
      */
     public boolean checkDuplicate(Vacancy vacancy) {
         boolean result = false;
-        try {
-            connection = DriverManager.getConnection(url, user, password);
-            preparedStatement = connection.prepareStatement("SELECT author, title FROM sqljob WHERE author = ? AND title = ?");
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT author, title FROM sqljob WHERE author = ? AND title = ?");
+        ) {
             preparedStatement.setString(1, vacancy.getAuthor());
             preparedStatement.setString(2, vacancy.getTitle());
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet.next();
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-                preparedStatement.close();
-                resultSet.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return result;
     }

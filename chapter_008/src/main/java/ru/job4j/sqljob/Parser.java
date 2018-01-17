@@ -23,34 +23,6 @@ import java.util.Calendar;
 
 public class Parser {
     /**
-     * Vacancy author.
-     */
-    private String author;
-    /**
-     * Vacancy title.
-     */
-    private String title;
-    /**
-     * Vacancy URL.
-     */
-    private String url;
-    /**
-     * Vacancy Description.
-     */
-    private String description;
-    /**
-     * Object for parse Date.
-     */
-    private DateCheck dateCheck = new DateCheck();
-    /**
-     * Object for work with DB.
-     */
-    private Base base = new Base();
-    /**
-     * Number page sql.ru http://www.sql.ru/forum/job/1.
-     */
-    private int numPage = 1;
-    /**
      * Border date.
      */
     private Calendar borderDate = Calendar.getInstance();
@@ -58,10 +30,6 @@ public class Parser {
      * Vacancy date.
      */
     private Calendar dateVacancy = Calendar.getInstance();
-    /**
-     * Current year.
-     */
-    private int year = borderDate.get(Calendar.YEAR);
     /**
      * Logger.
      */
@@ -74,22 +42,23 @@ public class Parser {
         BasicConfigurator.configure();
         LOGGER.setLevel(Level.INFO);
         boolean nextPage = true;
+        int numPage = 1;
         LOGGER.info("Start parse sql.ru");
 
         while (nextPage) {
             try {
                 Document document = Jsoup.connect(String.format("http://www.sql.ru/forum/job/%d", numPage++)).get();
                 Elements elements = document.select("td.altcol");
-                Elements tmpelements = new Elements();
+                Elements tmpElements = new Elements();
                 for (int i = 0; i < 6; i++) {
                     elements.remove(0);
                 }
                 for (Element element : elements) {
                     if (element.siblingIndex() == 11) {
-                        tmpelements.add(element);
+                        tmpElements.add(element);
                     }
                 }
-                for (Element tmpelement : tmpelements) {
+                for (Element tmpelement : tmpElements) {
                     if (checkDateOnPage(tmpelement.text())) {
                         String link = tmpelement.parent().getElementsByAttributeValue("class", "postslisttopic").get(0).childNode(1).attributes().get("href");
                         if (checkDateVacancy(link)) {
@@ -114,7 +83,7 @@ public class Parser {
      */
     private void checkOnlyJavaVacancy(String link) {
         if (link.contains("java") && !link.contains("javascript") && !link.contains("java-script")) {
-            this.url = link;
+//            this.url = link;
             createValidVacancy(link);
         }
     }
@@ -126,6 +95,7 @@ public class Parser {
      * @return boolean.
      */
     private boolean checkDateVacancy(String link) {
+        DateCheck dateCheck = new DateCheck();
         try {
             Document document = Jsoup.connect(link).userAgent("Mozilla").get();
             Elements elements = document.select("td.msgFooter");
@@ -147,10 +117,12 @@ public class Parser {
      * @return boolean.
      */
     private boolean checkDateOnPage(String str) {
+        DateCheck dateCheck = new DateCheck();
         this.borderDate.set(Calendar.MILLISECOND, 0);
 
-        if (!base.isFirstLaunch()) {
-            borderDate.set(year, 0, 1, 0, 0);
+
+        if (!new Base().isFirstLaunch()) {
+            borderDate.set(borderDate.get(Calendar.YEAR), 0, 1, 0, 0);
             dateCheck.lastStartDate();
         } else {
             this.borderDate = dateCheck.lastStartDate();
@@ -165,21 +137,25 @@ public class Parser {
      * @param link vacation URL.
      */
     private void createValidVacancy(String link) {
+        String author = null;
+        String title = null;
+        String description = null;
+        Base base = new Base();
         try {
             Document document = Jsoup.connect(link).userAgent("Mozilla").get();
             Elements nameAuthor = document.getElementsByAttributeValue("class", "msgBody");
-            this.description = document.select("td.msgBody").get(1).ownText();
-            this.author = nameAuthor.get(0).childNode(1).childNode(0).toString().trim();
-            this.title = parseTitle(document.select("title").get(0).ownText());
+            description = document.select("td.msgBody").get(1).ownText();
+            author = nameAuthor.get(0).childNode(1).childNode(0).toString().trim();
+            title = parseTitle(document.select("title").get(0).ownText());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Vacancy vacancy = new Vacancy(this.dateVacancy.getTime(), this.url, this.author, this.title, this.description);
+        Vacancy vacancy = new Vacancy(this.dateVacancy.getTime(), link, author, title, description);
         if (base.checkDuplicate(vacancy)) {
             LOGGER.info("Duplicate Vacancy");
         } else {
             base.addVacancyToDb(vacancy);
-            LOGGER.info(String.format("Add vacancy %s to DB", this.title));
+            LOGGER.info(String.format("Add vacancy %s to DB", title));
         }
 
     }
