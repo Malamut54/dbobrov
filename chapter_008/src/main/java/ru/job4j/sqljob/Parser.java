@@ -23,6 +23,10 @@ import java.util.Calendar;
 
 public class Parser {
     /**
+     * Logger.
+     */
+    private static final Logger LOGGER = Logger.getLogger(Parser.class);
+    /**
      * Border date.
      */
     private Calendar borderDate = Calendar.getInstance();
@@ -30,10 +34,6 @@ public class Parser {
      * Vacancy date.
      */
     private Calendar dateVacancy = Calendar.getInstance();
-    /**
-     * Logger.
-     */
-    private static final Logger LOGGER = Logger.getLogger(Parser.class);
 
     /**
      * Main method for grab all vacancy from sql.ru.
