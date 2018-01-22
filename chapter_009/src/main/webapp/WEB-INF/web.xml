@@ -6,7 +6,8 @@
 
     <servlet>
         <servlet-name>UsersServlet</servlet-name>
-        <servlet-class>ru.job4j.servlet2.UsersServelt</servlet-class>
+        <servlet-class>ru.job4j.servlet2.UsersServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>

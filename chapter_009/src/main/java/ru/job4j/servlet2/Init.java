@@ -2,21 +2,24 @@ package ru.job4j.servlet2;
 
 import org.apache.log4j.Logger;
 
-import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * TODO: comment
+ * Task Crud servlet.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
- * @since 15.01.2018
+ * @since 22.01.2018
  */
 
 
 public class Init {
-    private static final Logger log = Logger.getLogger(Init.class);
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = Logger.getLogger(Init.class);
     /**
      * URL to DB.
      */
@@ -70,12 +73,15 @@ public class Init {
      */
     private void getCredentials() {
         Properties properties = new Properties();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream input = classLoader.getResourceAsStream("servlet.properties");
+
         try {
-            File file = new File("servlet2.properties");
-            properties.load(new FileInputStream(file));
+            properties.load(input);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         urlToDB = properties.getProperty("Database.DataURL");
         user = properties.getProperty("Database.Prop.user");
         password = properties.getProperty("Database.Prop.password");
