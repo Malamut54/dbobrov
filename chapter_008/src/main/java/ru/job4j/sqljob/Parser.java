@@ -39,7 +39,6 @@ public class Parser {
      * Main method for grab all vacancy from sql.ru.
      */
     void grabLinkVacation() {
-        BasicConfigurator.configure();
         LOGGER.setLevel(Level.INFO);
         boolean nextPage = true;
         int numPage = 1;
