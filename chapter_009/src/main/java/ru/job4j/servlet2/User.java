@@ -41,7 +41,7 @@ public class User {
      * @param login user login
      * @param email user email
      */
-    public User(String name, String login, String email) {
+    User(String name, String login, String email) {
         this.name = name;
         this.login = login;
         this.email = email;
@@ -55,7 +55,7 @@ public class User {
      * @param email user email
      * @param createDate user create date
      */
-    public User(String name, String login, String email, Date createDate) {
+    User(String name, String login, String email, Date createDate) {
         this.name = name;
         this.login = login;
         this.email = email;
@@ -66,7 +66,7 @@ public class User {
      * Getter.
      * @return name
      */
-    public String getName() {
+    String getName() {
         return name;
     }
 
@@ -74,7 +74,7 @@ public class User {
      * Getter.
      * @return login
      */
-    public String getLogin() {
+    String getLogin() {
         return login;
     }
 
@@ -82,7 +82,7 @@ public class User {
      * Getter.
      * @return email
      */
-    public String getEmail() {
+    String getEmail() {
         return email;
     }
 
@@ -90,7 +90,7 @@ public class User {
      * Getter.
      * @return date
      */
-    public Date getCreateDate() {
+    Date getCreateDate() {
         return createDate;
     }
 }

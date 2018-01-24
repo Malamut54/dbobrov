@@ -1,6 +1,7 @@
 package ru.job4j.servlet2;
 
 import org.apache.log4j.Logger;
+import org.apache.tomcat.jdbc.pool.PoolProperties;
 
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.util.Properties;
  */
 
 
-public class Init {
+class Init {
     /**
      * Logger.
      */
@@ -28,44 +29,20 @@ public class Init {
      * User for DB.
      */
     private String user;
-
     /**
      * Password to DB.
      */
     private String password;
+    /**
+     * Driver name.
+     */
+    private String drvName;
 
     /**
      * Constructor.
      */
-    public Init() {
+    Init() {
         this.getCredentials();
-    }
-
-    /**
-     * Getter for URL.
-     *
-     * @return String
-     */
-    public String getUrlToDB() {
-        return urlToDB;
-    }
-
-    /**
-     * Getter for user.
-     *
-     * @return String
-     */
-    public String getUser() {
-        return user;
-    }
-
-    /**
-     * Getter for password.
-     *
-     * @return String
-     */
-    public String getPassword() {
-        return password;
     }
 
     /**
@@ -85,5 +62,39 @@ public class Init {
         urlToDB = properties.getProperty("Database.DataURL");
         user = properties.getProperty("Database.Prop.user");
         password = properties.getProperty("Database.Prop.password");
+        drvName = properties.getProperty("Database.Driver.name");
+
+    }
+
+    /**
+     * Get Properties for DataSource.
+     *
+     * @return Properties.
+     */
+    PoolProperties getProperties() {
+        PoolProperties poolProperties = new PoolProperties();
+        poolProperties.setUrl(urlToDB);
+        poolProperties.setDriverClassName(drvName);
+        poolProperties.setUsername(user);
+        poolProperties.setPassword(password);
+        poolProperties.setJmxEnabled(true);
+        poolProperties.setTestWhileIdle(false);
+        poolProperties.setTestOnBorrow(true);
+        poolProperties.setValidationQuery("SELECT 1");
+        poolProperties.setTestOnReturn(false);
+        poolProperties.setValidationInterval(30000);
+        poolProperties.setTimeBetweenEvictionRunsMillis(30000);
+        poolProperties.setMaxActive(100);
+        poolProperties.setInitialSize(10);
+        poolProperties.setMaxWait(10000);
+        poolProperties.setRemoveAbandonedTimeout(60);
+        poolProperties.setMinEvictableIdleTimeMillis(30000);
+        poolProperties.setMinIdle(10);
+        poolProperties.setLogAbandoned(true);
+        poolProperties.setRemoveAbandoned(true);
+        poolProperties.setJdbcInterceptors(
+                "org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;"
+                        + "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer");
+        return poolProperties;
     }
 }

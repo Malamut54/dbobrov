@@ -3,12 +3,13 @@ package ru.job4j.servlet2;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
+
+import org.apache.tomcat.jdbc.pool.DataSource;
 
 /**
  * Task Crud servlet.
@@ -18,7 +19,7 @@ import java.sql.Date;
  */
 
 
-public class UserStore {
+class UserStore {
     /**
      * Logger.
      */
@@ -27,23 +28,10 @@ public class UserStore {
      * For single Tone.
      */
     private static final UserStore INSTANCE = new UserStore();
-
     /**
-     * Object for get credentials.
+     * Datasource.
      */
-    private Init init = new Init();
-    /**
-     * URL to DB.
-     */
-    private String url = init.getUrlToDB();
-    /**
-     * DB user.
-     */
-    private String userDB = init.getUser();
-    /**
-     * DB user pass.
-     */
-    private String password = init.getPassword();
+    private DataSource dataSource = new DataSource();
 
     /**
      * Hide default constructor for SingleTone.
@@ -56,24 +44,33 @@ public class UserStore {
      *
      * @return return Object
      */
-    public static UserStore getInstance() {
+    static UserStore getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * get Datasource.
+     *
+     * @return Datasource
+     */
+    private DataSource getDatasource() {
+        dataSource.setPoolProperties(new Init().getProperties());
+        return dataSource;
+    }
     /**
      * Add User to DB.
      *
      * @param user user
      */
-    public void addUser(User user) {
+    void addUser(User user) {
         String sql = "INSERT INTO servlet2 (name, login, email, create_date) VALUES (?, ?, ?, ?)";
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        try (Connection cn = DriverManager.getConnection(url, userDB, password);
-             PreparedStatement ps = cn.prepareStatement(sql);
+        try (Connection cn = getDatasource().getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)
         ) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getLogin());
@@ -90,7 +87,7 @@ public class UserStore {
      * @param searchName input name
      * @return User
      */
-    public User getUser(String searchName) {
+    User getUser(String searchName) {
         String sql = String.format("SELECT * FROM servlet2 WHERE login = '%s'", searchName);
         User result = null;
 
@@ -100,9 +97,9 @@ public class UserStore {
             e.printStackTrace();
         }
 
-        try (Connection cn = DriverManager.getConnection(url, userDB, password);
+        try (Connection cn = getDatasource().getConnection();
              Statement st = cn.createStatement();
-             ResultSet rs = st.executeQuery(sql);
+             ResultSet rs = st.executeQuery(sql)
         ) {
             while (rs.next()) {
                 String name = rs.getString("name");
@@ -124,7 +121,7 @@ public class UserStore {
      * @param login   for find
      * @param email   new email
      */
-    public void updateUser(String newName, String login, String email) {
+    void updateUser(String newName, String login, String email) {
         String sql = String.format("UPDATE servlet2 SET name = ?, email = ? WHERE login = ?", login);
 
         try {
@@ -133,8 +130,8 @@ public class UserStore {
             e.printStackTrace();
         }
 
-        try (Connection cn = DriverManager.getConnection(url, userDB, password);
-             PreparedStatement ps = cn.prepareStatement(sql);
+        try (Connection cn = getDatasource().getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)
         ) {
             ps.setString(1, newName);
             ps.setString(2, email);
@@ -150,7 +147,7 @@ public class UserStore {
      *
      * @param login login.
      */
-    public void deleteUser(String login) {
+    void deleteUser(String login) {
         String sql = String.format("DELETE FROM servlet2 WHERE login = '%s'", login);
 
         try {
@@ -159,9 +156,8 @@ public class UserStore {
             e.printStackTrace();
         }
 
-        try (Connection cn = DriverManager.getConnection(url, userDB, password);
-             Statement st = cn.createStatement();
-
+        try (Connection cn = getDatasource().getConnection();
+             Statement st = cn.createStatement()
         ) {
             st.execute(sql);
         } catch (SQLException e) {
