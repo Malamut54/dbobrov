@@ -5,10 +5,10 @@ import org.apache.log4j.Logger;
 import java.util.Date;
 
 /**
- * Task Crud servlet.
+ * Task CRUD + HTML.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
- * @since 22.01.2018
+ * @since 26.01.2018
  */
 
 
@@ -41,7 +41,7 @@ public class User {
      * @param login user login
      * @param email user email
      */
-    User(String name, String login, String email) {
+    public User(String name, String login, String email) {
         this.name = name;
         this.login = login;
         this.email = email;

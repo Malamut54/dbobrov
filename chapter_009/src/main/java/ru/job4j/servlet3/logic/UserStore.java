@@ -15,7 +15,7 @@ import java.util.List;
 
 
 /**
- * TODO: comment
+ * Task CRUD + HTML.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 26.01.2018
@@ -23,13 +23,30 @@ import java.util.List;
 
 
 public class UserStore {
-    private static final Logger log = Logger.getLogger(UserStore.class);
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = Logger.getLogger(UserStore.class);
+    /**
+     * Instance.
+     */
     private static UserStore instance;
+    /**
+     * Data source.
+     */
     private DataSource dataSource = new DataSource();
 
+    /**
+     * Default constructor.
+     */
     private UserStore() {
     }
 
+    /**
+     * Getting source (Thread Safe Singleton).
+     *
+     * @return instance
+     */
     public static synchronized UserStore getInstance() {
         if (instance == null) {
             instance = new UserStore();
@@ -73,46 +90,13 @@ public class UserStore {
     }
 
     /**
-     * Get User from DB.
-     *
-     * @param searchName input name
-     * @return User
-     */
-    public User getUser(String searchName) {
-        String sql = String.format("SELECT * FROM servlet2 WHERE login = '%s'", searchName);
-        User result = null;
-
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try (Connection cn = getDatasource().getConnection();
-             Statement st = cn.createStatement();
-             ResultSet rs = st.executeQuery(sql)
-        ) {
-            while (rs.next()) {
-                String name = rs.getString("name");
-                String login = rs.getString("login");
-                String email = rs.getString("email");
-                Date date = rs.getDate("create_date");
-                result = new User(name, login, email, date);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    /**
      * Update user.
      *
      * @param newName new name
      * @param login   for find
-     * @param email   new email
+     * @param newEmail   new new email
      */
-    public void updateUser(String newName, String login, String email) {
+    public void updateUser(String newName, String newEmail, String login) {
         String sql = String.format("UPDATE servlet2 SET name = ?, email = ? WHERE login = ?", login);
 
         try {
@@ -125,7 +109,7 @@ public class UserStore {
              PreparedStatement ps = cn.prepareStatement(sql)
         ) {
             ps.setString(1, newName);
-            ps.setString(2, email);
+            ps.setString(2, newEmail);
             ps.setString(3, login);
             ps.execute();
         } catch (SQLException e) {
@@ -156,6 +140,10 @@ public class UserStore {
         }
     }
 
+    /**
+     * Get all user from DB.
+     * @return List users
+     */
     public List<User> getAllUser() {
         List<User> allUser = new ArrayList<>();
         try {

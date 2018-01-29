@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * TODO: comment
+ * Task CRUD + HTML.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 26.01.2018
@@ -16,7 +16,10 @@ import java.util.Properties;
 
 
 public class Init {
-    private static final Logger log = Logger.getLogger(Init.class);
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = Logger.getLogger(Init.class);
     /**
      * URL to DB.
      */

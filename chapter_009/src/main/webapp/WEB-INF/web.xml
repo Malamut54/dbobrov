@@ -46,18 +46,18 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateUserServlet</servlet-name>
-        <url-pattern>/main/create</url-pattern>
+        <url-pattern>/main/create/</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteUserServlet</servlet-name>
-        <url-pattern>/main/delete</url-pattern>
+        <url-pattern>/main/delete/</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUserServlet</servlet-name>
-        <url-pattern>/main/get</url-pattern>
+        <url-pattern>/main/get/</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateUserServlet</servlet-name>
-        <url-pattern>/main/update</url-pattern>
+        <url-pattern>/main/update/</url-pattern>
     </servlet-mapping>
 </web-app>
