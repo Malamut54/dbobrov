@@ -50,7 +50,6 @@ class UserStore {
 
     /**
      * get Datasource.
-     *
      * @return Datasource
      */
     private DataSource getDatasource() {
@@ -70,7 +69,7 @@ class UserStore {
             e.printStackTrace();
         }
         try (Connection cn = getDatasource().getConnection();
-             PreparedStatement ps = cn.prepareStatement(sql)
+             PreparedStatement ps = cn.prepareStatement(sql);
         ) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getLogin());
@@ -99,7 +98,7 @@ class UserStore {
 
         try (Connection cn = getDatasource().getConnection();
              Statement st = cn.createStatement();
-             ResultSet rs = st.executeQuery(sql)
+             ResultSet rs = st.executeQuery(sql);
         ) {
             while (rs.next()) {
                 String name = rs.getString("name");
@@ -131,7 +130,7 @@ class UserStore {
         }
 
         try (Connection cn = getDatasource().getConnection();
-             PreparedStatement ps = cn.prepareStatement(sql)
+             PreparedStatement ps = cn.prepareStatement(sql);
         ) {
             ps.setString(1, newName);
             ps.setString(2, email);
