@@ -5,4 +5,4 @@
  * @since 12.01.2018
  */
 
-package ru.job4j.web1;
+package ru.job4j.servlet1;
