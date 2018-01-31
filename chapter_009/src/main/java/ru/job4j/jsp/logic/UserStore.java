@@ -14,7 +14,7 @@ import java.util.List;
 
 
 /**
- * Task CRUD + HTML.
+ * Task JSP.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 26.01.2018
@@ -70,11 +70,6 @@ public class UserStore {
      */
     public void addUser(User user) {
         String sql = "INSERT INTO servlet2 (name, login, email, create_date) VALUES (?, ?, ?, ?)";
-//        try {
-//            Class.forName("org.postgresql.Driver");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
         try (Connection cn = getDatasource().getConnection();
              PreparedStatement ps = cn.prepareStatement(sql)
         ) {
@@ -97,13 +92,6 @@ public class UserStore {
      */
     public void updateUser(String newName, String newEmail, String login) {
         String sql = String.format("UPDATE servlet2 SET name = ?, email = ? WHERE login = ?", login);
-
-//        try {
-//            Class.forName("org.postgresql.Driver");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-
         try (Connection cn = getDatasource().getConnection();
              PreparedStatement ps = cn.prepareStatement(sql)
         ) {
@@ -116,20 +104,8 @@ public class UserStore {
         }
     }
 
-    /**
-     * Delete user from DB.
-     *
-     * @param login login.
-     */
     public void deleteUser(String login) {
         String sql = String.format("DELETE FROM servlet2 WHERE login = '%s'", login);
-
-//        try {
-//            Class.forName("org.postgresql.Driver");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-
         try (Connection cn = getDatasource().getConnection();
              Statement st = cn.createStatement()
         ) {
@@ -146,11 +122,6 @@ public class UserStore {
      */
     public List<User> getAllUser() {
         List<User> allUser = new ArrayList<>();
-//        try {
-//            Class.forName("org.postgresql.Driver");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
         try (Connection cn = getDatasource().getConnection();
              Statement st = cn.createStatement();
              ResultSet rs = st.executeQuery("SELECT * FROM servlet2");

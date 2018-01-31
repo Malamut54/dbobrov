@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Task JSP.
@@ -17,20 +18,24 @@ import java.io.IOException;
  */
 
 
-public class DeleteUserServlet extends HttpServlet {
+public class UpdateUserServlet extends HttpServlet {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = Logger.getLogger(DeleteUserServlet.class);
+    private static final Logger LOGGER = Logger.getLogger(UpdateUserServlet.class);
     /**
      * UserStore.
      */
     private final UserStore userStore = UserStore.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String loginForDel = req.getParameter("login");
-        userStore.deleteUser(loginForDel);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        String name = req.getParameter("first_name");
+        String email = req.getParameter("email");
+        String login = req.getParameter("login");
+        userStore.updateUser(name, email, login);
         resp.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
     }
 }

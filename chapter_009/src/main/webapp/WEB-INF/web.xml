@@ -17,20 +17,16 @@
     </servlet>
     <servlet>
         <servlet-name>CreateUserServlet</servlet-name>
-        <servlet-class>ru.job4j.servlet3.servlets.CreateUserServlet</servlet-class>
+        <servlet-class>ru.job4j.jsp.servlets.CreateUserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteUserServlet</servlet-name>
         <servlet-class>ru.job4j.jsp.servlets.DeleteUserServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>GetUserServlet</servlet-name>
-        <servlet-class>ru.job4j.servlet3.servlets.GetUserServlet</servlet-class>
-    </servlet>
 
     <servlet>
         <servlet-name>UpdateUserServlet</servlet-name>
-        <servlet-class>ru.job4j.servlet3.servlets.UpdateUserServlet</servlet-class>
+        <servlet-class>ru.job4j.jsp.servlets.UpdateUserServlet</servlet-class>
     </servlet>
 
 
@@ -48,18 +44,14 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateUserServlet</servlet-name>
-        <url-pattern>/main/create/</url-pattern>
+        <url-pattern>/create</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteUserServlet</servlet-name>
         <url-pattern>/main/delete/</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetUserServlet</servlet-name>
-        <url-pattern>/main/get/</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>UpdateUserServlet</servlet-name>
-        <url-pattern>/main/update/</url-pattern>
+        <url-pattern>/update</url-pattern>
     </servlet-mapping>
 </web-app>

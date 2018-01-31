@@ -40,9 +40,9 @@
                 <%= user.getCreateDate() %>
             </td>
             <td>
-                <form action='<%=request.getServerName() %> <%=request.getServerPort() %> <%= request.getContextPath()%>/main/update'
+                <form action='<%= request.getContextPath()%>/update.jsp'
                       method='get'>
-                    <button value='<%= user.getName() %>' name='login' type='submit'>Update</button>
+                    <button value='<%= user.getLogin() %>' name='login' type='submit'>Update</button>
                 </form>
             </td>
             <td>
@@ -53,7 +53,7 @@
         </tr>
         <% } %>
     </table>
-    <p><a href="http://localhost:8080/userstore/main/create/">Create user</a></p>
+    <p><a href="<%= request.getContextPath()%>/create.jsp">Create User</a></p>
 </center>
 </body>
 </html>

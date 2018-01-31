@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import java.util.Date;
 
 /**
- * Task CRUD + HTML.
+ * Task JSP.
  *
  * @author Dmitriy Bobrov (bobrov.dmitriy@gmail.com)
  * @since 26.01.2018
