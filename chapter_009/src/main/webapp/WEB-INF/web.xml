@@ -9,9 +9,11 @@
         <servlet-class>ru.job4j.servlet2.UsersServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+
+
     <servlet>
         <servlet-name>UserStoreServlet</servlet-name>
-        <servlet-class>ru.job4j.servlet3.servlets.UserStoreServlet</servlet-class>
+        <servlet-class>ru.job4j.jsp.servlets.UserStoreServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateUserServlet</servlet-name>
@@ -19,7 +21,7 @@
     </servlet>
     <servlet>
         <servlet-name>DeleteUserServlet</servlet-name>
-        <servlet-class>ru.job4j.servlet3.servlets.DeleteUserServlet</servlet-class>
+        <servlet-class>ru.job4j.jsp.servlets.DeleteUserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetUserServlet</servlet-name>
