@@ -29,6 +29,52 @@
         <servlet-class>ru.job4j.jsp.servlets.UpdateUserServlet</servlet-class>
     </servlet>
 
+    <!-- Create Servlet for MVC -->
+
+
+    <servlet>
+        <servlet-name>UserStoreController</servlet-name>
+        <servlet-class>ru.job4j.mvc.servlets.UserStoreController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UpdateUserController</servlet-name>
+        <servlet-class>ru.job4j.mvc.servlets.UpdateUserController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>DeleteUserController</servlet-name>
+        <servlet-class>ru.job4j.mvc.servlets.DeleteUserController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CreateUserController</servlet-name>
+        <servlet-class>ru.job4j.mvc.servlets.CreateUserController</servlet-class>
+    </servlet>
+
+    <!-- Create Servlet for MVC -->
+
+
+    <!-- Create Mapping for MVC -->
+    <servlet-mapping>
+        <servlet-name>UserStoreController</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUserController</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUserController</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateUserController</servlet-name>
+        <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- Create Mapping for MVC -->
 
     <servlet-mapping>
         <servlet-name>EchoServlet</servlet-name>
@@ -42,16 +88,20 @@
         <servlet-name>UserStoreServlet</servlet-name>
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CreateUserServlet</servlet-name>
-        <url-pattern>/create</url-pattern>
-    </servlet-mapping>
+    <!--
+        <servlet-mapping>
+            <servlet-name>CreateUserController</servlet-name>
+            <url-pattern>/create</url-pattern>
+        </servlet-mapping>
+    -->
     <servlet-mapping>
         <servlet-name>DeleteUserServlet</servlet-name>
         <url-pattern>/main/delete/</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateUserServlet</servlet-name>
-        <url-pattern>/update</url-pattern>
-    </servlet-mapping>
+    <!--
+        <servlet-mapping>
+            <servlet-name>UpdateUserServlet</servlet-name>
+            <url-pattern>/update</url-pattern>
+        </servlet-mapping>
+    -->
 </web-app>
