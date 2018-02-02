@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Title</title>
@@ -14,7 +15,7 @@
 <form action="update" method='post' class='reg-form'>
     <div class='form-row'>
         <label for='form_login'>Current Login: </label>
-        <input type='text' id='form_login' name='login' value="<%=request.getParameter("login")%>" readonly>
+        <input type='text' id='form_login' name='login' value='${param["login"]}' readonly>
     </div>
     <div class='form-row'>
         <label for='form_fname'>First Name: </label>

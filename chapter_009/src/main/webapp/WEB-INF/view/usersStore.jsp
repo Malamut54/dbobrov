@@ -53,7 +53,7 @@
             </td>
         </tr>
         </c:forEach>
-        <p><a href="<%= request.getContextPath()%>/create">Create User</a></p>
+        <p><a href="${pageContext.request.contextPath}/create">Create User</a></p>
 </center>
 </body>
 </html>
