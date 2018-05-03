@@ -1,13 +1,26 @@
 package ru.job4j.todo.model.entity;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.sql.Timestamp;
-
-public class Item {
+@Entity
+@Table(name="todos")
+public class Item implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
     private int id;
+    @Column(name = "description")
     private String desc;
+    @Column(name = "create_date", nullable = false)
     private Timestamp created;
+    @Column(nullable = false)
     private boolean done;
 
     public int getId() {
