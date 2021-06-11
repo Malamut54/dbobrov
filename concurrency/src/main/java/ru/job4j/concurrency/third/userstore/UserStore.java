@@ -12,51 +12,25 @@ public class UserStore {
     private final Map<Integer, User> userMap = new HashMap<>();
 
     public synchronized boolean add(User user) {
-        boolean result;
-
-        if (userMap.containsKey(user.getId())) {
-            result = false;
-        } else {
-            userMap.put(user.getId(), user);
-            result = true;
-        }
-
-        return result;
+        return userMap.putIfAbsent(user.getId(), user) != null;
     }
 
     public synchronized boolean update(User user) {
-        boolean result;
-        if (userMap.containsKey(user.getId())) {
-            result = false;
-        } else {
-            userMap.replace(user.getId(), user);
-            result = true;
-        }
-        return result;
+        return userMap.replace(user.getId(), user) != null;
     }
 
     public synchronized boolean delete(User user) {
-        boolean result;
-        if (userMap.containsKey(user.getId())) {
-            result = false;
-        } else {
-            userMap.remove(user.getId());
-            result = true;
-        }
-        return result;
+        return userMap.remove(user.getId(), user);
     }
 
     public synchronized boolean transfer(int fromId, int toId, int amount) {
-        boolean result;
+        boolean result = false;
         User userFrom = userMap.get(fromId);
         User userTo = userMap.get(toId);
 
-        if (userFrom == null || userTo == null || userFrom.getAmount() < amount) {
-            result = false;
-        } else {
-            update(new User(userFrom.getId(), userFrom.getAmount() - amount));
-            update(new User(userTo.getId(), userTo.getAmount() + amount));
-            result = true;
+        if (userFrom != null && userTo != null && userFrom.getAmount() >= amount) {
+            result = update(new User(userFrom.getId(), userFrom.getAmount() - amount)) &&
+                update(new User(userTo.getId(), userTo.getAmount() + amount));
         }
         return result;
     }
