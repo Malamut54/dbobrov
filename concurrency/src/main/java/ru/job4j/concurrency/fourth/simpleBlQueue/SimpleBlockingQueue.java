@@ -9,8 +9,17 @@ import net.jcip.annotations.ThreadSafe;
 public class SimpleBlockingQueue<T> {
     @GuardedBy("this")
     private final Queue<T> queue = new LinkedList<>();
+    private final int sizeLimit;
 
-    public synchronized void offer(T value) {
+    public SimpleBlockingQueue(int sizeLimit) {
+        this.sizeLimit = sizeLimit;
+    }
+
+    public synchronized void offer(T value) throws InterruptedException {
+        while (sizeLimit >= queue.size()) {
+            System.out.println("Queue is full, send wait()");
+            this.wait();
+        }
         queue.offer(value);
         System.out.println("SimpleBlockingQueue receive " + value + " from producer");
         this.notifyAll();
@@ -21,6 +30,6 @@ public class SimpleBlockingQueue<T> {
             System.out.println("Queue is empty, send wait()");
             this.wait();
         }
-        return queue.peek();
+        return queue.poll();
     }
 }

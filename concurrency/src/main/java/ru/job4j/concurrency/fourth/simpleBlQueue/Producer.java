@@ -11,8 +11,12 @@ public class Producer implements Runnable {
 
     @Override
     public void run() {
-        int i = new Random().nextInt();
-        System.out.println("Put " + i + " in simpleBlockingQueue" );
-        simpleBlockingQueue.offer(i);
+        try {
+            int i = new Random().nextInt();
+            System.out.println("Put " + i + " in simpleBlockingQueue" );
+            simpleBlockingQueue.offer(i);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

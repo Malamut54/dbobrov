@@ -8,7 +8,7 @@ public class SimpleBlockingQueueTest {
 
     @Test
     public void simpleBlockingQueueDemonstrate() throws InterruptedException {
-        SimpleBlockingQueue<Integer> simpleBlockingQueue = new SimpleBlockingQueue<>();
+        SimpleBlockingQueue<Integer> simpleBlockingQueue = new SimpleBlockingQueue<>(2);
 
         Thread consumer = new Thread(new Consumer(simpleBlockingQueue));
         Thread producer = new Thread(new Producer(simpleBlockingQueue));
