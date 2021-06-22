@@ -7,17 +7,12 @@ public class ParallelSearch {
             () -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
-                        Integer poll = queue.poll();
-                        if (poll != null) {
-                            System.out.println(poll);
-                        } else {
-                            Thread.currentThread().interrupt();
-                        }
+                        System.out.println(queue.poll());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                        Thread.currentThread().interrupt();
                     }
                 }
+                Thread.currentThread().interrupt();
             }
         );
         consumer.start();
