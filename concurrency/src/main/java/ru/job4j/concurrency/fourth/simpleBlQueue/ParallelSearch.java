@@ -1,8 +1,8 @@
 package ru.job4j.concurrency.fourth.simpleBlQueue;
 
 public class ParallelSearch {
-    public static void main(String[] args) {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<Integer>(3);
+    public static void main(String[] args) throws InterruptedException {
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(3);
         final Thread consumer = new Thread(
             () -> {
                 while (!Thread.currentThread().isInterrupted()) {
@@ -10,14 +10,14 @@ public class ParallelSearch {
                         System.out.println(queue.poll());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 }
-                Thread.currentThread().interrupt();
             }
         );
         consumer.start();
 
-        new Thread(
+        final Thread producer = new Thread(
             () -> {
                 for (int index = 0; index != 3; index++) {
                     try {
@@ -33,6 +33,10 @@ public class ParallelSearch {
                 }
             }
 
-        ).start();
+        );
+
+        producer.start();
+        producer.join();
+        consumer.interrupt();
     }
 }
