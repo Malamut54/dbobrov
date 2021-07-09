@@ -22,7 +22,7 @@ public class SimpleBlockingQueue<T> {
         }
         queue.offer(value);
         if (queue.size() < sizeLimit) {
-            this.notifyAll();
+            this.notify();
         }
     }
 
@@ -31,7 +31,7 @@ public class SimpleBlockingQueue<T> {
             this.wait();
         }
         if (queue.size() == sizeLimit) {
-            this.notifyAll();
+            this.notify();
         }
         return queue.poll();
     }
