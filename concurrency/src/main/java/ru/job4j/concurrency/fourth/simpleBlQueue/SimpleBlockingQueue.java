@@ -21,18 +21,14 @@ public class SimpleBlockingQueue<T> {
             this.wait();
         }
         queue.offer(value);
-        if (queue.size() < sizeLimit) {
-            this.notify();
-        }
+        this.notify();
     }
 
     public synchronized T poll() throws InterruptedException {
         while (queue.isEmpty()) {
             this.wait();
         }
-        if (queue.size() == sizeLimit) {
-            this.notify();
-        }
+        this.notify();
         return queue.poll();
     }
 
