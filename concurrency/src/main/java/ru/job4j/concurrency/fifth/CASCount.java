@@ -7,14 +7,17 @@ import net.jcip.annotations.ThreadSafe;
 public class CASCount {
     private final AtomicReference<Integer> count = new AtomicReference<>();
 
+    public CASCount() {
+        count.getAndSet(0);
+    }
+
     public void increment() {
-        while (true) {
-            Integer currentValue = count.get();
-            Integer newValue = currentValue + 1;
-            if (count.compareAndSet(currentValue, newValue)) {
-                return;
-            }
-        }
+        int currentValue;
+        int newValue;
+        do {
+            currentValue = count.get();
+            newValue = currentValue + 1;
+        } while (!count.compareAndSet(currentValue, newValue));
     }
 
     public int get() {
